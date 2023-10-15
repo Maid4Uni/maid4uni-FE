@@ -1,0 +1,227 @@
+.form-control {
+    height: 50px;
+    line-height: 50px;
+    background: #F8F7F7;
+    border: 1px solid #E0E2DB;
+    font-size: 14px;
+    color: #605C8D;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    border-radius: 16px;
+    box-shadow: none;
+}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.626rem + 2px);
+    padding: 0.313rem 0.625rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #343a40;
+    /* Màu nền footer */
+    color: #fff;
+    /* Màu chữ trong footer */
+    padding: 20px 0;
+    /* Khoảng cách giữa nội dung và viền của footer */
+}
+
+/* Căn giữa phần text trong footer */
+.footer .copyright {
+    text-align: center;
+}
+
+/* Định dạng link trong footer */
+.footer a {
+    color: #fff;
+    /* Màu của link */
+    text-decoration: none;
+    /* Loại bỏ gạch chân của link */
+}
+
+/* Hover màu link */
+.footer a:hover {
+    color: #007bff;
+    /* Màu khi di chuột qua link */
+}
+
+/* Điều chỉnh khoảng cách giữa các phần tử trong row */
+.footer .row {
+    gap: 20px;
+    /* Khoảng cách giữa các phần tử */
+}
+
+/* Định dạng các nút xã hội */
+.footer .btn-social {
+    color: #fff;
+    /* Màu chữ trong nút xã hội */
+    background-color: transparent;
+    /* Màu nền của nút xã hội */
+    border: 1px solid #fff;
+    /* Đường viền nút */
+    margin-right: 10px;
+    /* Khoảng cách giữa các nút */
+    border-radius: 50%;
+    /* Làm cho nút có hình tròn */
+    width: 30px;
+    /* Độ rộng nút */
+    height: 30px;
+    /* Chiều cao nút */
+    text-align: center;
+    /* Căn giữa nội dung trong nút */
+    line-height: 30px;
+    /* Căn giữa theo chiều dọc */
+}
+
+/* Hover màu nút xã hội */
+.footer .btn-social:hover {
+    color: #fff;
+    /* Màu chữ khi di chuột qua nút */
+    background-color: #007bff;
+    /* Màu nền khi di chuột qua nút */
+    border-color: #007bff;
+    /* Màu viền khi di chuột qua nút */
+}
+
+.btn {
+
+    font-weight: 500;
+    transition: .5s;
+}
+
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0;
+    /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    width: 240px;
+    z-index: 600;
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
+.sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+}
+
+.content-page {
+    margin-left: 250px;
+    /* Độ rộng của sidebar */
+    padding: 20px;
+    /* Khoảng cách giữa nội dung và sidebar */
+}
+
+.img-fluid {
+    max-width: 100px;
+    height: 50px;
+}
+
+.iq-search-bar .searchbox {
+    width: 300px;
+    position: relative;
+}
+
+.iq-search-bar .search-input {
+    width: 100%;
+    height: 40px;
+    padding: 5px 55px 5px 15px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    transition: all 500ms ease;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 8px 0px rgba(76, 128, 178, 0.1);
+}
+
+.iq-search-bar .search-link {
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 0;
+    background: #5773FF;
+    color: #fff;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+}
+
+@media (max-width: 1199px) {
+    .iq-search-bar .searchbox {
+        width: 320px;
+    }
+}
+
+@media (max-width: 1299px) {
+    .iq-top-navbar {
+        width: 100%;
+    }
+
+    .iq-top-navbar .iq-search-bar.device-search {
+        margin-left: 20px;
+    }
+
+    .iq-top-navbar .iq-navbar-custom .navbar-breadcrumb {
+        display: none;
+    }
+
+    body.sidebar-main .iq-top-navbar {
+        width: 100%;
+    }
+}
+
+.search-toggle.add-btn {
+    margin: 0 10px 0 12px;
+}
+
+@media (min-width: 992px) {
+    .search-content {
+        display: none;
+    }
+
+    .navbar-list li:last-child>a {
+        padding: 0 0 0 20px;
+    }
+}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cleaning Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="css/admi.css">
+</head>
+
+<body class="admin">
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <a href="order.html" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i class="fa fa-light fa-truck me-3"></i><span>Đơn hàng</span>
+                    </a>
+
+                    <a href="manager.html" class="list-group-item list-group-item-action py-2 ripple"
+                        aria-current="true">
+                        <i class="fa fa-light fa-address-book me-3"></i><span>Danh sách nhân viên</span>
+                    </a>
+                    <a href="package.html" class="list-group-item list-group-item-action py-2 ripple"
+                        aria-current="true">
+                        <i class="fa fa-doutone fa-box-open me-3"></i><span>Gói dịch vụ</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/Brown Gradient Dreamy Abstract Font Album Cover (1).png" height="40" alt="MDB Logo"
+                        loading="lazy" />
+                </a>
+                <div class="d-flex align-items-center">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-label="Toggle navigation">
+                        <i class="ri-menu-3-line"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list align-items-center">
+                            <li>
+                                <div class="iq-search-bar device-search">
+                                    <form action="#" class="searchbox">
+                                        <a class="search-link" href="#"><i class="fa fa-light fa-search"></i></a>
+                                        <input type="text" class="text search-input" placeholder="Search here...">
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon search-content">
+                                <a href="#" class="search-toggle rounded" id="dropdownSearch" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-light fa-search"></i>
+                                </a>
+                                <div class="iq-search-bar iq-sub-dropdown dropdown-menu"
+                                    aria-labelledby="dropdownSearch">
+                                    <form action="#" class="searchbox p-2">
+                                        <div class="form-group mb-0 position-relative">
+                                            <input type="text" class="text search-input font-size-12"
+                                                placeholder="type here to search...">
+                                            <a href="#" class="search-link"><i class="fa fa-light fa-search"></i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon nav-item-icon dropdown">
+                                <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-mail">
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                        </path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <span class="bg-primary"></span>
+                                </a>
+                                <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-body p-0 ">
+                                            <div class="cust-title p-3">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5 class="mb-0">All Messages</h5>
+                                                    <a class="badge badge-primary badge-card" href="#">3</a>
+                                                </div>
+                                            </div>
+                                            <div class="px-3 pt-0 pb-0 sub-card">
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small" src="img/01.jpg"
+                                                                alt="01">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Emma Watson</h6>
+                                                                <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/02.jpg" alt="02">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Ashlynn Franci</h6>
+                                                                <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small" src="img/03.jpg"
+                                                                alt="03">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Kianna Carder</h6>
+                                                                <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
+                                                role="button">
+                                                View All
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="nav-item nav-icon nav-item-icon dropdown">
+                                <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-bell">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
+                                    <span class="bg-primary "></span>
+                                </a>
+                                <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-body p-0 ">
+                                            <div class="cust-title p-3">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5 class="mb-0">Thông báo</h5>
+                                                    <a class="badge badge-primary badge-card" href="#">3</a>
+                                                </div>
+                                            </div>
+                                            <div class="px-3 pt-0 pb-0 sub-card">
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small " style="width: 40px; height: 40px;"
+                                                                src="img/01.jpg" alt="01">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Trịnh Thị B</h6>
+                                                                <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Đơn xin nghỉ</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"  style="width: 40px; height: 40px;"
+                                                                src="img/02.jpg" alt="02">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">A</h6>
+                                                                <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Bị kẹt xe</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"  style="width: 40px; height: 40px;"
+                                                                src="img/03.jpg" alt="03">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Kianna Carder</h6>
+                                                                <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
+                                                role="button">
+                                                View All
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon dropdown caption-content">
+                                <a href="#" class="search-toggle dropdown-toggle  d-flex align-items-center"
+                                    id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <img src="img/1.jpg" class="img-fluid rounded-circle" alt="user">
+                                    <div class="caption ml-3">
+                                        <h6 class="mb-0 line-height">Quản lý
+                                            <i class="las la-angle-down ml-2"></i></h6>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right border-none"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-01-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <a href="user-profile.html">Tài khoản</a>
+                                    </li>
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-02-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        <a href="../app/user-profile-edit.html">Chỉnh sửa</a>
+                                    </li>
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-03-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <a href="../app/user-account-setting.html">Cài đặt </a>
+                                    </li>
+                                    <li class="dropdown-item  d-flex svg-icon border-top">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-05-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        </svg>
+                                        <a href="index.html">Thoát</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main style="margin-top:40px;">
+        <div class="container pt-4">
+            <div class="content-page">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="header-title">
+                                        <h4 class="card-title">Danh sách nhân viên</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <div class="row justify-content-between">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div id="user_list_datatable_info" class="dataTables_filter">
+                                                    <form class="mr-3 position-relative">
+                                                        <div class="form-group mb-0">
+                                                            <input type="search" class="form-control"
+                                                                id="exampleInputSearch" placeholder="Search"
+                                                                aria-controls="user-list-table">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <table id="user-list-table" class="table table-striped dataTable mt-4"
+                                            role="grid" aria-describedby="user-list-page-info">
+                                            <thead>
+                                                <tr class="ligth">
+                                                    <th>No</th>
+                                                    <th>ID</th>
+                                                    <th>Họ tên</th>
+                                                    <th>Giới tính</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Ngày sinh</th>
+                                                    <th style="min-width: 100px">Thao tác</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                                   
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                             
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                                  
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                                  
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                                    
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>01</td>
+                                                    <td>ST01</td>
+                                                    <td>Nguyễn Văn A</td>
+                                                    <td>Nam</td>                                                  
+                                                    <td>0999988899</td>
+                                                    <td>TP HCM</td>
+                                                    <td>10/10/1999</td>
+                                                    <td>
+                                                        <div class="flex align-items-center list-user-action">
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Add"
+                                                                href="use-add.html"><i
+                                                                    class=" fa fa-light fa-user-plus mr-0 "></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title="" data-original-title="Edit"
+                                                                href="#"><i
+                                                                    class="fa fa-light fa-pen-square mr-0"></i></a>
+                                                            <a class="btn btn-sm bg-primary" data-toggle="tooltip"
+                                                                data-placement="top" title=""
+                                                                data-original-title="Delete" href="#"><i
+                                                                    class="fa fa-thin fa-trash mr-0"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row justify-content-between mt-3">
+                                        <div id="user-list-page-info" class="col-md-6">
+                                            <span></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-end mb-0">
+                                                    <li class="page-item disabled">
+                                                        <a class="page-link" href="#" tabindex="-1"
+                                                            aria-disabled="true">Trước</a>
+                                                    </li>
+                                                    <li class="page-item active"><a class="page-link" href="#">1</a>
+                                                    </li>
+                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="#">Sau</a>
+                                                    </li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+    <!--Main layout-->
+    
+  
+    <!-- Footer Start -->
+    <!-- <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">EduLuxe, All Right Reserved</a>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    
+                    <a class="btn btn-outline-light btn-social rounded-circle" href="#"><i
+                            class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social rounded-circle" href="#"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social rounded-circle" href="#"><i
+                            class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social rounded-circle" href="#"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

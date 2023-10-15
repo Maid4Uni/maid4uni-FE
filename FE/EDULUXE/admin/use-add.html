@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Cleaning Service</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="css/admi.css">
+</head>
+
+<body class="admin">
+    <!--Main Navigation-->
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    <a href="admin.html" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Danh sách tài khoản</span>
+                    </a>
+
+                    <a href="use-add.html" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                        <i class="fa fa-light fa-address-book me-3"></i><span>Tạo tài khoản</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/Brown Gradient Dreamy Abstract Font Album Cover (1).png" height="40" alt="MDB Logo"
+                        loading="lazy" />
+                </a>
+                <div class="d-flex align-items-center">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-label="Toggle navigation">
+                        <i class="ri-menu-3-line"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-list align-items-center">
+                            <li>
+                                <div class="iq-search-bar device-search">
+                                    <form action="#" class="searchbox">
+                                        <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                                        <input type="text" class="text search-input" placeholder="Search here...">
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon search-content">
+                                <a href="#" class="search-toggle rounded" id="dropdownSearch" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="ri-search-line"></i>
+                                </a>
+                                <div class="iq-search-bar iq-sub-dropdown dropdown-menu"
+                                    aria-labelledby="dropdownSearch">
+                                    <form action="#" class="searchbox p-2">
+                                        <div class="form-group mb-0 position-relative">
+                                            <input type="text" class="text search-input font-size-12"
+                                                placeholder="type here to search...">
+                                            <a href="#" class="search-link"><i class="las la-search"></i></a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon nav-item-icon dropdown">
+                                <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-mail">
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                        </path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <span class="bg-primary"></span>
+                                </a>
+                                <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-body p-0 ">
+                                            <div class="cust-title p-3">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5 class="mb-0">All Messages</h5>
+                                                    <a class="badge badge-primary badge-card" href="#">3</a>
+                                                </div>
+                                            </div>
+                                            <div class="px-3 pt-0 pb-0 sub-card">
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/01.jpg" alt="01">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Emma Watson</h6>
+                                                                <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/02.jpg" alt="02">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Ashlynn Franci</h6>
+                                                                <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/03.jpg" alt="03">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Kianna Carder</h6>
+                                                                <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
+                                                role="button">
+                                                View All
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon nav-item-icon dropdown">
+                                <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-bell">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
+                                    <span class="bg-primary "></span>
+                                </a>
+                                <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <div class="card shadow-none m-0">
+                                        <div class="card-body p-0 ">
+                                            <div class="cust-title p-3">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h5 class="mb-0">Notifications</h5>
+                                                    <a class="badge badge-primary badge-card" href="#">3</a>
+                                                </div>
+                                            </div>
+                                            <div class="px-3 pt-0 pb-0 sub-card">
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/01.jpg" alt="01">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Emma Watson</h6>
+                                                                <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3 border-bottom">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/02.jpg" alt="02">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Ashlynn Franci</h6>
+                                                                <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <a href="#" class="iq-sub-card">
+                                                    <div class="media align-items-center cust-card py-3">
+                                                        <div class="">
+                                                            <img class="avatar-50 rounded-small"
+                                                                src="../assets/images/user/03.jpg" alt="03">
+                                                        </div>
+                                                        <div class="media-body ml-3">
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-between">
+                                                                <h6 class="mb-0">Kianna Carder</h6>
+                                                                <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                            </div>
+                                                            <small class="mb-0">Lorem ipsum dolor sit amet</small>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <a class="right-ic btn btn-primary btn-block position-relative p-2" href="#"
+                                                role="button">
+                                                View All
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item nav-icon dropdown caption-content">
+                                <a href="#" class="search-toggle dropdown-toggle  d-flex align-items-center"
+                                    id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <img src="img/1.jpg" class="img-fluid rounded-circle" alt="user">
+                                    <div class="caption ml-3">
+                                        <h6 class="mb-0 line-height">Admin<i
+                                                class="las la-angle-down ml-2"></i></h6>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right border-none"
+                                    aria-labelledby="dropdownMenuButton">
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-01-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <a href="user-profile.html">My Profile</a>
+                                    </li>
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-02-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        <a href="user-profile-edit.html">Edit Profile</a>
+                                    </li>
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-03-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <a href="../app/user-account-setting.html">Account Settings</a>
+                                    </li>
+                                    <li class="dropdown-item d-flex svg-icon">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-04-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                        </svg>
+                                        <a href="../app/user-privacy-setting.html">Privacy Settings</a>
+                                    </li>
+                                    <li class="dropdown-item  d-flex svg-icon border-top">
+                                        <svg class="svg-icon mr-0 text-primary" id="h-05-p" width="20"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                        </svg>
+                                        <a href="../backend/auth-sign-in.html">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <main style="margin-top:100px;">
+        <div class="content-page">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Thêm tài khoản</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="crm-profile-img-edit position-relative">
+                                            <img class="w-25 crm-profile-pic rounded avatar-100 " src="img/11.png"
+                                                alt="profile-pic">
+                                            <div class="crm-p-image bg-primary">
+                                                <i class="las la-pen upload-button"></i>
+                                                <input class="file-upload" type="file" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="img-extension mt-3">
+                                            <div class="d-inline-block align-items-center">
+                                                <span>"Chỉ </span>
+                                                <a href="javascript:void();">.jpg</a>
+                                                <a href="javascript:void();">.png</a>
+                                                <a href="javascript:void();">.jpeg</a>
+                                                <span>được phép"</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Vai trò:</label>
+                                        <select class="form-select" aria-label="Default select example">
+                                            <option selected>Vai trò</option>
+                                            <option value="1">Quản lý</option>
+                                            <option value="2">Nhân viên</option>
+                                            <option value="3">Khách hàng</option>
+                                        </select>
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-8 ">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between">
+                                <div class="header-title">
+                                    <h4 class="card-title">Thông tin tài khoản</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="new-user-info">
+                                    <form>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="username">Họ:</label>
+                                                <input type="text" class="form-control" id="fname"
+                                                    placeholder="First Name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="lname">Tên:</label>
+                                                <input type="text" class="form-control" id="lname"
+                                                    placeholder="Last Name">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="add1">Địa chỉ:</label>
+                                                <input type="text" class="form-control" id="add1" placeholder="Địa chỉ">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>Giới tính:</label>
+                                                <select class="form-select" aria-label="Default select example"
+                                                    data-style="py-0">
+                                                    <option selected>Giới tính</option>
+                                                    <option value="1">Nam </option>
+                                                    <option value="2">Nữ</option>
+                                                    <option value="3">Khác</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="mobno">Số điện thoại:</label>
+                                                <input type="text" class="form-control" id="mobno"
+                                                    placeholder="Số điện thoại">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="email">Email:</label>
+                                                <input type="email" class="form-control" id="email" placeholder="Email">
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <h5 class="mb-3">Tài khoản</h5>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="unamer">Tên tài khoản:</label>
+                                                <input type="text" class="form-control mt-3" id="unamer"
+                                                    placeholder="Tên tài khoản">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="pass">Mật khẩu:</label>
+                                                <input type="password" class="form-control" id="pass"
+                                                    placeholder="Mật khẩu">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="rpass">Nhập lại mật khẩu:</label>
+                                                <input type="password" class="form-control" id="rpass"
+                                                    placeholder="Nhập lại mật khẩu">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary acc-btn mt-1">Tạo tài
+                                            khoản</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- Footer Start -->
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
