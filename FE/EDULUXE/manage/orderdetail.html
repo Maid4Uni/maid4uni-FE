@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chi tiết đơn hàng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .container {
+        margin-top: 50px;
+    }
+
+    .table {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+    <h1>Trang chi tiết đơn hàng</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Thông tin đơn hàng</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Địa chỉ</th>
+                            <th>Tình trạng đơn hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>123456</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>Hẻm 111, Đường HHH, TP HCM</td>
+                            <td>Đã đặt hàng</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h2>Lịch làm việc</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Giờ làm</th>
+                            <th>Số lượng nhân viên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>20-10-2023</td>
+                            <td>20-12-2023</td>
+                            <td>7AM</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Thêm nhân viên</h3>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="name">Tên nhân viên</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </form>
+
+                <h3>Cập nhật trạng thái đơn hàng</h3>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="status">Trạng thái đơn hàng</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="Đã đặt hàng">Đã đặt hàng</option>
+                            <option value="Đang làm">Đang làm</option>
+                            <option value="Đã hoàn thành">Đã hoàn thành</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

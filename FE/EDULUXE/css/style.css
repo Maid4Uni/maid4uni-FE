@@ -246,7 +246,7 @@
 }
 
 .page-header {
-    background: url(../img/pexels-tima-miroshnichenko-6195122.jpg) top center no-repeat;
+    background: url(../img/pexels-nathan-cowley-713297.jpg) top center no-repeat;
     background-size: cover;
     text-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
@@ -554,7 +554,7 @@
 
 .modal-login {
     /* position: fixed; */
-    top: 200px;
+    top: 100px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -562,15 +562,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .modal-container {
     background: #FFFFFF;
-    border-radius: 10px;
+    /* border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-        0 10px 10px rgba(0, 0, 0, 0.22);
+        0 10px 10px rgba(0, 0, 0, 0.22); */
     width: 500px;
-    top: 30px;
     height: fit-content;
 }
 
@@ -582,6 +582,7 @@
     font-weight: 700;
     font-size: 32px;
     line-height: 70px;
+    color: #1B2C51;
 
 
 }

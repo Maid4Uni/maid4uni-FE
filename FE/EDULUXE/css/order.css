@@ -55,6 +55,11 @@ ul li:hover a {
     width: calc(100% - 300px);
 }
 
+.container {
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px rgba(255, 255, 255, .1);
+}
+
 .search-box {
     display: flex;
     justify-content: flex-end;
@@ -62,6 +67,7 @@ ul li:hover a {
 }
 
 .search-box input[type="text"] {
+    margin-top: 10px;
     width: 200px;
     padding: 10px;
     border-radius: 5px;
@@ -69,27 +75,70 @@ ul li:hover a {
     margin-right: 10px;
 }
 
+.status {
+    margin-left: 10px;
+}
+
 .danh-sach-don-hang {
     margin-top: 20px;
 }
 
 table {
+    margin: 10px;
     width: 100%;
     border-collapse: collapse;
+    background-color: white;
+    text-align: left;
+
+
+
+}
+
+thead {
+    box-shadow: 0 5px 10px rgba(209, 204, 204, 0.833);
 }
 
 th,
 td {
-    border: 1px solid #ddd;
+    border: 1px solid white;
     padding: 8px;
     text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #063146;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-transform: 0.1rem;
+    font-size: 15px;
+    font-weight: 900;
+
 }
 
 .chi-tiet-don-hang {
     display: none;
     margin-top: 20px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 5px;
+    border-collapse: collapse;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+button {
+    background-color: #063146;
+    color: white;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.chi-tiet {
+    display: none;
 }

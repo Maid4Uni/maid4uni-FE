@@ -1,17 +1,6 @@
-
-function showDetails(orderId) {
-    var details = document.getElementById('chi-tiet-' + orderId);
-    if (details.style.display === 'none') {
-        details.style.display = 'block';
-    } else {
-        details.style.display = 'none';
-    }
-}
-$(".hamburger .hamburger__inner").click(function () {
-    $(".wrapper").toggleClass("active")
-})
-
-$(".top_navbar .fas").click(function () {
-    $(".profile_dd").toggleClass("active");
-});
-
+// Thêm sự kiện click cho nút "Chi tiết"
+document.querySelector("#btn-chi-tiet").addEventListener("click", function() {
+    // Hiển thị thông tin chi tiết
+    document.querySelector("#chi-tiet").style.display = "block";
+  });
+  
