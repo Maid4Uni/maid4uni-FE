@@ -14,6 +14,24 @@
 
 <body>
 
+    <nav class="navbar bg-white mb-5" data-wow-delay="0.1s">
+        <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <img class="logo" src="img/Brown Gradient Dreamy Abstract Font Album Cover (1).png">
+        </a>
+        <div class="navbar-items">
+            <div class="dropdown">
+               
+                <button class="dropbtn"> <i class="fa bi-people-fill"></i>Quản lý
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">Trang cá nhân</a>
+                    <a href="#">Chỉnh sửa hồ sơ</a>
+                </div>
+            </div>
+            <a href="#">Thông báo <i class="fa fa-bell"></i></a>
+        </div>
+    </nav>
     <div class="sidebar">
         <header>
             <h1>Quản lý</h1>
@@ -25,19 +43,19 @@
 
         </ul>
     </div>
-   
 
-        <div class="content">
-            <div class="search-box">
-                <input type="text" placeholder="Tìm kiếm đơn hàng...">
-            </div>
-            <label for="trang-thai">Trạng thái:</label>
-            <select name="trang-thai" id="trang-thai">
-                <option value="all">Tất cả</option>
-                <option value="chua-xac-nhan">Chưa xác nhận</option>
-                <option value="da-xac-nhan">Đã xác nhận</option>
-            </select>
-        
+
+    <div class="content">
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm đơn hàng...">
+        </div>
+        <label for="trang-thai">Trạng thái:</label>
+        <select name="trang-thai" id="trang-thai">
+            <option value="all">Tất cả</option>
+            <option value="chua-xac-nhan">Chưa xác nhận</option>
+            <option value="da-xac-nhan">Đã xác nhận</option>
+        </select>
+
 
         <section class="danh-sach-don-hang">
             <table class="table">
@@ -70,39 +88,39 @@
                     </tr>
                 </tbody>
             </table>
-            </div>
-
-        </section>
-        <section class="chi-tiet-don-hang" id="chi-tiet-1">
-            <h2>Chi tiết đơn hàng 1</h2>
-            <p>Thông tin đơn hàng:</p>
-            <ul>
-                <li>OrderID: 1</li>
-                <li>Tên dịch vụ: Gói 1</li>
-                <li>Ngày bắt đầu: 2023-07-20</li>
-                <li>Ngày kết thúc: 2023-07-30</li>
-                <li>Trạng thái: Chưa xác nhận</li>
-            </ul>
-            <!-- Thêm thông tin chi tiết khác tại đây -->
-        </section>
-         <section class="chi-tiet-don-hang" id="chi-tiet-2"  style="display: none">
-            <h2>Chi tiết đơn hàng 2</h2>
-            <p>Thông tin đơn hàng:</p>
-            <ul>
-                <li>OrderID: 2</li>
-                <li>Tên dịch vụ: Gói 2</li>
-                <li>Ngày bắt đầu: 2023-08-01</li>
-                <li>Ngày kết thúc: 2023-08-15</li>
-                <li>Trạng thái: Đã xác nhận</li>
-            </ul>
-            <!-- Thêm thông tin chi tiết khác tại đây -->
-        </section>
     </div>
 
-   
+    </section>
+    <section class="chi-tiet-don-hang" id="chi-tiet-1">
+        <h2>Chi tiết đơn hàng 1</h2>
+        <p>Thông tin đơn hàng:</p>
+        <ul>
+            <li>OrderID: 1</li>
+            <li>Tên dịch vụ: Gói 1</li>
+            <li>Ngày bắt đầu: 2023-07-20</li>
+            <li>Ngày kết thúc: 2023-07-30</li>
+            <li>Trạng thái: Chưa xác nhận</li>
+        </ul>
+        <!-- Thêm thông tin chi tiết khác tại đây -->
+    </section>
+    <section class="chi-tiet-don-hang" id="chi-tiet-2" style="display: none">
+        <h2>Chi tiết đơn hàng 2</h2>
+        <p>Thông tin đơn hàng:</p>
+        <ul>
+            <li>OrderID: 2</li>
+            <li>Tên dịch vụ: Gói 2</li>
+            <li>Ngày bắt đầu: 2023-08-01</li>
+            <li>Ngày kết thúc: 2023-08-15</li>
+            <li>Trạng thái: Đã xác nhận</li>
+        </ul>
+        <!-- Thêm thông tin chi tiết khác tại đây -->
+    </section>
+    </div>
+
+
 
     <script src="script.js"></script>
-    
+
 </body>
 
 </html>
