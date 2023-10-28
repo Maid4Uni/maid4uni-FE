@@ -14,6 +14,9 @@ import Login from "./home/login";
 import Register from "./home/register";
 import Admin from "./admin/admin";
 import Manager from "./home/manage.jsx";
+import ConfirmationPage from './order/checkout';
+import TrackingPage from './order/tracking';
+import History from './order/history';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -32,8 +35,11 @@ root.render(
           <Route path="combo1" element={<Combo1 />} />
           <Route path="combo2" element={<Combo2 />} />
           <Route path="login" element={<Login />} />
+          <Route path='/checkout' element={<ConfirmationPage />}></Route>
           <Route path="register" element={<Register />} />
         </Route>
+        <Route path='/tracking' element={<TrackingPage />} />
+        <Route path='/history' element={<History />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

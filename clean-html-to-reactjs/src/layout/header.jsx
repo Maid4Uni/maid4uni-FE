@@ -1,25 +1,38 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { Button, TextField, Typography, Modal, Box, FormControl, Grid, } from "@mui/material";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Header = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Địa chỉ email không hợp lệ"),
+      password: Yup.string()
+        .min(6, "Mật khẩu phải có ít nhất 6 chứ số")
+        ,
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   return (
     <>
-      {/* <div
-        id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-      >
-        <div
-          class="spinner-grow "
-          style={{
-            width: "3rem",
-            height: "3rem",
-            backgroundColor: "#3CBA92",
-          }}
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div> */}
+
 
       <div
         class="container-fluid bg-light p-0 wow fadeIn"
@@ -50,17 +63,81 @@ const Header = () => {
               class="h-100 d-inline-flex align-items-center"
               style={{ cursor: "pointer" }}
             >
-              <Link
-                class="text-primary me-1"
-                to="login"
-                style={{ cursor: "pointer" }}
-              >
-                Sign in
-              </Link>
-              {" /  "}
-              <Link class="text-primary me-1" to="register">
-                Sign up
-              </Link>
+              <>
+                <Button onClick={handleOpen}>Đăng nhập</Button>
+                <Modal open={open} onClose={handleClose}>
+                  <Grid
+                    container
+                    justifyContent="center"
+                    alignItems="center"
+                    style={{ height: "100%" }}
+                  >
+                    <Grid item xs={6}>
+                      <Box
+                        sx={{
+                          bgcolor: "background.paper",
+                          border: "2px solid #000",
+                          boxShadow: 24,
+                          p: 4,
+                          position: "relative",
+                        }}
+                      >
+                        <Typography variant="h6" gutterBottom textAlign={"center"}>
+                          Đăng Nhập
+                          <Button
+                            onClick={handleClose} // Call the handleClose function when clicked
+                            style={{ position: "absolute", top: 0, right: 0 }}
+                          >
+                            X
+                          </Button>
+                        </Typography>
+                        <form onSubmit={formik.handleSubmit}>
+                          <FormControl fullWidth sx={{ m: 1 }}>
+                            <TextField
+                              required
+                              id="email"
+                              name="email"
+                              label="Email"
+                              placeholder="Email đăng nhập"
+                              value={formik.values.email}
+                              onChange={formik.handleChange}
+                              error={formik.touched.email && Boolean(formik.errors.email)}
+                              helperText={formik.touched.email && formik.errors.email}
+                            />
+                          </FormControl>
+                          <FormControl fullWidth sx={{ m: 1 }}>
+                            <TextField
+                            required
+                              id="password"
+                              name="password"
+                              label="Mật khẩu"
+                              type="password"
+                              placeholder="Mật khẩu"
+                              value={formik.values.password}
+                              onChange={formik.handleChange}
+                              error={
+                                formik.touched.password && Boolean(formik.errors.password)
+                              }
+                              helperText={formik.touched.password && formik.errors.password}
+                            />
+                          </FormControl>
+                          <Button variant="contained" sx={{ mt: 3 }} type="submit" >
+                            Đăng Nhập
+                          </Button>
+                        </form>
+                        <Box sx={{ mt: 2 }}>
+                          <Typography>Bạn chưa có tài khoản?</Typography>
+                        <Link to ={"register"} onClick={handleClose}>Đăng ký</Link>
+                        </Box>
+                        <Box sx={{ mt: 1 }}>
+                          <Typography>Quên mật khẩu?</Typography>
+                         <Link to={"forgetpassword"} onClick={handleClose}>Quên mật khẩu</Link>
+                        </Box>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Modal>
+              </>
             </div>
           </div>
         </div>
@@ -110,41 +187,20 @@ const Header = () => {
                 <NavLink to="combo1" class="dropdown-item">
                   Dọn dẹp nhà{" "}
                 </NavLink>
-                {/* <Link to="team.html" class="dropdown-item">
-                  Dọn dẹp nhà (gói cố định)
-                </Link>
-                <Link to="appointment.html" class="dropdown-item">
-                  Vệ sinh máy lạnh
-                </Link>
-                <Link to="testimonial.html" class="dropdown-item">
-                  Vệ sinh tủ lạnh
-                </Link> */}
+
                 <NavLink to="combo2" class="dropdown-item">
                   Giặt giũ
                 </NavLink>
-                {/* <Link to="404.html" class="dropdown-item">
-                  Vệ sinh sofa
-                </Link>
-                <Link to="404.html" class="dropdown-item">
-                  Vệ sinh nệm
-                </Link>
-                <Link to="404.html" class="dropdown-item">
-                  Vệ sinh rèm
-                </Link> */}
-                {/* <Link to="404.html" class="dropdown-item">
-                  Vệ sinh máy giặt
-                </Link> */}
+
               </div>
             </div>
-            <NavLink to="/about" class="nav-item nav-link">
-              Về chúng tôi
-            </NavLink>
             <NavLink to="contract" class="nav-item nav-link">
               Liên hệ
             </NavLink>
           </div>
         </div>
       </nav>
+  <hr style={{ color: "black", backgroundColor: "black", height: 1, borderColor: "black" }} />
     </>
   );
 };

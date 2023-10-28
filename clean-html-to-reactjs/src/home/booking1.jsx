@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Booking1 = () => {
   return (
@@ -51,6 +52,7 @@ const Booking1 = () => {
                   required
                 />
               </div>
+              
               <div className="col-md-12">
                 <div className="box">
                   <label for="day" className="booking-text">
@@ -201,9 +203,9 @@ const Booking1 = () => {
               </div>
 
               <div className="col-md-12 mt-1 text-center">
-                <button id="bookButton" className="btn btn-primary booking-btn">
-                  Đăng ký
-                </button>
+              <Link to="/checkout" class="btn btn-primary">
+               Đăng ký dịch vụ
+              </Link>
               </div>
             </form>
           </div>

@@ -1,124 +1,134 @@
 import React, { useState } from "react";
+import {
+  Button,
+  Container,
+  TextField,
+  Typography,
+  Box,
+  
+} from "@mui/material";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Link } from "react-router-dom"; 
+
+const validationSchema = yup.object({
+  fullName: yup.string().required("Họ và tên không được bỏ trống"),
+  password: yup
+    .string()
+    .min(6, "Mật khẩu phải chứa ít nhất 6 ký tự")
+    .required("Mật khẩu không được bỏ trống"),
+  phoneNumber: yup
+    .string()
+    .matches(
+      /^[0][0-9]{8,9}$/,
+      "Vui lòng nhập số điện thoại bắt đầu từ 0 và có 9 đến 11 số."
+    )
+    .required("Số điện thoại không được bỏ trống"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Mật khẩu xác thực không đúng.")
+    .required("Vui lòng xác nhận mật khẩu"),
+  email: yup.string().email("Email không hợp lệ").required("Email không được bỏ trống"),
+});
 
 const Register = () => {
+  const formik = useFormik({
+    initialValues: {
+      fullName: "",
+      password: "",
+      phoneNumber: "",
+      confirmPassword: "",
+      email: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <>
-      <div className="modal-login" id="registerModal">
-        <div className="modal-container mt-1 mb-1">
-          <span className="close" id="myButton">
-            <a>&times;</a>
-          </span>
-          <header className="modal-header">Đăng Ký</header>
-
-          <form action="#">
-            <div className="modal-body">
-              <div className="modal-box">
-                <span className="details">Tài khoản</span>
-                <input
-                  className="modal-input"
-                  type="text"
-                  placeholder="Nhập tài khoản"
-                  required
-                />
-              </div>
-              <div className="modal-box">
-                <span className="details">Mật khẩu</span>
-                <input
-                  type="password"
-                  className="modal-input "
-                  id="passwordInput"
-                  placeholder="Nhập mật khẩu của bạn"
-                  required
-                />
-              </div>
-              <div className="modal-box">
-                <span className="details">Xác thực mật khẩu</span>
-                <input
-                  type="password"
-                  className="modal-input"
-                  id="confirmPasswordInput"
-                  placeholder="Nhập lại mật khẩu của bạn"
-                  required
-                />
-                <span
-                  id="passwordMatchError"
-                  style={{
-                    display: "none",
-                    color: "red",
-                    justifyContent: "center",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Mật khẩu xác thực không đúng.
-                </span>
-              </div>
-              <div className="modal-box">
-                <span className="details">Họ và tên</span>
-                <input
-                  className="modal-input"
-                  type="text"
-                  placeholder="Nhập họ và tên của bạn"
-                  required
-                />
-              </div>
-              <div className="modal-box">
-                <span className="details">Số điện thoại</span>
-                <input
-                  className="modal-input"
-                  id="phoneInput"
-                  placeholder="Nhập số điện thoại của bạn"
-                  type="text"
-                  required
-                />
-                <span
-                  id="phoneError"
-                  style={{
-                    display: "none",
-                    color: "red",
-                    justifyContent: "center",
-                    marginBottom: "5px",
-                  }}
-                >
-                  Vui lòng nhập số điện thoại bắt đầu từ 0 và có 9 đến 11 số.
-                </span>
-              </div>
-              <div className="modal-box">
-                <span className="details">Email</span>
-                <input
-                  type="email"
-                  className="modal-input "
-                  id="txtlogin"
-                  placeholder="Nhập email của bạn"
-                />
-              </div>
-              <button
-                id="modal-login-button-re"
-                className="btn btn-primary rounded-pill py-3 px-5 mt-1 mx-auto d-block"
-                type="submit"
-              >
-                Đăng Ký
-              </button>
-            </div>
-          </form>
-
-          <footer className="modal-footer">
-            <p className="modal-register-but" id="login-link">
-              <a href="login.html">Bạn đã có tài khoản?</a>
-            </p>
-          </footer>
-        </div>
-      </div>
-      <div className="container">
-        <div className="copyright">
-          <div className="row">
-            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              &copy; <a className="border-bottom" href="#"></a>EduLuxe, All
-              Right Reserved.
-            </div>
-            <div className="col-md-6 text-center text-md-end"></div>
-          </div>
-        </div>
-      </div>
+      <Container maxWidth="sm">
+        <Typography variant="h4" component="h2" align="center" gutterBottom>
+          Đăng Ký
+        </Typography>
+        <Box component="form" onSubmit={formik.handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            fullWidth
+            id="fullName"
+            name="fullName"
+            label="Họ và tên"
+            value={formik.values.fullName}
+            onChange={formik.handleChange}
+            error={formik.touched.fullName && Boolean(formik.errors.fullName)}
+            helperText={formik.touched.fullName && formik.errors.fullName}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Mật khẩu"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            id="phoneNumber"
+            name="phoneNumber"
+            label="Số điện thoại"
+            value={formik.values.phoneNumber}
+            onChange={formik.handleChange}
+            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            id="confirmPassword"
+            name="confirmPassword"
+            label="Xác thực mật khẩu"
+            type="password"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            id="email"
+            name="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            sx={{ mb: 2 }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Đăng Ký
+          </Button>
+        </Box>
+        <Box sx={{ mt: 2 }}>
+          <Typography>Bạn đã có tài khoản?</Typography>
+          <Link to={"login"}>Đăng nhập</Link>
+        </Box>
+        <Box sx={{ mt: 1 }}>
+          <Typography>Quên mật khẩu?</Typography>
+          <Link to={"forgetpass"}>Lấy lại mật khẩu</Link>
+        </Box>
+      </Container>
     </>
   );
 };
