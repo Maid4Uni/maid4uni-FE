@@ -1,11 +1,32 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { Button, TextField, Typography, Modal, Box, FormControl, Grid, } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useRequest } from "ahooks";
 import { useFormik } from "formik";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 import * as Yup from "yup";
+import api from "../config/api";
 
 const Header = () => {
   const [open, setOpen] = React.useState(false);
+  const { data } = useRequest(
+    async () => {
+      const response = await api.getAllPackage();
+      return response.data;
+    },
+    {
+      onError(e) {
+        console.error(e);
+      },
+    }
+  );
 
   const handleOpen = () => {
     setOpen(true);
@@ -21,19 +42,22 @@ const Header = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email("Địa chỉ email không hợp lệ"),
-      password: Yup.string()
-        .min(6, "Mật khẩu phải có ít nhất 6 chứ số")
-        ,
+      username: Yup.string().required("Tài khoản không được bỏ trống"),
+      password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 chứ số"),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      try {
+        const response = await api.login(values);
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(response.data.account));
+      } catch (error) {
+        console.error(error);
+      }
     },
   });
+
   return (
     <>
-
-
       <div
         class="container-fluid bg-light p-0 wow fadeIn"
         data-wow-delay="0.1s"
@@ -82,7 +106,11 @@ const Header = () => {
                           position: "relative",
                         }}
                       >
-                        <Typography variant="h6" gutterBottom textAlign={"center"}>
+                        <Typography
+                          variant="h6"
+                          gutterBottom
+                          textAlign={"center"}
+                        >
                           Đăng Nhập
                           <Button
                             onClick={handleClose} // Call the handleClose function when clicked
@@ -95,19 +123,25 @@ const Header = () => {
                           <FormControl fullWidth sx={{ m: 1 }}>
                             <TextField
                               required
-                              id="email"
-                              name="email"
-                              label="Email"
-                              placeholder="Email đăng nhập"
-                              value={formik.values.email}
+                              id="username"
+                              name="username"
+                              label="Tài khoản"
+                              placeholder="Tài khoản đăng nhập"
+                              value={formik.values.username}
                               onChange={formik.handleChange}
-                              error={formik.touched.email && Boolean(formik.errors.email)}
-                              helperText={formik.touched.email && formik.errors.email}
+                              error={
+                                formik.touched.username &&
+                                Boolean(formik.errors.username)
+                              }
+                              helperText={
+                                formik.touched.username &&
+                                formik.errors.username
+                              }
                             />
                           </FormControl>
                           <FormControl fullWidth sx={{ m: 1 }}>
                             <TextField
-                            required
+                              required
                               id="password"
                               name="password"
                               label="Mật khẩu"
@@ -116,22 +150,34 @@ const Header = () => {
                               value={formik.values.password}
                               onChange={formik.handleChange}
                               error={
-                                formik.touched.password && Boolean(formik.errors.password)
+                                formik.touched.password &&
+                                Boolean(formik.errors.password)
                               }
-                              helperText={formik.touched.password && formik.errors.password}
+                              helperText={
+                                formik.touched.password &&
+                                formik.errors.password
+                              }
                             />
                           </FormControl>
-                          <Button variant="contained" sx={{ mt: 3 }} type="submit" >
+                          <Button
+                            variant="contained"
+                            sx={{ mt: 3 }}
+                            type="submit"
+                          >
                             Đăng Nhập
                           </Button>
                         </form>
                         <Box sx={{ mt: 2 }}>
                           <Typography>Bạn chưa có tài khoản?</Typography>
-                        <Link to ={"register"} onClick={handleClose}>Đăng ký</Link>
+                          <Link to={"register"} onClick={handleClose}>
+                            Đăng ký
+                          </Link>
                         </Box>
                         <Box sx={{ mt: 1 }}>
                           <Typography>Quên mật khẩu?</Typography>
-                         <Link to={"forgetpassword"} onClick={handleClose}>Quên mật khẩu</Link>
+                          <Link to={"forgetpassword"} onClick={handleClose}>
+                            Quên mật khẩu
+                          </Link>
                         </Box>
                       </Box>
                     </Grid>
@@ -177,21 +223,18 @@ const Header = () => {
             </NavLink>
             <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
               <NavLink
-                to="combo2"
+                to="combo1"
                 class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
                 Gói dịch vụ
               </NavLink>
               <div class="dropdown-menu rounded-0 rounded-bottom m-0">
-                <NavLink to="combo1" class="dropdown-item">
-                  Dọn dẹp nhà{" "}
-                </NavLink>
-
-                <NavLink to="combo2" class="dropdown-item">
-                  Giặt giũ
-                </NavLink>
-
+                {data?.map((item) => (
+                  <NavLink to="combo1" class="dropdown-item">
+                    {item.name}
+                  </NavLink>
+                ))}
               </div>
             </div>
             <NavLink to="contract" class="nav-item nav-link">
@@ -200,7 +243,14 @@ const Header = () => {
           </div>
         </div>
       </nav>
-  <hr style={{ color: "black", backgroundColor: "black", height: 1, borderColor: "black" }} />
+      <hr
+        style={{
+          color: "black",
+          backgroundColor: "black",
+          height: 1,
+          borderColor: "black",
+        }}
+      />
     </>
   );
 };

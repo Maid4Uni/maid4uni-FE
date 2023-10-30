@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -14,9 +14,9 @@ import Login from "./home/login";
 import Register from "./home/register";
 import Admin from "./admin/admin";
 import Manager from "./home/manage.jsx";
-import TrackingPage from './order/tracking';
-import History from './order/history';
-import Checkout from './order/checkout';
+import TrackingPage from "./order/tracking";
+import History from "./order/history";
+import Checkout from "./order/checkout";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -32,14 +32,14 @@ root.render(
           <Route path="booking2" element={<Booking2 />} />
           <Route path="contract" element={<Contract />} />
           <Route path="about" element={<About />} />
-          <Route path="combo1" element={<Combo1 />} />
+          <Route path="/service/:id" element={<Combo1 />} />
           <Route path="combo2" element={<Combo2 />} />
           <Route path="login" element={<Login />} />
-          <Route path='/checkout:id' element={<Checkout />}></Route>
+          <Route path="/checkout/:id" element={<Checkout />} />
           <Route path="register" element={<Register />} />
         </Route>
-        <Route path='/tracking' element={<TrackingPage />} />
-        <Route path='/history' element={<History />} />
+        <Route path="/tracking" element={<TrackingPage />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

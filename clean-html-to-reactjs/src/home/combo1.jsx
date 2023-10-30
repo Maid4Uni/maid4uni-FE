@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import { useRequest } from "ahooks";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const [serviceInfo, setServiceInfo] = useState(null);
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch("YOUR_BACKEND_ENDPOINT");
-      const data = await response.json();
-      setServiceInfo(data);
-    } catch (error) {
-      console.error("Error fetching data from the backend", error);
-    }
-  };
-
-  fetchData();
-}, []);
+import api from "../config/api";
 
 const Combo1 = () => {
+  const [serviceInfo, setServiceInfo] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("YOUR_BACKEND_ENDPOINT");
+        const data = await response.json();
+        setServiceInfo(data);
+      } catch (error) {
+        console.error("Error fetching data from the backend", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div
@@ -55,7 +58,11 @@ const Combo1 = () => {
           <div class="row">
             <div class="col-md-6">
               <div class="service-image">
-                <img src={serviceInfo.imageUrl} alt="Cleaning House Service" class="img-fluid rounded-circle" />
+                <img
+                  src={serviceInfo.imageUrl}
+                  alt="Cleaning House Service"
+                  class="img-fluid rounded-circle"
+                />
               </div>
             </div>
             <div class="col-md-6">
@@ -69,6 +76,7 @@ const Combo1 = () => {
                   ))}
                 </ul>
                 <p>{serviceInfo.contactInfo}</p>
+                <button>Đặt lịch ngay</button>
                 <Link to="/booking1" class="btn btn-primary">
                   Đặt lịch ngay
                 </Link>
@@ -76,11 +84,9 @@ const Combo1 = () => {
             </div>
           </div>
         </div>
-
       )}
     </>
-  )
+  );
 };
-
 
 export default Combo1;
