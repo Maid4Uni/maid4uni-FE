@@ -1,7 +1,5 @@
-import { useRequest } from "ahooks";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../config/api";
 
 const Combo1 = () => {
   const [serviceInfo, setServiceInfo] = useState(null);
