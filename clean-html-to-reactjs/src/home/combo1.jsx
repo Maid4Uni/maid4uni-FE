@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const [serviceInfo, setServiceInfo] = useState(null);
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch("YOUR_BACKEND_ENDPOINT");
-      const data = await response.json();
-      setServiceInfo(data);
-    } catch (error) {
-      console.error("Error fetching data from the backend", error);
-    }
-  };
-
-  fetchData();
-}, []);
 
 const Combo1 = () => {
+  const [serviceInfo, setServiceInfo] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("YOUR_BACKEND_ENDPOINT");
+        const data = await response.json();
+        setServiceInfo(data);
+      } catch (error) {
+        console.error("Error fetching data from the backend", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div
