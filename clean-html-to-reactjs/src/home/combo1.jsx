@@ -56,7 +56,11 @@ const Combo1 = () => {
           <div class="row">
             <div class="col-md-6">
               <div class="service-image">
-                <img src={serviceInfo.imageUrl} alt="Cleaning House Service" class="img-fluid rounded-circle" />
+                <img
+                  src={serviceInfo.imageUrl}
+                  alt="Cleaning House Service"
+                  class="img-fluid rounded-circle"
+                />
               </div>
             </div>
             <div class="col-md-6">
@@ -70,6 +74,7 @@ const Combo1 = () => {
                   ))}
                 </ul>
                 <p>{serviceInfo.contactInfo}</p>
+                <button>Đặt lịch ngay</button>
                 <Link to="/booking1" class="btn btn-primary">
                   Đặt lịch ngay
                 </Link>
@@ -77,11 +82,9 @@ const Combo1 = () => {
             </div>
           </div>
         </div>
-
       )}
     </>
-  )
+  );
 };
-
 
 export default Combo1;
