@@ -25,7 +25,7 @@ const BookingForm = () => {
     });
 
     const data = await response.json();
-    navigate(`/checkout/${data.id}`); // Use navigate to redirect to the confirmation page
+    navigate(`/checkout/${data.id}`, {state:{address, time, date, selectedPackage}}); // Use navigate to redirect to the confirmation page
   };
   const generateTimeOptions = () => {
     const options = [];
