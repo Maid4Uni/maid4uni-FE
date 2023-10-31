@@ -36,49 +36,73 @@ const Login = () => {
   });
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h6" gutterBottom>
-        Đăng Nhập
-      </Typography>
-      <form onSubmit={formik.handleSubmit}>
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <TextField
-            id="username"
-            name="username"
-            label="Tài khoản"
-            placeholder="Tài khoản đăng nhập"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-          />
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <TextField
-            id="password"
-            name="password"
-            label="Password"
-            type="password"
-            placeholder="Mật khẩu"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-          />
-        </FormControl>
-        <Button variant="contained" sx={{ mt: 3 }} type="submit">
-          Đăng Nhập
-        </Button>
-      </form>
-      <Box sx={{ mt: 2 }}>
-        <Typography>Bạn chưa có tài khoản?</Typography>
-        <Link to={"/register"}>Đăng ký</Link>
-      </Box>
-      <Box sx={{ mt: 1 }}>
-        <Typography>Quên mật khẩu?</Typography>
-        <Link to={"/forgetpass"}>Lấy lại mật khẩu</Link>
-      </Box>
-    </Container>
+    <Box
+      sx={{
+        // display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '70vh',
+        marginLeft:"40vh",
+        width: "800px"
+      }}
+    >
+      <Container maxWidth="sm">
+        <Box
+          sx={{
+            border: '1px solid #ccc',
+            borderRadius: '10px',
+            p: 3,
+            width: '70%',
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            Đăng Nhập
+          </Typography>
+          <form onSubmit={formik.handleSubmit}>
+            <div style={{ marginBottom: '1rem' }}>
+              <label>Tài khoản</label>
+              <input
+                type="text"
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '5px', border: '1px solid #ccc' }}
+                value={formik.values.username}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
+              <label>Mật khẩu</label>
+              <input
+                type="password"
+                style={{ width: '100%', padding: '0.5rem', borderRadius: '5px', border: '1px solid #ccc' }}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <input type="checkbox" style={{ marginRight: '0.5rem' }} />
+                  <span>Remember me</span>
+                </div>
+              </div>
+              <Typography>
+                <Link to="#!">Forgot password?</Link>
+              </Typography>
+            </div>
+            <button type="button" class="btn btn-primary btn-block mb-4" style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "40%",
+              margin: "auto"
+            }}>Đăng nhập</button>
+            <Typography align="center" sx={{ mt: 2 }}>
+              Bạn chưa có tài khoản?
+              <Link to={"/register"}>Đăng ký</Link>
+            </Typography>
+          </form>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

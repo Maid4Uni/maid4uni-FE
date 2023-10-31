@@ -63,98 +63,109 @@ const Register = () => {
           noValidate
           sx={{ mt: 1 }}
         >
-          <TextField
-            fullWidth
-            id="username"
-            name="username"
-            label="Tài khoản"
-            value={formik.values.username}
-            onChange={formik.handleChange}
-            error={formik.touched.username && Boolean(formik.errors.username)}
-            helperText={formik.touched.username && formik.errors.username}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            id="fullName"
-            name="fullName"
-            label="Họ và tên"
-            value={formik.values.fullName}
-            onChange={formik.handleChange}
-            error={formik.touched.fullName && Boolean(formik.errors.fullName)}
-            helperText={formik.touched.fullName && formik.errors.fullName}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="Mật khẩu"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            id="phoneNumber"
-            name="phoneNumber"
-            label="Số điện thoại"
-            value={formik.values.phoneNumber}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
-            }
-            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Xác thực mật khẩu"
-            type="password"
-            value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.confirmPassword &&
-              Boolean(formik.errors.confirmPassword)
-            }
-            helperText={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            sx={{ mb: 2 }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Đăng Ký
-          </Button>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <Typography>Bạn đã có tài khoản?</Typography>
-          <Link to={"/login"}>Đăng nhập</Link>
-        </Box>
-        <Box sx={{ mt: 1 }}>
-          <Typography>Quên mật khẩu?</Typography>
-          <Link to={"/forgetpass"}>Lấy lại mật khẩu</Link>
+          <form>
+            <div class="form-outline mt-2">
+              <label class="form-label" for="username">Tài khoản</label>
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Nhập tài khoản"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                style={{ padding: '0.5rem', borderRadius: '5px', border: '1px solid #ccc' }}
+              />
+              {formik.touched.username && formik.errors.username ? (
+                <div style={{ color: "red" }}>{formik.errors.username}</div>
+              ) : null}
+            </div>
+            <div class="form-outline mt-2">
+              <label class="form-label" for="fullName">Họ và tên</label>
+              <input
+                type="text"
+                id="fullName"
+                class="form-control"
+                placeholder="Họ và tên"
+                value={formik.values.fullName}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.fullName && formik.errors.fullName ? (
+                <div style={{ color: "red" }}>{formik.errors.fullName}</div>
+              ) : null}
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="Nhập địa chỉ email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div style={{ color: "red" }}>{formik.errors.email}</div>
+              ) : null}
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="phoneNumber">Số điện thoại</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                class="form-control"
+                placeholder="Nhập số điện thoại"
+                value={formik.values.phoneNumber}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                <div style={{ color: "red" }}>{formik.errors.phoneNumber}</div>
+              ) : null}
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="password">Mật khẩu</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Nhập mật khẩu"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <div style={{ color: "red" }}>{formik.errors.password}</div>
+              ) : null}
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label" for="confirmPassword">Xác thực mật khẩu</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                class="form-control"
+                placeholder="Nhập lại mật khẩu"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                <div style={{ color: "red" }}>{formik.errors.confirmPassword}</div>
+              ) : null}
+            </div>
+            <button type="button" class="btn btn-primary btn-block mb-4" style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "40%",
+              margin: "auto"
+            }}>Đăng ký</button>
+            <div class="text-center">
+              <p>Bạn đã có tài khoản?<Link to={"/"}>Đăng nhập</Link></p>
+            </div>
+          </form>
         </Box>
       </Container>
     </>

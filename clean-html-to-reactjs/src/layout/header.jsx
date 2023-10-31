@@ -1,10 +1,8 @@
 import {
   Box,
   Button,
-  FormControl,
   Grid,
   Modal,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useRequest } from "ahooks";
@@ -38,12 +36,12 @@ const Header = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Tài khoản không được bỏ trống"),
-      password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 chứ số"),
+      password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 chứ số").required("Vui lòng nhập mật khẩu")
     }),
     onSubmit: async (values) => {
       try {
@@ -96,7 +94,7 @@ const Header = () => {
                     alignItems="center"
                     style={{ height: "100%" }}
                   >
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }} >
                       <Box
                         sx={{
                           bgcolor: "background.paper",
@@ -104,6 +102,11 @@ const Header = () => {
                           boxShadow: 24,
                           p: 4,
                           position: "relative",
+                          width: "50%",
+                          height: "50%",
+                          // display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}
                       >
                         <Typography
@@ -119,66 +122,54 @@ const Header = () => {
                             X
                           </Button>
                         </Typography>
+
                         <form onSubmit={formik.handleSubmit}>
-                          <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                              required
+                          <div class="form-outline mt-2">
+                            <label class="form-label" for="username">Tài khoản</label>
+                            <input
+                              type="text"
                               id="username"
-                              name="username"
-                              label="Tài khoản"
-                              placeholder="Tài khoản đăng nhập"
+                              class="form-control"
+                              placeholder="Nhập tài khoản"
                               value={formik.values.username}
                               onChange={formik.handleChange}
-                              error={
-                                formik.touched.username &&
-                                Boolean(formik.errors.username)
-                              }
-                              helperText={
-                                formik.touched.username &&
-                                formik.errors.username
-                              }
+                              onBlur={formik.handleBlur}
                             />
-                          </FormControl>
-                          <FormControl fullWidth sx={{ m: 1 }}>
-                            <TextField
-                              required
-                              id="password"
-                              name="password"
-                              label="Mật khẩu"
+                            {formik.touched.username && formik.errors.username ? (
+                              <div style={{ color: "red" }}>{formik.errors.username}</div>
+                            ) : null}
+                          </div>
+                          <div class="form-outline mb-4">
+                            <label class="form-label" for="password">Mật khẩu</label>
+                            <input
                               type="password"
-                              placeholder="Mật khẩu"
+                              id="password"
+                              class="form-control"
+                              placeholder="Nhập mật khẩu"
                               value={formik.values.password}
                               onChange={formik.handleChange}
-                              error={
-                                formik.touched.password &&
-                                Boolean(formik.errors.password)
-                              }
-                              helperText={
-                                formik.touched.password &&
-                                formik.errors.password
-                              }
+                              onBlur={formik.handleBlur}
                             />
-                          </FormControl>
-                          <Button
-                            variant="contained"
-                            sx={{ mt: 3 }}
-                            type="submit"
-                          >
-                            Đăng Nhập
-                          </Button>
+                            {formik.touched.password && formik.errors.password ? (
+                              <div style={{ color: "red" }}>{formik.errors.password}</div>
+                            ) : null}
+                          </div>
+
+                          <div class="col">
+                            <a href="#!">Quên mật khẩu?</a>
+                          </div>
+
+                          <button type="button" class="btn btn-primary btn-block mb-4" style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "60%",
+                            margin: "auto"
+                          }}>Đăng nhập</button>
+                          <div class="text-center">
+                            <p>Bạn chưa có tài khoản?<Link to={"/register"} onClick={handleClose}>Đăng ký</Link></p>
+                          </div>
                         </form>
-                        <Box sx={{ mt: 2 }}>
-                          <Typography>Bạn chưa có tài khoản?</Typography>
-                          <Link to={"register"} onClick={handleClose}>
-                            Đăng ký
-                          </Link>
-                        </Box>
-                        <Box sx={{ mt: 1 }}>
-                          <Typography>Quên mật khẩu?</Typography>
-                          <Link to={"forgetpassword"} onClick={handleClose}>
-                            Quên mật khẩu
-                          </Link>
-                        </Box>
                       </Box>
                     </Grid>
                   </Grid>
@@ -218,7 +209,7 @@ const Header = () => {
             <NavLink to="/blog" class="nav-item nav-link">
               Blog
             </NavLink>
-            <NavLink to="booking1" class="nav-item nav-link">
+            <NavLink to="/price" class="nav-item nav-link">
               Bảng giá
             </NavLink>
             <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
@@ -237,7 +228,7 @@ const Header = () => {
                 ))}
               </div>
             </div>
-            <NavLink to="contract" class="nav-item nav-link">
+            <NavLink to="/contact" class="nav-item nav-link">
               Liên hệ
             </NavLink>
           </div>

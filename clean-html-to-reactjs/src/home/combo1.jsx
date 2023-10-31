@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const Combo1 = () => {
   const [serviceInfo, setServiceInfo] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {

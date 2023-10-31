@@ -4,7 +4,6 @@ import {
     TextField,
     Typography,
     Box,
-    Button,
     FormControl,
     Grid,
     Checkbox,
@@ -109,12 +108,7 @@ const ConfirmationPage = () => {
                                     required
                                 />
                             </FormControl>
-                            <FormControl sx={{ m: 1 }}>
-                                <FormControlLabel
-                                    control={<Checkbox />}
-                                    label="Thanh Toán Trực Tiếp"
-                                />
-                            </FormControl>
+
                             <FormControl fullWidth sx={{ m: 1 }}>
                                 <TextField
                                     id="refundPolicy"
@@ -156,7 +150,7 @@ const ConfirmationPage = () => {
                                 </div>
                             )}
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
-                                <Link to="/booking" style={{ textDecoration: 'none' }}>
+                                <Link to="/booking1" style={{ textDecoration: 'none' }}>
                                     <button
                                         style={{
                                             width: '140px',

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Contract = () => {
+const Contact = () => {
   return (
     <>
       <div class="container-xxl py-5">
@@ -53,15 +53,10 @@ const Contract = () => {
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
               <div class="bg-light rounded p-5">
                 <p class="d-inline-block border rounded-pill py-1 px-4">
-                  Contact Us
+                  Liên hệ chúng tôi
                 </p>
-                <h1 class="mb-4">Have Any Query? Please Contact Us!</h1>
-                <p class="mb-4">
-                  The contact form is currently inactive. Get a functional and
-                  working contact form with Ajax & PHP in a few minutes. Just
-                  copy and paste the files, add a little code and you're done.{" "}
-                  <a href="https://htmlcodex.com/contact-form">Download Now</a>.
-                </p>
+                <h1 class="mb-4">Có câu hỏi nào hãy liên hệ chúng tôi!</h1>
+
                 <form>
                   <div class="row g-3">
                     <div class="col-md-6">
@@ -70,9 +65,9 @@ const Contract = () => {
                           type="text"
                           class="form-control"
                           id="name"
-                          placeholder="Your Name"
+                          placeholder="Nhập tên"
                         />
-                        <label for="name">Your Name</label>
+                        <label for="name">Họ và tên</label>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -81,36 +76,25 @@ const Contract = () => {
                           type="email"
                           class="form-control"
                           id="email"
-                          placeholder="Your Email"
+                          placeholder="Nhập email"
                         />
-                        <label for="email">Your Email</label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="subject"
-                          placeholder="Subject"
-                        />
-                        <label for="subject">Subject</label>
+                        <label for="email"> Email</label>
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-floating">
                         <textarea
                           class="form-control"
-                          placeholder="Leave a message here"
+                          placeholder="Lời nhắn"
                           id="message"
                           style={{ height: "100px" }}
                         ></textarea>
-                        <label for="message">Message</label>
+                        <label for="message">Lời nhắn</label>
                       </div>
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100 py-3" type="submit">
-                        Send Message
+                        Gửi
                       </button>
                     </div>
                   </div>
@@ -136,4 +120,4 @@ const Contract = () => {
   );
 };
 
-export default Contract;
+export default Contact;
