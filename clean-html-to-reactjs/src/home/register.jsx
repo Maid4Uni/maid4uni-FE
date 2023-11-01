@@ -57,116 +57,146 @@ const Register = () => {
         <Typography variant="h4" component="h2" align="center" gutterBottom>
           Đăng Ký
         </Typography>
-        <Box
-          component="form"
-          onSubmit={formik.handleSubmit}
-          noValidate
-          sx={{ mt: 1 }}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit();
+          }}
         >
-          <form>
-            <div class="form-outline mt-2">
-              <label class="form-label" for="username">Tài khoản</label>
-              <input
-                type="text"
-                id="username"
-                class="form-control"
-                placeholder="Nhập tài khoản"
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                style={{ padding: '0.5rem', borderRadius: '5px', border: '1px solid #ccc' }}
-              />
-              {formik.touched.username && formik.errors.username ? (
-                <div style={{ color: "red" }}>{formik.errors.username}</div>
-              ) : null}
-            </div>
-            <div class="form-outline mt-2">
-              <label class="form-label" for="fullName">Họ và tên</label>
-              <input
-                type="text"
-                id="fullName"
-                class="form-control"
-                placeholder="Họ và tên"
-                value={formik.values.fullName}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.fullName && formik.errors.fullName ? (
-                <div style={{ color: "red" }}>{formik.errors.fullName}</div>
-              ) : null}
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                placeholder="Nhập địa chỉ email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div style={{ color: "red" }}>{formik.errors.email}</div>
-              ) : null}
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="phoneNumber">Số điện thoại</label>
-              <input
-                type="text"
-                id="phoneNumber"
-                class="form-control"
-                placeholder="Nhập số điện thoại"
-                value={formik.values.phoneNumber}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                <div style={{ color: "red" }}>{formik.errors.phoneNumber}</div>
-              ) : null}
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="password">Mật khẩu</label>
-              <input
-                type="password"
-                id="password"
-                class="form-control"
-                placeholder="Nhập mật khẩu"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <div style={{ color: "red" }}>{formik.errors.password}</div>
-              ) : null}
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="confirmPassword">Xác thực mật khẩu</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                class="form-control"
-                placeholder="Nhập lại mật khẩu"
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-                <div style={{ color: "red" }}>{formik.errors.confirmPassword}</div>
-              ) : null}
-            </div>
-            <button type="button" class="btn btn-primary btn-block mb-4" style={{
+          <div class="form-outline mt-2">
+            <label class="form-label" for="username">
+              Tài khoản
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Nhập tài khoản"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={{
+                padding: "0.5rem",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
+            />
+            {formik.touched.username && formik.errors.username ? (
+              <div style={{ color: "red" }}>{formik.errors.username}</div>
+            ) : null}
+          </div>
+          <div class="form-outline mt-2">
+            <label class="form-label" for="fullName">
+              Họ và tên
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              class="form-control"
+              placeholder="Họ và tên"
+              value={formik.values.fullName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.fullName && formik.errors.fullName ? (
+              <div style={{ color: "red" }}>{formik.errors.fullName}</div>
+            ) : null}
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="Nhập địa chỉ email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div style={{ color: "red" }}>{formik.errors.email}</div>
+            ) : null}
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="phoneNumber">
+              Số điện thoại
+            </label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              class="form-control"
+              placeholder="Nhập số điện thoại"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <div style={{ color: "red" }}>{formik.errors.phoneNumber}</div>
+            ) : null}
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="password">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Nhập mật khẩu"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <div style={{ color: "red" }}>{formik.errors.password}</div>
+            ) : null}
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label" for="confirmPassword">
+              Xác thực mật khẩu
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              class="form-control"
+              placeholder="Nhập lại mật khẩu"
+              value={formik.values.confirmPassword}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <div style={{ color: "red" }}>
+                {formik.errors.confirmPassword}
+              </div>
+            ) : null}
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mb-4"
+            style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               width: "40%",
-              margin: "auto"
-            }}>Đăng ký</button>
-            <div class="text-center">
-              <p>Bạn đã có tài khoản?<Link to={"/"}>Đăng nhập</Link></p>
-            </div>
-          </form>
-        </Box>
+              margin: "auto",
+            }}
+          >
+            Đăng ký
+          </button>
+          <div class="text-center">
+            <p>
+              Bạn đã có tài khoản?<Link to={"/"}>Đăng nhập</Link>
+            </p>
+          </div>
+        </form>
       </Container>
     </>
   );
