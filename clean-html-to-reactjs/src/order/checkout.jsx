@@ -1,191 +1,68 @@
-import React, { useState } from "react";
-import {
-    Container,
-    TextField,
-    Typography,
-    Box,
-    FormControl,
-    Grid,
-    Checkbox,
-    FormControlLabel,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import api from "../config/api";
+
 
 const ConfirmationPage = () => {
-    const [isDirectPayment, setIsDirectPayment] = useState(false);
-    const [isVNPay, setIsVNPay] = useState(false);
-    const handleDirectPaymentChange = (event) => {
-        if (event.target.checked) {
-            setIsDirectPayment(true);
-            setIsVNPay(false);
-        } else {
-            setIsDirectPayment(false);
-        }
-    };
+    const [data, setData] = useState(null);
 
-    const handleVNPayChange = (event) => {
-        if (event.target.checked) {
-            setIsVNPay(true);
-            setIsDirectPayment(false);
-        } else {
-            setIsVNPay(false);
-        }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get("");
+                setData(response.data);
+            } catch (error) {
+                console.error("Error fetching data from API", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    const handlePayment = () => {
+        // Gọi API của VNPay tại đây
+        window.location.href = "URL_API_VNPAY"; 
     }
+
     return (
-        <Container maxWidth="sm">
-            <Typography variant="h4" component="h2" align="center" gutterBottom marginTop="20px">
-                Xác Nhận Thanh Toán
-            </Typography>
-            <Box
-                component="form"
-                noValidate
-                sx={{
-                    mt: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <Grid container spacing={2}>
-                    <Grid item xs={12} md={6}>
-                        <Box>
-                            <img
-                                src=".\img\pexels-liliana-drew-9462143.jpg"
-                                alt="Gói Dịch Vụ"
-                                style={{ width: "100%" }}
-                            />
-                            <Typography variant="h6" sx={{ mt: 2, mb: 1 }}>
-                                Tên Gói Dịch Vụ
-                            </Typography>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Box>
+        <div class="container">
+            <h4 class="text-center mt-5">Xác Nhận Thanh Toán</h4>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <img src="" alt="Gói Dịch Vụ" class="img-fluid" />
+                    <h5 class="mt-2 mb-1">Tên Gói Dịch Vụ: { } </h5>
 
-                            <FormControl fullWidth sx={{ m: 1 }}>
-                                <TextField
-                                    id="workLocation"
-                                    label="Vị trí làm việc"
-                                    variant="outlined"
-                                    InputProps={{ disableUnderline: true }}
-                                    required
-                                />
-                            </FormControl>
-                            <Box sx={{ my: 3 }}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            id="startDate"
-                                            label="Ngày Bắt Đầu"
-                                            type="date"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            fullWidth
-                                            InputProps={{ disableUnderline: true }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <TextField
-                                            id="endDate"
-                                            label="Ngày Kết Thúc"
-                                            type="date"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                                            fullWidth
-                                            InputProps={{ disableUnderline: true }}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                            <FormControl fullWidth sx={{ m: 1 }}>
-                                <TextField
-                                    id="workTime"
-                                    label="Giờ Làm"
-                                    variant="outlined"
-                                    InputProps={{ disableUnderline: true }}
-                                    required
-                                />
-                            </FormControl>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-3">
+                        <h6>Thông tin dịch vụ</h6>
+                        <div class="mb-3">
+                            <input type="text" id="order" class="form-control" placeholder="Thông tin" required />
+                        </div>
+                        <div class="mb-3">
 
-                            <FormControl fullWidth sx={{ m: 1 }}>
-                                <TextField
-                                    id="refundPolicy"
-                                    label="Chính Sách Hoàn Tiền"
-                                    multiline
-                                    rows={4}
-                                    variant="outlined"
-                                    InputProps={{ disableUnderline: true }}
-                                    required
-                                />
-                            </FormControl>
-                            <FormControl fullWidth sx={{ m: 1 }}>
-                                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                                    Giá Tiền
-                                </Typography>
-                                <TextField
-                                    id="price"
-                                    label="Giá Tiền"
-                                    variant="outlined"
-                                    InputProps={{ disableUnderline: true }}
-                                    required
-                                />
-                            </FormControl>
-                            <FormControlLabel
-                                control={<Checkbox checked={isDirectPayment} onChange={handleDirectPaymentChange} />}
-                                label="Thanh toán trực tiếp"
-                                style={{ marginBottom: '20px' }}
-                            />
-                            <FormControlLabel
-                                control={<Checkbox checked={isVNPay} onChange={handleVNPayChange} />}
-                                label="VNPay"
-                                style={{ marginBottom: '20px' }}
-                            />
-                            {(isDirectPayment || isVNPay) && (
-                                <div>
-                                    <Typography variant="h6" style={{ marginTop: '20px' }}>
-                                        {isDirectPayment ? 'Phương thức thanh toán trực tiếp' : 'Phương thức thanh toán VNPay'}
-                                    </Typography>
-                                </div>
-                            )}
-                            <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
-                                <Link to="/booking1" style={{ textDecoration: 'none' }}>
-                                    <button
-                                        style={{
-                                            width: '140px',
-                                            padding: '10px',
-                                            backgroundColor: '#4caf50',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '4px',
-                                            cursor: 'pointer',
-                                        }}
-                                    >
-                                        Quay lại
-                                    </button>
-                                </Link>
-                                <Link to="/booking" style={{ textDecoration: 'none' }}>
-                                    <button
-                                        style={{
-                                            width: '140px',
-                                            padding: '10px',
-                                            backgroundColor: '#4caf50',
-                                            color: 'white',
-                                            border: 'none',
-                                            borderRadius: '4px',
-                                            cursor: 'pointer',
-                                        }}
-                                    >
-                                        Thanh toán
-                                    </button>
-                                </Link>
-                            </div>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Container>
+                            <textarea id="refundPolicy" class="form-control" rows="4" placeholder="Nội dung chuyển tiền" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="fw-bold">Giá Tiền{ }</h6>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="vnpay" />
+                            <label class="form-check-label" for="vnpay">VNPay</label>
+                        </div>
+
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "300px" }}>
+                            <a href="/booking1">
+                                <button class="btn btn-success">Quay lại</button>
+                            </a>
+                           
+                                <button class="btn btn-success" onClick={handlePayment}>Thanh toán</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     );
 };
 

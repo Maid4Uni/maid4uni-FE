@@ -1,134 +1,99 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../config/api";
 
 const Login = () => {
   const navigate = useNavigate();
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      username: Yup.string().required("Tài khoản không được bỏ trống"),
-      password: Yup.string()
-        .min(6, "Must be at least 6 characters")
-        .required("Required"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        const response = await api.login(values);
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(response.data.account));
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await api.login({ username, password });
+  //     localStorage.setItem("accessToken", response.data.accessToken);
+  //     localStorage.setItem("user", JSON.stringify(response.data.account));
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error(error);
+  //     setError("Đăng nhập không thành công. Vui lòng thử lại.");
+  //   }
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.login({ username, password });
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("user", JSON.stringify(response.data.account));
+
+      const userRole = response.data.account.role;
+      if (userRole === "CUSTOMER") {
         navigate("/");
-      } catch (error) {
-        console.error(error);
+      } else if (userRole === "ADMIN") {
+        navigate("/admin");
+      } else if (userRole === "MANAGER") {
+        navigate("/manager");
       }
-    },
-  });
+    } catch (error) {
+      console.error(error);
+      setError("Đăng nhập không thành công. Vui lòng thử lại.");
+    }
+  };
 
   return (
-    <Box
-      sx={{
-        // display: 'flex',
-        justifyContent: "center",
-        alignItems: "center",
-        height: "70vh",
-        marginLeft: "40vh",
-        width: "800px",
-      }}
-    >
-      <Container maxWidth="sm">
-        <Box
-          sx={{
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-            p: 3,
-            width: "70%",
-          }}
-        >
-          <Typography variant="h6" gutterBottom>
-            Đăng Nhập
-          </Typography>
-          <form onSubmit={formik.handleSubmit}>
-            <div style={{ marginBottom: "1rem" }}>
-              <label>Tài khoản</label>
-              <input
-                type="text"
-                name="username"
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-                value={formik.values.username}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div style={{ marginBottom: "1rem" }}>
-              <label>Mật khẩu</label>
-              <input
-                type="password"
-                name="password"
-                style={{
-                  width: "100%",
-                  padding: "0.5rem",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-                value={formik.values.password}
-                onChange={formik.handleChange}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <input type="checkbox" style={{ marginRight: "0.5rem" }} />
-                  <span>Remember me</span>
-                </div>
-              </div>
-              <Typography>
-                <Link to="#!">Forgot password?</Link>
-              </Typography>
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary btn-block mb-4"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "40%",
-                margin: "auto",
-              }}
-            >
-              Đăng nhập
-            </button>
-            <Typography align="center" sx={{ mt: 2 }}>
-              Bạn chưa có tài khoản?
-              <Link to={"/register"}>Đăng ký</Link>
-            </Typography>
-          </form>
-        </Box>
-      </Container>
-    </Box>
+    <div className="container" style={{ marginTop: "70px", width: "800px" }}>
+      <div className="card border-primary p-3 mx-auto" style={{ width: "70%" }}>
+        <h3 className="text-center">Đăng Nhập</h3>
+        {error && <div className="alert alert-danger">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Tài khoản
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </div>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <Link to="#!" className="text-decoration-none">
+              Quên mật khẩu?
+            </Link>
+          </div>
+          <button type="submit" className="btn btn-primary w-100 mb-3">
+            Đăng nhập
+          </button>
+          <p className="text-center">
+            Bạn chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+          </p>
+        </form>
+      </div>
+    </div>
   );
 };
 
