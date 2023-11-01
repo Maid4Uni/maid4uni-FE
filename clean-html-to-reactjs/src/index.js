@@ -15,32 +15,32 @@ import Admin from "./admin/admin";
 import Manager from "./home/manage.jsx";
 import TrackingPage from "./order/tracking";
 import History from "./order/history";
-import Checkout from "./order/checkout";
 import Contact from "./home/contact";
-import Price from "./home/price";                  
-const root = ReactDOM.createRoot(document.getElementById("root"));  
+import Price from "./home/price";
+import ConfirmationPage from "./order/checkout";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/admin" element={<Admin/>}/>
-        <Route path="/manager" element={<Manager/>}/>
-        <Route path="/" element={<App/>}>
-          <Route index element={<Home/>}/>
-          <Route path="blog" element={<Blog/>}/>
-          <Route path="/booking1" element={<Booking1/>}/>
-          <Route path="booking2" element={<Booking2/>}/>
-          <Route path="/contact" element={<Contact/>}/>
-          <Route path="about" element={<About/>}/>
-          <Route path="/service/:id" element={<Combo1/>}/>
-          <Route path="combo2" element={<Combo2/>}/>
-          <Route path="login" element={<Login/>}/>
-          <Route path="/checkout/:id" element={<Checkout/>}/>
-          <Route path="register" element={<Register/>}/>
-          <Route path="/price" element={<Price/>} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/manager" element={<Manager />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="blog" element={<Blog />} />
+          <Route path="/booking1" element={<Booking1 />} />
+          <Route path="booking2" element={<Booking2 />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="about" element={<About />} />
+          <Route path="/service/:id" element={<Combo1 />} />
+          <Route path="combo2" element={<Combo2 />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/checkout/:id" element={<ConfirmationPage />} />
+          <Route path="register" element={<Register />} />
+          <Route path="/price" element={<Price />} />
         </Route>
-        <Route path="/tracking" element={<TrackingPage/>} />
-        <Route path="/history" element={<History/>} />
+        <Route path="/tracking" element={<TrackingPage />} />
+        <Route path="/history" element={<History />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

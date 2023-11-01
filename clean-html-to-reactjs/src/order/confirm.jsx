@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../config/api";
 
 
-const ConfirmationPage = () => {
+const Confirmation = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -66,4 +66,4 @@ const ConfirmationPage = () => {
     );
 };
 
-export default ConfirmationPage;
+export default Confirmation;

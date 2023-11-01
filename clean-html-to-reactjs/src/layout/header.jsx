@@ -8,7 +8,7 @@ import {
 import { useRequest } from "ahooks";
 import { useFormik } from "formik";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../config/api";
 
@@ -33,6 +33,7 @@ const Header = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -48,12 +49,20 @@ const Header = () => {
         const response = await api.login(values);
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("user", JSON.stringify(response.data.account));
+        navigate("/");
       } catch (error) {
         console.error(error);
       }
     },
   });
+  const user = JSON.parse(localStorage.getItem("user"));
+  const handleLogout = () => {
 
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+
+    navigate("/");
+  };
   return (
     <>
       <div
@@ -86,94 +95,14 @@ const Header = () => {
               style={{ cursor: "pointer" }}
             >
               <>
-                <Button onClick={handleOpen}>Đăng nhập</Button>
-                <Modal open={open} onClose={handleClose}>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    style={{ height: "100%" }}
-                  >
-                    <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }} >
-                      <Box
-                        sx={{
-                          bgcolor: "background.paper",
-                          border: "2px solid #000",
-                          boxShadow: 24,
-                          p: 4,
-                          position: "relative",
-                          width: "50%",
-                          height: "50%",
-                          // display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Typography
-                          variant="h6"
-                          gutterBottom
-                          textAlign={"center"}
-                        >
-                          Đăng Nhập
-                          <Button
-                            onClick={handleClose} // Call the handleClose function when clicked
-                            style={{ position: "absolute", top: 0, right: 0 }}
-                          >
-                            X
-                          </Button>
-                        </Typography>
-
-                        <form onSubmit={formik.handleSubmit}>
-                          <div class="form-outline mt-2">
-                            <label class="form-label" for="username">Tài khoản</label>
-                            <input
-                              type="text"
-                              id="username"
-                              class="form-control"
-                              placeholder="Nhập tài khoản"
-                              value={formik.values.username}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                            />
-                            {formik.touched.username && formik.errors.username ? (
-                              <div style={{ color: "red" }}>{formik.errors.username}</div>
-                            ) : null}
-                          </div>
-                          <div class="form-outline mb-4">
-                            <label class="form-label" for="password">Mật khẩu</label>
-                            <input
-                              type="password"
-                              id="password"
-                              class="form-control"
-                              placeholder="Nhập mật khẩu"
-                              value={formik.values.password}
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                            />
-                            {formik.touched.password && formik.errors.password ? (
-                              <div style={{ color: "red" }}>{formik.errors.password}</div>
-                            ) : null}
-                          </div>
-
-                          <div class="col">
-                            <a href="#!">Quên mật khẩu?</a>
-                          </div>
-
-                          <button type="button" class="btn btn-primary btn-block mb-4" style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            width: "60%",
-                            margin: "auto"
-                          }}>Đăng nhập</button>
-                          <div class="text-center">
-                            <p>Bạn chưa có tài khoản?<Link to={"/register"} onClick={handleClose}>Đăng ký</Link></p>
-                          </div>
-                        </form>
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Modal>
+                {user ? (
+                  <div class="h-100 d-inline-flex align-items-center">
+                    <div>Chào, {user.username}</div>
+                    <Button onClick={handleLogout}>Đăng xuất</Button>
+                  </div>
+                ) : (
+                  <Button onClick={() => navigate("/login")}>Đăng nhập</Button>
+                )}
               </>
             </div>
           </div>
