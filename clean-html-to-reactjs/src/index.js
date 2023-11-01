@@ -18,6 +18,7 @@ import History from "./order/history";
 import Contact from "./home/contact";
 import Price from "./home/price";
 import ConfirmationPage from "./order/checkout";
+import OderDetail from "./home/order-detail";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -25,6 +26,8 @@ root.render(
       <Routes>
         <Route path="/admin" element={<Admin />} />
         <Route path="/manager" element={<Manager />} />
+        <Route path="/manager/oder-detail" element={<OderDetail />} />
+
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="blog" element={<Blog />} />

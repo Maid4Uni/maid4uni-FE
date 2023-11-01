@@ -135,12 +135,6 @@ const Header = () => {
             <NavLink to="/" class="nav-item nav-link active">
               Trang chủ
             </NavLink>
-            <NavLink to="/blog" class="nav-item nav-link">
-              Blog
-            </NavLink>
-            <NavLink to="/price" class="nav-item nav-link">
-              Bảng giá
-            </NavLink>
             <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
               <NavLink
                 to="combo1"
@@ -149,7 +143,7 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
-              <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "300px", height: "100px" }}>
                 {data?.map((item) => (
                   <NavLink to="combo1" class="dropdown-item">
                     {item.name}
@@ -157,20 +151,24 @@ const Header = () => {
                 ))}
               </div>
             </div>
+            <NavLink to="/price" class="nav-item nav-link">
+              Bảng giá
+            </NavLink>
+
             <NavLink to="/contact" class="nav-item nav-link">
               Liên hệ
             </NavLink>
           </div>
         </div>
       </nav>
-      <hr
+      {/* <hr
         style={{
           color: "black",
           backgroundColor: "black",
           height: 1,
           borderColor: "black",
         }}
-      />
+      /> */}
     </>
   );
 };

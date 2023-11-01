@@ -13,8 +13,8 @@ const Booking1 = () => {
     async (params) => {
       const response = await api.createOrder(params);
       return response.data;
-    },
-    {
+    }, 1
+    , {
       manual: true,
       onError(e) {
         console.error(e);
@@ -103,6 +103,7 @@ const Booking1 = () => {
           </div>
           <div className="row g-4">
             <form id="bookingForm" onSubmit={formik.handleSubmit}>
+              <div><label htmlFor="package" className="booking-text">Tên gói dịch vụ: </label></div>
               <div className="box">
                 <label for="addresss" className="booking-text">
                   Địa chỉ
@@ -301,13 +302,7 @@ const Booking1 = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12">
-                <div className="form-group mt-2 text-center">
-                  <p>
-                    Tổng giá tiền: <span id="totalPrice">0</span>
-                  </p>
-                </div>
-              </div>
+             
               <div className="col-md-12 mt-1 text-center">
                 <Link to={isLoggedIn ? "/checkout" : "/login"}>
                   <button id="bookButton" className="btn btn-primary booking-btn">

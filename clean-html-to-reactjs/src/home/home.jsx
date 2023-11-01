@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Header from "../layout/header";
-import Footer from "../layout/footer";
 import BannerSlider from "../component/home/bannerSlide";
 import FeedBackSlider from "../component/home/feedBackSlider";
 import { Link } from "react-router-dom";
@@ -8,7 +6,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <BannerSlider />
+      <BannerSlider/>
       <div class="container-xxl py-5">
         <div class="container" />
         <div
@@ -65,7 +63,7 @@ const Home = () => {
                 />
               </div>
               <div class="team-text bg-light text-center p-4">
-                <h5>Giặt giũ</h5>
+                <h5>Dịch vụ dọn nhà tiết kiệm</h5>
                 <p class="text-primary"></p>
                 <div class="team-social text-center">
                   <p>
@@ -73,13 +71,9 @@ const Home = () => {
                     quần áo
                   </p>
                   <p>
-                    <i class="far fa-check-circle text-primary me-3"></i>Giặt
-                    drap, mền, gối
+                    <i class="far fa-check-circle text-primary me-3"></i>Vệ sinh nhà
                   </p>
-                  <p>
-                    <i class="far fa-check-circle text-primary me-3"></i>Giặt
-                    topper(Tấm phủ nệm)
-                  </p>
+                 
                 </div>
                 <Link
                   class="btn btn-primary rounded-pill py-3 px-5 mt-3"
@@ -100,7 +94,7 @@ const Home = () => {
                 />
               </div>
               <div class="team-text bg-light text-center p-4">
-                <h5>Vệ sinh máy lạnh</h5>
+                <h5>Dịch vụ dọn nhà nâng cao</h5>
                 <Link
                   class="btn btn-primary rounded-pill py-3 px-5 mt-5"
                   to="combo2"

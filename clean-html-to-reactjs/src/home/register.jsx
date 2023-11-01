@@ -193,7 +193,7 @@ const Register = () => {
           </button>
           <div class="text-center">
             <p>
-              Bạn đã có tài khoản?<Link to={"/"}>Đăng nhập</Link>
+              Bạn đã có tài khoản?<Link to={"/login"}>Đăng nhập</Link>
             </p>
           </div>
         </form>
