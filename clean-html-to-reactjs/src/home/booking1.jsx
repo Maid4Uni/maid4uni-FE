@@ -2,11 +2,12 @@ import { useRequest } from "ahooks";
 import { useFormik } from "formik";
 import moment from "moment";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../config/api";
 
 const Booking1 = () => {
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("accessToken");
 
   const { data, run: booking } = useRequest(
     async (params) => {
@@ -33,6 +34,11 @@ const Booking1 = () => {
     },
     onSubmit: async (values) => {
       try {
+        if (!isLoggedIn) {
+          alert("Vui lòng đăng nhập để đặt lịch dịch vụ.");
+          navigate("/login");
+          return;
+        }
         const { startTime, duration, ...rest } = values;
         const user = JSON.parse(localStorage.getItem("user"));
         const payload = {
@@ -50,6 +56,7 @@ const Booking1 = () => {
             userName: user.username,
           },
         };
+
         const response = await api.createOrder(payload);
         navigate(`/checkout/${response.data.id}`);
       } catch (error) {
@@ -301,18 +308,24 @@ const Booking1 = () => {
                   </p>
                 </div>
               </div>
-
               <div className="col-md-12 mt-1 text-center">
-                {/* <Link to="/checkout"> */}
-                <button id="bookButton" className="btn btn-primary booking-btn">
-                  Đăng ký
-                </button>
-                {/* </Link> */}
+                <Link to={isLoggedIn ? "/checkout" : "/login"}>
+                  <button id="bookButton" className="btn btn-primary booking-btn">
+                    Đăng ký dịch vụ
+                  </button>
+                </Link>
               </div>
+              {/* <div className="col-md-12 mt-1 text-center"> */}
+              {/* <Link to="/checkout"> */}
+              {/* <button id="bookButton" className="btn btn-primary booking-btn"> */}
+              {/* Đăng ký
+                </button> */}
+              {/* </Link> */}
+              {/* </div> */}
             </form>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
     </>
   );
 };
