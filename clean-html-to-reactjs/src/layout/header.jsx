@@ -137,7 +137,7 @@ const Header = () => {
             </NavLink>
             <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
               <NavLink
-                to="combo1"
+                to="/service"
                 class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
@@ -145,7 +145,7 @@ const Header = () => {
               </NavLink>
               <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "300px", height: "100px" }}>
                 {data?.map((item) => (
-                  <NavLink to="combo1" class="dropdown-item">
+                  <NavLink to={`/service/${item.id}`} class="dropdown-item " >
                     {item.name}
                   </NavLink>
                 ))}

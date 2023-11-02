@@ -4,53 +4,46 @@ import api from "../config/api";
 import { useRequest } from "ahooks";
 
 const Combo1 = () => {
-  const [packageInfo, setpackageInfo] = useState(null);
+  const [packageInfo, setPackageInfo] = useState(null);
 
   const { data } = useRequest(
     async () => {
-      const response = await api.getAllPackage();
-      return response.data;
-    },
-    {
-      onError(e) {
-        console.error(e);
-      },
+      try {
+        const response = await api.getAllPackage();
+        return response.data;
+      } catch (error) {
+        console.error(error);
+      }
     }
   );
 
   useEffect(() => {
     if (data) {
-      setpackageInfo(data);
+      setPackageInfo(data);
     }
   }, [data]);
 
   return (
     <>
-      <div
-        class="container-fluid page-header py-5 mb-5 wow fadeIn"
-        data-wow-delay="0.1s"
-      >
-        <div class="container py-5">
-          <h1 class="display-3 text-white mb-3 animated slideInDown">
+      <div className="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div className="container py-5">
+          <h1 className="display-3 text-white mb-3 animated slideInDown">
             Gói dịch vụ dọn nhà
           </h1>
-          <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb text-uppercase mb-0">
-              <li class="breadcrumb-item">
-                <a class="text-white" href="#">
+          <nav aria-label="breadcrumb" className="animated slideInDown">
+            <ol className="breadcrumb text-uppercase mb-0">
+              <li className="breadcrumb-item">
+                <a className="text-white" href="#">
                   Trang chủ
                 </a>
               </li>
-              <li class="breadcrumb-item">
-                <a class="text-white" href="#">
+              <li className="breadcrumb-item">
+                <a className="text-white" href="#">
                   Gói tiện ích khác
                 </a>
               </li>
-              <li
-                class="breadcrumb-item text-primary active"
-                aria-current="page"
-              >
-                Dịch vụ : {packageInfo.name}
+              <li className="breadcrumb-item text-primary active" aria-current="page">
+                {packageInfo && `Dịch vụ : ${packageInfo.name}`}
               </li>
             </ol>
           </nav>
@@ -58,30 +51,31 @@ const Combo1 = () => {
       </div>
 
       {packageInfo && (
-        <div class="container my-4">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="service-image">
+        <div className="container my-4">
+          <div className="row">
+            <div className="col-md-6">
+              <div className="service-image">
                 <img
                   src={packageInfo.imageUrl}
                   alt="Cleaning House Service"
-                  class="img-fluid rounded-circle"
+                  className="img-fluid rounded-circle"
                 />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="service-info">
-                <h2 class="mb-4">{packageInfo.title}</h2>
+            <div className="col-md-6">
+              <div className="service-info">
+                <h2 className="mb-4">{packageInfo.title}</h2>
                 <p>{packageInfo.description}</p>
                 <h3>Dịch vụ bao gồm</h3>
                 <ul>
-                  {packageInfo.services.map((service, index) => (
-                    <li key={index}>{service}</li>
-                  ))}
+                  {packageInfo.services &&
+                    packageInfo.services.map((service, index) => (
+                      <li key={index}>{service}</li>
+                    ))}
                 </ul>
                 <p>{packageInfo.contactInfo}</p>
-                <button>Đặt lịch ngay</button>
-                <Link to="/booking1" class="btn btn-primary">
+              
+                <Link to="/booking1" className="btn btn-primary">
                   Đặt lịch ngay
                 </Link>
               </div>
