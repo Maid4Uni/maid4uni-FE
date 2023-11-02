@@ -18,6 +18,11 @@ const api = {
     return axiosClient.get(url);
   },
 
+  getPackage: (id) => {
+    const url = `get-a-package/${id}`;
+    return axiosClient.get(url);
+  },
+
   // order
   createOrder: (params) => {
     const url = "create-order";

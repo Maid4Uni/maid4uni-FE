@@ -1,26 +1,13 @@
-import { useRequest } from "ahooks";
 import { useFormik } from "formik";
 import moment from "moment";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import api from "../config/api";
 
 const Booking1 = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem("accessToken");
-
-  const { data, run: booking } = useRequest(
-    async (params) => {
-      const response = await api.createOrder(params);
-      return response.data;
-    }, 1
-    , {
-      manual: true,
-      onError(e) {
-        console.error(e);
-      },
-    }
-  );
+  const packageInfo = JSON.parse(localStorage.getItem("package"));
 
   const formik = useFormik({
     initialValues: {
@@ -43,22 +30,20 @@ const Booking1 = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         const payload = {
           ...rest,
+          workDay: values.workDay.map((item) => Number(item)),
           duration: Number(duration),
-          startTime: {
-            hour: Number(startTime.split(":")[0]),
-            minute: Number(startTime.split(":")[1]),
-            second: 0,
-            nano: 0,
-          },
-          price: 0,
+          startTime,
+          price: packageInfo.price,
           customer: {
             id: user.id,
             userName: user.username,
           },
+          pkgDuty: {
+            id: packageInfo.id,
+          },
         };
-
-        const response = await api.createOrder(payload);
-        navigate(`/checkout/${response.data.id}`);
+        await api.createOrder(payload);
+        navigate(`/checkout`);
       } catch (error) {
         console.error(error);
       }
@@ -103,7 +88,11 @@ const Booking1 = () => {
           </div>
           <div className="row g-4">
             <form id="bookingForm" onSubmit={formik.handleSubmit}>
-              <div><label htmlFor="package" className="booking-text">Tên gói dịch vụ: </label></div>
+              <div>
+                <label htmlFor="package" className="booking-text">
+                  Tên gói dịch vụ: {packageInfo.name}
+                </label>
+              </div>
               <div className="box">
                 <label for="addresss" className="booking-text">
                   Địa chỉ
@@ -302,13 +291,23 @@ const Booking1 = () => {
                   </div>
                 </div>
               </div>
-             
+
+              <div>
+                <label htmlFor="package" className="booking-text mt-3">
+                  Giá: {packageInfo.price}
+                </label>
+              </div>
+
               <div className="col-md-12 mt-1 text-center">
-                <Link to={isLoggedIn ? "/checkout" : "/login"}>
-                  <button id="bookButton" className="btn btn-primary booking-btn">
-                    Đăng ký dịch vụ
-                  </button>
-                </Link>
+                {/* <Link to={isLoggedIn ? "/checkout" : "/login"}> */}
+                <button
+                  type="submit"
+                  id="bookButton"
+                  className="btn btn-primary booking-btn"
+                >
+                  Đăng ký dịch vụ
+                </button>
+                {/* </Link> */}
               </div>
               {/* <div className="col-md-12 mt-1 text-center"> */}
               {/* <Link to="/checkout"> */}
@@ -319,8 +318,8 @@ const Booking1 = () => {
               {/* </div> */}
             </form>
           </div>
-        </div >
-      </div >
+        </div>
+      </div>
     </>
   );
 };

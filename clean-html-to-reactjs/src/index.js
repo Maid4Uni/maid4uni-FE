@@ -38,7 +38,7 @@ root.render(
           <Route path="/service/:id" element={<Combo1 />} />
           <Route path="combo2" element={<Combo2 />} />
           <Route path="login" element={<Login />} />
-          <Route path="/checkout/:id" element={<ConfirmationPage />} />
+          <Route path="/checkout" element={<ConfirmationPage />} />
           <Route path="register" element={<Register />} />
           <Route path="/price" element={<Price />} />
         </Route>
