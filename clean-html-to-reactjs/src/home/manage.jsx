@@ -1,66 +1,130 @@
 import React, { useState } from "react";
-import "./order.css";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import {
+  LocalOffer as LocalOfferIcon,
+  Assignment as AssignmentIcon,
+  Notifications as NotificationsIcon,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
 import Order from "../component/manage/oder";
 import Service from "../component/manage/service";
 
 const Manager = () => {
   const [isMenu, setMenu] = useState("service");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
-      <body>
-        <div className="sidebar">
-          <header>
-            <h1 style={{ color: "#fff", fontSize: "30px", padding: "10px 0" }}>
-              Quản lý
-            </h1>
-          </header>
-          <ul style={{ paddingLeft: "0" }}>
-            <li>
-              <div
-                className="manage-item-menu"
-                style={
-                  isMenu === "service"
-                    ? { color: "#3ba9f6" }
-                    : { color: "white" }
-                }
-                onClick={() => {
-                  setMenu("service");
-                }}
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Button
+            color="inherit"
+            onClick={handleDrawerToggle}
+          >
+            <MenuIcon />
+          </Button>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Quản lý
+          </Typography>
+          <Button
+            color="inherit"
+            onClick={handleMenuClick}
+            aria-controls="personal-menu"
+            aria-haspopup="true"
+          >
+            Tên Người Quản Lý
+          </Button>
+          <Menu
+            id="personal-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+
+      <Container maxWidth="lg">
+        <Box display="flex">
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={drawerOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+          >
+            <List>
+              <ListItemButton
+                onClick={() => setMenu("service")}
+                selected={isMenu === "service"}
               >
-                <i className="fa fa-regular fa-box"></i> Quản lý gói dịch vụ
-              </div>
-            </li>
-            <li>
-              <div
-                className="manage-item-menu"
-                style={
-                  isMenu === "order" ? { color: "#3ba9f6" } : { color: "white" }
-                }
-                onClick={() => {
-                  setMenu("order");
-                }}
+                <ListItemIcon>
+                  <LocalOfferIcon />
+                </ListItemIcon>
+                <ListItemText primary="Quản lý gói dịch vụ" />
+              </ListItemButton>
+              <ListItemButton
+                onClick={() => setMenu("order")}
+                selected={isMenu === "order"}
               >
-                <i className="fa fa-sharp fa-regular fa-clipboard-list"></i>{" "}
-                Quản lý đơn hàng
-              </div>
-            </li>
-            <li>
-              <div
-                className="manage-item-menu"
-                style={
-                  isMenu === "notify"
-                    ? { color: "#3ba9f6" }
-                    : { color: "white" }
-                }
-              >
-                <i className="fa fa-regular fa-envelope"></i> Thông báo
-              </div>
-            </li>
-          </ul>
-        </div>
-        {isMenu === "service" && <Service />}
-        {isMenu === "order" && <Order />}
-      </body>
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Quản lý đơn hàng" />
+              </ListItemButton>
+              <ListItemButton>
+                <ListItemIcon>
+                  <NotificationsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Thông báo" />
+              </ListItemButton>
+            </List>
+          </Drawer>
+
+          <Box
+            sx={{
+              width: "100%",
+              padding: 2,
+            }}
+          >
+            {isMenu === "service" && <Service />}
+            {isMenu === "order" && <Order />}
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 };

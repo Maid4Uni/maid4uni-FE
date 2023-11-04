@@ -11,6 +11,10 @@ const api = {
     const url = "register";
     return axiosClient.post(url, params);
   },
+  getAccountList: () => {
+    const url = "get-account-list";
+    return axiosClient.get(url);
+  },
 
   // package
   getAllPackage: () => {
@@ -36,7 +40,11 @@ const api = {
   },
 
   getPayment: (params) => {
-    const { vnpAmount, vnpOrderInfo, vnpResponseCode } = params;
+    const {
+      vnpAmount,
+      vnpOrderInfo,
+      vnpResponseCode
+    } = params;
     const url = `create-vnpay-payment?vnp_Amount=${vnpAmount}&vnp_OrderInfo=${vnpOrderInfo}&vnp_ResponseCode=${vnpResponseCode}`;
     return axiosClient.post(url);
   },

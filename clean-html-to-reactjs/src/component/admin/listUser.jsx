@@ -1,7 +1,20 @@
 import React, { useState } from "react";
-import ItemUser from "./itemUser";
+import api from "../../config/api";
+import { useRequest } from "ahooks";
 
 const ListUser = () => {
+  const { data } = useRequest(async () => {
+    try {
+      const response = await api.getAccountList();
+      localStorage.setItem("account", JSON.stringify(response.data));
+      console.log(data)
+      return response.data;
+
+    } catch (error) {
+      console.error(error);
+
+    }
+  });
   return (
     <>
       <div className="content-page">
@@ -11,7 +24,7 @@ const ListUser = () => {
               <div className="card">
                 <div className="card-header d-flex justify-content-between">
                   <div className="header-title">
-                    <h4 className="card-title">User List</h4>
+                    <h4 className="card-title">Danh sách tài khoản</h4>
                   </div>
                 </div>
                 <div className="card-body">
@@ -46,26 +59,37 @@ const ListUser = () => {
                         <tr className="ligth">
                           <th>Ảnh đại diện</th>
                           <th>Tên tài khoản</th>
-                          <th>Mật khẩu</th>
-                          <th>Họ và tên</th>
                           <th>Email</th>
+                          <th>Họ và tên</th>
                           <th>Giới tính</th>
                           <th>Số điện thoại</th>
                           <th>Vai trò</th>
-                          <th>Sinh nhật</th>
                           <th>Địa chỉ</th>
                           <th style={{ minWidth: "100px" }}>Thao tác</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
-                        <ItemUser />
+                        {data ? (
+                          data.map((account, index) => (
+                            <tr key={index}>
+                              <td><img src={account.img} alt={account.accountname} /></td>
+                              <td>{account.username}</td>
+                              <td>{account.email}</td>
+                              <td>{account.fullName}</td>
+                              <td>{account.gender}</td>
+                              <td>{account.phoneNumber}</td>
+                              <td>{account.role}</td>
+                              <td>{account.address}</td>
+                              <td style={{ minWidth: "100px" }}>
+                                {/* Add your action buttons here */}
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan="8">Loading...</td>
+                          </tr>
+                        )}
                       </tbody>
                     </table>
                   </div>
