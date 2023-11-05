@@ -30,6 +30,7 @@ root.render(
 
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
+          <Route path="/:vnp_TransactionStatus" element={<Home />} />
           <Route path="blog" element={<Blog />} />
           <Route path="/booking1" element={<Booking1 />} />
           <Route path="booking2" element={<Booking2 />} />

@@ -8,7 +8,7 @@ const ConfirmationPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("");
+        const response = await api.createPayment();
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data from API", error);
@@ -34,13 +34,9 @@ const ConfirmationPage = () => {
           <div class="mt-3">
             <h6>Thông tin dịch vụ</h6>
             <div class="mb-3">
-              <input
-                type="text"
-                id="order"
-                class="form-control"
-                placeholder="Thông tin"
-                required
-              />
+              {
+
+              }
             </div>
             <div class="mb-3">
               <textarea
