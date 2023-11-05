@@ -26,6 +26,11 @@ const api = {
     const url = `get-a-package/${id}`;
     return axiosClient.get(url);
   },
+  getPopularPackage:()=>{
+    const url ='get-most-popular-packages';
+    return axiosClient.get(url);
+
+  },
 
   // order
   createOrder: (params) => {
