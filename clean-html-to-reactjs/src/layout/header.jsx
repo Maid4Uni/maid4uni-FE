@@ -2,12 +2,14 @@ import {
   Box,
   Button,
   Grid,
+  Menu,
+  MenuItem,
   Modal,
   Typography,
 } from "@mui/material";
 import { useRequest } from "ahooks";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../config/api";
@@ -25,14 +27,16 @@ const Header = () => {
       },
     }
   );
-
-  const handleOpen = () => {
-    setOpen(true);
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    navigate("/tracking")
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -97,8 +101,25 @@ const Header = () => {
               <>
                 {user ? (
                   <div class="h-100 d-inline-flex align-items-center">
-                    <div>Chào, {user.username}</div>
-                    <Button onClick={handleLogout}>Đăng xuất</Button>
+                    {/* <div>Chào, {user.username}</div> */}
+                    <Button
+                      color="inherit"
+                      onClick={handleMenuClick}
+                      aria-controls="personal-menu"
+                      aria-haspopup="true"
+                    >
+                      {user.username}
+                    </Button>
+                    <Menu
+                      id="personal-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={Boolean(anchorEl)}
+                      onClose={handleMenuClose}
+                    >
+                      <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+                      <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+                    </Menu>
                   </div>
                 ) : (
                   <Button onClick={() => navigate("/login")}>Đăng nhập</Button>
@@ -143,7 +164,7 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
-              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "300px", height: "100px" }}>
+              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "100px", height: "50px" }}>
                 {data?.map((item) => (
                   <NavLink to={`/service/${item.id}`} class="dropdown-item " >
                     {item.name}

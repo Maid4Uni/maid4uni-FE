@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import moment from "moment";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../config/api";
 
 const Booking1 = () => {
@@ -299,7 +299,7 @@ const Booking1 = () => {
               </div>
 
               <div className="col-md-12 mt-1 text-center">
-                {/* <Link to={isLoggedIn ? "/checkout" : "/login"}> */}
+                <Link to={isLoggedIn ? "/checkout" : "/login"}></Link>
                 <button
                   type="submit"
                   id="bookButton"
