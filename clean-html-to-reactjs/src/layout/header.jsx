@@ -18,7 +18,7 @@ const Header = () => {
   const [open, setOpen] = React.useState(false);
   const { data } = useRequest(
     async () => {
-      const response = await api.getAllPackage();
+      const response = await api.getPopularPackage();
       return response.data;
     },
     {

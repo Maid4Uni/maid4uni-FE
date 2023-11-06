@@ -25,7 +25,7 @@ const OrderDetail = () => {
     setOrderStatus(event.target.value);
   };
   const handleGoBack = () => {
-    navigate("/manager");
+    navigate("/manager#order");
   };
   return (
     <Container maxWidth="md">

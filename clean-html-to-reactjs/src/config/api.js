@@ -11,25 +11,30 @@ const api = {
     const url = "register";
     return axiosClient.post(url, params);
   },
-  getAccountList: () => {
-    const url = "get-account-list";
+  getAccountList: (page) => {
+    const url = `get-account-list/${page}`;
     return axiosClient.get(url);
   },
 
   // package
-  getAllPackage: () => {
-    const url = "get-all-package";
+  getAllPackage: (page) => {
+    const url = `get-all-package/${page}`;
     return axiosClient.get(url);
   },
+
 
   getPackage: (id) => {
     const url = `get-a-package/${id}`;
     return axiosClient.get(url);
   },
-  getPopularPackage:()=>{
-    const url ='get-most-popular-packages';
+  getPopularPackage: () => {
+    const url = 'get-most-popular-packages';
     return axiosClient.get(url);
 
+  },
+  updatePackage: (id) => {
+    const url = `update-package/${id}`;
+    return axiosClient.put(url);
   },
 
   // order
@@ -37,7 +42,11 @@ const api = {
     const url = "create-order";
     return axiosClient.post(url, params);
   },
-
+  //service
+  getAllService: (page) => {
+    const url = `get-all-service/${page}`;
+    return axiosClient.get(url)
+  },
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";

@@ -2,17 +2,6 @@ import React, { useState } from "react";
 import {
     Box,
     Typography,
-    AppBar,
-    Toolbar,
-    IconButton,
-    Menu,
-    MenuItem,
-    Drawer,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Divider,
     Stepper,
     Step,
     StepLabel,
@@ -24,27 +13,10 @@ import {
     TableCell,
     TableBody
 } from "@mui/material";
-import ReorderIcon from '@mui/icons-material/Reorder';
-import { ArrowDropDown } from "@mui/icons-material";
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import HistoryIcon from '@mui/icons-material/History';
-import { Link } from "react-router-dom";
+
 const steps = ["Ordered", "Accepted", "Payed", "On-going Process", "Done"];
 const TrackingPage = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleDrawerToggle = () => {
-        setDrawerOpen(!drawerOpen);
-    };
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
@@ -60,45 +32,7 @@ const TrackingPage = () => {
     };
     return (
         <Box >
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={handleDrawerToggle}
-                    >
-                        <ReorderIcon />
-                    </IconButton>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Typography variant="h6" component="div" sx={{ textAlign: "right" }}>
-                            Tên khách hàng
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <IconButton
-                            size="large"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenu}
-                            color="inherit"
-                        >
-                            <ArrowDropDown />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Trang cá nhân</MenuItem>
-                            <MenuItem onClick={handleClose}>Chỉnh sửa hồ sơ</MenuItem>
-                        </Menu>
-                    </Box>
-                </Toolbar>
-            </AppBar>
+
             <Box sx={{ width: "100%", marginTop: "50px" }}>
                 <Stepper activeStep={activeStep} alternativeLabel>
                     {steps.map((label) => (
@@ -159,27 +93,7 @@ const TrackingPage = () => {
                     Feedback
                 </Button>
             </Box>
-            <Drawer open={drawerOpen} onClose={handleDrawerToggle}>
-                <List>
-                    <ListItem>
-                        <ListItemIcon>
-                            <Inventory2OutlinedIcon />
-                        </ListItemIcon>
-                        <Link to="/tracking" style={{ textDecoration: "none", color: "inherit" }}>
-                            <ListItemText primary="Chi tiết đơn hàng" />
-                        </Link>
-                    </ListItem>
-                    <ListItem>
-                        <ListItemIcon>
-                            <HistoryIcon />
-                        </ListItemIcon>
-                        <Link to="/history" style={{ textDecoration: "none", color: "inherit" }}>
-                            <ListItemText primary="Lịch sử đơn hàng" />
-                        </Link>
-                    </ListItem>
-                </List>
-                <Divider />
-            </Drawer>
+
         </Box>
     );
 };

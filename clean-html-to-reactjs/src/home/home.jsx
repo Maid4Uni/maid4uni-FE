@@ -9,7 +9,7 @@ const Home = () => {
   // const navigate = useNavigate();
   const { data } = useRequest(async () => {
     try {
-      const response = await api.getAllPackage();
+      const response = await api.getPopularPackage();
       localStorage.setItem("package", JSON.stringify(response.data));
       return response.data;
     } catch (error) {
