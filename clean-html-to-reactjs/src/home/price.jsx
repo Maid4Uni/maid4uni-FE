@@ -6,7 +6,7 @@ const Price = () => {
             <div class="container-xxl py-5">
                 <div class="container">
                     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: "600px" }}>
-                        <p class="d-inline-block border rounded-pill py-1 px-4">Bảng giá</p>
+                        <p class="d-inline-block border rounded-pill py-1 px-4">Phân loại</p>
                         <h1>Các dịch vụ cuả EduLuxe</h1>
                     </div>
                     <div class="row g-4">
