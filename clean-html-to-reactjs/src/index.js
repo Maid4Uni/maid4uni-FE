@@ -19,6 +19,7 @@ import Contact from "./home/contact";
 import Price from "./home/price";
 import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
+import Customer from "./home/customer.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -27,6 +28,7 @@ root.render(
         <Route path="/admin" element={<Admin />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/manager/oder-detail" element={<OderDetail />} />
+        <Route path="/customer" element={<Customer />} />
 
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />

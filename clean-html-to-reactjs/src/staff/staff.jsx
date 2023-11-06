@@ -73,7 +73,7 @@ const Manager = () => {
             <MenuIcon />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Quản lý
+            lịch làm việc
           </Typography>
           <Button
             color="inherit"
