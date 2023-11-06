@@ -3,6 +3,7 @@ import api from "../config/api";
 
 const ConfirmationPage = () => {
   const [data, setData] = useState(null);
+  const [orderInfo, setOrderInfo] = useState("");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
 
   useEffect(() => {
@@ -17,9 +18,16 @@ const ConfirmationPage = () => {
 
     fetchData();
   }, []);
-  const handlePayment = () => {
-    // Gọi API của VNPay tại đây
-    window.location.href = "URL_API_VNPAY";
+  const handlePayment = async () => {
+    try {
+      const response = await api.createPayment({
+        orderTotal: packageInfo.price,
+        orderInfo,
+      });
+      window.location.replace(response.data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -33,11 +41,7 @@ const ConfirmationPage = () => {
         <div class="col-md-6">
           <div class="mt-3">
             <h6>Thông tin dịch vụ</h6>
-            <div class="mb-3">
-              {
-
-              }
-            </div>
+            <div class="mb-3">{}</div>
             <div class="mb-3">
               <textarea
                 id="refundPolicy"
@@ -45,10 +49,12 @@ const ConfirmationPage = () => {
                 rows="4"
                 placeholder="Nội dung chuyển tiền"
                 required
+                onChange={(e) => setOrderInfo(e.target.value)}
+                value={orderInfo}
               ></textarea>
             </div>
             <div class="mb-3">
-              <h6 class="fw-bold">Giá Tiền{}</h6>
+              <h6 class="fw-bold">Giá Tiền {packageInfo.price}</h6>
             </div>
 
             <div class="form-check mb-3">

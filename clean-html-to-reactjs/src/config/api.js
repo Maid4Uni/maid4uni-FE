@@ -22,15 +22,13 @@ const api = {
     return axiosClient.get(url);
   },
 
-
   getPackage: (id) => {
     const url = `get-a-package/${id}`;
     return axiosClient.get(url);
   },
   getPopularPackage: () => {
-    const url = 'get-most-popular-packages';
+    const url = "get-most-popular-packages";
     return axiosClient.get(url);
-
   },
   updatePackage: (id) => {
     const url = `update-package/${id}`;
@@ -45,7 +43,7 @@ const api = {
   //service
   getAllService: (page) => {
     const url = `get-all-service/${page}`;
-    return axiosClient.get(url)
+    return axiosClient.get(url);
   },
   // payment
   createPayment: (params) => {
@@ -54,13 +52,9 @@ const api = {
   },
 
   getPayment: (params) => {
-    const {
-      vnpAmount,
-      vnpOrderInfo,
-      vnpResponseCode
-    } = params;
-    const url = `create-vnpay-payment?vnp_Amount=${vnpAmount}&vnp_OrderInfo=${vnpOrderInfo}&vnp_ResponseCode=${vnpResponseCode}`;
-    return axiosClient.post(url);
+    const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
+    const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
+    return axiosClient.get(url);
   },
 };
 
