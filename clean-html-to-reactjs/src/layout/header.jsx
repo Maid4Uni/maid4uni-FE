@@ -164,16 +164,17 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
-              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "100px", height: "50px" }}>
+              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "300px", height: "50px" }}>
                 {data?.map((item) => (
-                  <NavLink to={`/service/${item.id}`} class="dropdown-item " >
+                  <NavLink to={`/service/${item.id}`} class="dropdown-item" >
                     {item.name}
                   </NavLink>
+
                 ))}
               </div>
             </div>
             <NavLink to="/price" class="nav-item nav-link">
-              Bảng giá
+              Phân loại 
             </NavLink>
 
             <NavLink to="/contact" class="nav-item nav-link">

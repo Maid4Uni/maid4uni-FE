@@ -32,16 +32,15 @@ const Home = () => {
   useEffect(() => {
     if (search.size !== 0) {
       if (search.get("vnp_TransactionStatus") === "00") {
-        // Xử lý khi thanh toán thành công
+
         console.log("Thanh toán thành công!");
         getVnpayPayment();
-        // Thực hiện lưu dữ liệu hoặc các hành động khác ở đây
+   
       } else {
-        // Xử lý khi có lỗi trong thanh toán
+      
         console.log("Lỗi trong thanh toán!");
 
-        // Sử dụng navigate để điều hướng đến trang thông báo lỗi
-        // navigate('/error');
+    
       }
     }
   }, [search]);

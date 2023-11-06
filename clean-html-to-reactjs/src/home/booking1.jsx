@@ -294,7 +294,7 @@ const Booking1 = () => {
 
               <div>
                 <label htmlFor="package" className="booking-text mt-3">
-                  Giá: {packageInfo.price}
+                  Giá: {packageInfo.price} VND
                 </label>
               </div>
 
