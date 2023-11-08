@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import api from "../config/api";
 
 const ConfirmationPage = () => {
+  // Trong trang Checkout
+  const order = JSON.parse(localStorage.getItem("order"));
+
   const [data, setData] = useState(null);
   const [orderInfo, setOrderInfo] = useState("");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
@@ -41,50 +44,55 @@ const ConfirmationPage = () => {
         <div className="col-md-6">
           <div className="mt-3">
             <h6>Thông tin dịch vụ</h6>
-            <div className="mb-3">{}</div>
-            <div className="mb-3">
-              <textarea
-                id="refundPolicy"
-                className="form-control"
-                rows="4"
-                placeholder="Nội dung chuyển tiền"
-                required
-                onChange={(e) => setOrderInfo(e.target.value)}
-                value={orderInfo}
-              ></textarea>
-            </div>
-            <div className="mb-3">
-              <h6 className="fw-bold">Giá dịch vụ dự kiến: {packageInfo.price} VND</h6>
-              <h6 style={{color:"red"}}>*Lưu ý:</h6>
-              <p>Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được nhân nhân viên thông báo trước khi tiến hành dịch vụ.</p>
-            </div>
+            <p><strong>Tên khách hàng:</strong> {order.customer.userName}</p>
+            <p><strong>Địa chỉ:</strong> {order.address}</p>
+            <p><strong>Ngày làm việc:</strong> {order.workDay.join(", ")}</p>
+            <p><strong>Thời gian bắt đầu:</strong> {order.startTime}</p>
+            <p><strong>Thời gian làm:</strong> {order.duration} giờ</p>
+            <p><strong>Loại gói dịch vụ:</strong> {order.periodType}</p>
+            <p><strong>Giá:</strong> {order.price} VND</p>
+            <textarea
+              id="refundPolicy"
+              className="form-control"
+              rows="4"
+              placeholder="Nội dung chuyển tiền"
+              required
+              onChange={(e) => setOrderInfo(e.target.value)}
+              value={orderInfo}
+            ></textarea>
+          </div>
+          <div className="mb-3">
+            <h6 className="fw-bold">Giá dịch vụ dự kiến: {packageInfo.price} VND</h6>
+            <h6 style={{ color: "red" }}>*Lưu ý:</h6>
+            <p>Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được nhân nhân viên thông báo trước khi tiến hành dịch vụ.</p>
+          </div>
 
-            <div className="form-check mb-3">
-              <input type="checkbox" className="form-check-input" id="vnpay" />
-              <label className="form-check-label" for="vnpay" style={{color:"black", fontWeight:"bold"}}>
-                VNPay
-              </label>
-            </div>
+          <div className="form-check mb-3">
+            <input type="checkbox" className="form-check-input" id="vnpay" />
+            <label className="form-check-label" for="vnpay" style={{ color: "black", fontWeight: "bold" }}>
+              VNPay
+            </label>
+          </div>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "300px",
-              }}
-            >
-              <a href="/booking1">
-                <button className="btn btn-success">Quay lại</button>
-              </a>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+            }}
+          >
+            <a href="/booking1">
+              <button className="btn btn-success">Quay lại</button>
+            </a>
 
-              <button className="btn btn-success" onClick={handlePayment}>
-                Thanh toán
-              </button>
-            </div>
+            <button className="btn btn-success" onClick={handlePayment}>
+              Thanh toán
+            </button>
           </div>
         </div>
       </div>
     </div>
+  
   );
 };
 
