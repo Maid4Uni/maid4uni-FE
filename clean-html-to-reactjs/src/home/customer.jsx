@@ -82,7 +82,7 @@ const Customer = () => {
                             aria-controls="personal-menu"
                             aria-haspopup="true"
                         >
-                            {user ? user.username : "Manager"}
+                            {user ? user.username : "Customer"}
                         </Button>
                     </Box>
                     <Menu

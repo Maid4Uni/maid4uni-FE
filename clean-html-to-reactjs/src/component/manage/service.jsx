@@ -31,7 +31,7 @@ const Service = () => {
     const { data } = useRequest(async () => {
         try {
             const response = await api.getAllService(page);
-            localStorage.setItem("package", JSON.stringify(response.data));
+            localStorage.setItem("service", JSON.stringify(response.data));
             return response.data;
         } catch (error) {
             console.error(error);

@@ -164,7 +164,7 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
-              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "300px", height: "50px" }}>
+              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "200px", height: "100px" }}>
                 {data?.map((item) => (
                   <NavLink to={`/service/${item.id}`} class="dropdown-item" >
                     {item.name}
@@ -183,14 +183,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
-      {/* <hr
-        style={{
-          color: "black",
-          backgroundColor: "black",
-          height: 1,
-          borderColor: "black",
-        }}
-      /> */}
+     
     </>
   );
 };

@@ -10,7 +10,7 @@ const Footer = () => {
       >
         <div class="container py-5">
           <div class="row g-5">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-6 col-md-6">
               <h5 class="text-light mb-4">Địa chỉ</h5>
               <p class="mb-2" style={{ fontWeight: "400 !important" }}>
                 <i class="fa fa-map-marker-alt me-3"></i>Lô E2a-7, Đường D1, Khu
@@ -22,71 +22,14 @@ const Footer = () => {
               <p class="mb-2">
                 <i class="fa fa-envelope me-3"></i>info@example.com
               </p>
-              <div class="d-flex pt-2">
-                <Link
-                  class="btn btn-outline-light btn-social rounded-circle"
-                  to="/"
-                >
-                  <i class="fab fa-twitter"></i>
-                </Link>
-                <Link
-                  class="btn btn-outline-light btn-social rounded-circle"
-                  to="/"
-                >
-                  <i class="fab fa-facebook-f"></i>
-                </Link>
-                <Link
-                  class="btn btn-outline-light btn-social rounded-circle"
-                  to="/"
-                >
-                  <i class="fab fa-youtube"></i>
-                </Link>
-                <Link
-                  class="btn btn-outline-light btn-social rounded-circle"
-                  to="/"
-                >
-                  <i class="fab fa-linkedin-in"></i>
-                </Link>
-              </div>
+             
             </div>
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-light mb-4">Gói dịch vụ</h5>
-              <Link class="btn btn-link" to="/combo1">
-                Dọn dẹp nhà
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Nấu ăn
-              </Link>
-              <Link class="btn btn-link" to="/combo2">
-                Giặt giũ
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Vệ sinh nhà tắm
-              </Link>
-            </div>
-            <div class="col-lg-3 col-md-6">
-              <h5 class="text-light mb-4">Truy cập nhanh</h5>
-              <Link class="btn btn-link" to="/about">
-                Về chúng tôi
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Liên hệ
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Gói dịch vụ
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Quyền lợi & Điều khoản
-              </Link>
-              <Link class="btn btn-link" to="/">
-                Hỗ trợ
-              </Link>
-            </div>
-            <div class="col-lg-3 col-md-6">
+          
+            <div class="col-lg-6 col-md-6">
               <h5 class="text-light mb-4">Góp ý</h5>
               <p>
                 Đừng ngần ngại đóng góp ý kiến nhé! Ý kiến của bạn đóng vai trò
-                cho sự phát triển của chúng tôi
+                cho sự phát triển  ủa chúng tôi
               </p>
               <div
                 class="position-relative mx-auto"
