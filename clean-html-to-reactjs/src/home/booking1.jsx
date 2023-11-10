@@ -9,7 +9,8 @@ const Booking1 = () => {
   const isLoggedIn = localStorage.getItem("accessToken");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
   const [servicePrice, setServicePrice] = useState(0);
-s
+  const [selectedWorkDays, setSelectedWorkDays] = useState([]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -62,7 +63,7 @@ s
     const selectedDuration = formik.values.duration;
 
     // Danh sách ngày làm việc đã chọn
-    const selectedDays = formik.values.workDay;
+    const selectedDays = selectedWorkDays;
 
     // Thực hiện tính toán giá dựa trên loại gói, số giờ làm việc và ngày làm việc
     let price = 0;

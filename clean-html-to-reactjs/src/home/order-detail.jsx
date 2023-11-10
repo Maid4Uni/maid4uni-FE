@@ -14,9 +14,10 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const OrderDetail = () => {
+  const { page } = useParams();
   const navigate = useNavigate();
 
   const [orderStatus, setOrderStatus] = useState("Đã đặt hàng");
@@ -25,12 +26,12 @@ const OrderDetail = () => {
     setOrderStatus(event.target.value);
   };
   const handleGoBack = () => {
-    navigate("/manager#order");
+    navigate(`/manager/package/${page || '0'}`);
   };
   return (
     <Container maxWidth="md">
-      <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize:"30px" }}>
-         Chi tiết đơn hàng
+      <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
+        Chi tiết đơn hàng
       </Typography>
       <Paper>
         <Table>
@@ -120,7 +121,7 @@ const OrderDetail = () => {
               display: "flex",
               justifyContent: "center",
               margin: "20px 0",
-            
+
             }}
             fullWidth
           >
@@ -133,7 +134,7 @@ const OrderDetail = () => {
           display: "flex",
           justifyContent: "center",
           margin: "20px 0",
-        
+
         }}
       >
         <Button

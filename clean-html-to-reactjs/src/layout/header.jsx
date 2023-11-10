@@ -101,7 +101,7 @@ const Header = () => {
               <>
                 {user ? (
                   <div class="h-100 d-inline-flex align-items-center">
-                    {/* <div>Chào, {user.username}</div> */}
+
                     <Button
                       color="inherit"
                       onClick={handleMenuClick}
@@ -159,22 +159,21 @@ const Header = () => {
             <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
               <NavLink
                 to="/service"
-                class="nav-link dropdown-toggle"
+                className="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown"
               >
                 Gói dịch vụ
               </NavLink>
-              <div class="dropdown-menu rounded-0 rounded-bottom m-0 " style={{ width: "200px", height: "100px" }}>
+              <div className="dropdown-menu rounded-0 rounded-bottom m-0" style={{ width: "100%", minWidth: "227px" }}>
                 {data?.map((item) => (
-                  <NavLink to={`/service/${item.id}`} class="dropdown-item" >
+                  <NavLink to={`/service/${item.id}`} className="dropdown-item" key={item.id}>
                     {item.name}
                   </NavLink>
-
                 ))}
               </div>
             </div>
             <NavLink to="/price" class="nav-item nav-link">
-              Phân loại 
+              Phân loại
             </NavLink>
 
             <NavLink to="/contact" class="nav-item nav-link">
@@ -183,7 +182,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
-     
+
     </>
   );
 };
