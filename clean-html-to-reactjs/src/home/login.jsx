@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../config/api";
 
 const Login = () => {
+  const { menu, page } = useParams();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,18 +18,7 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await api.login({ username, password });
-  //     localStorage.setItem("accessToken", response.data.accessToken);
-  //     localStorage.setItem("user", JSON.stringify(response.data.account));
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error(error);
-  //     setError("Đăng nhập không thành công. Vui lòng thử lại.");
-  //   }
-  // };
+
   useEffect(() => {
     validateForm();
   }, [username, password]);
@@ -59,8 +49,7 @@ const Login = () => {
       } else if (userRole === "ADMIN") {
         navigate("/admin");
       } else if (userRole === "MANAGER") {
-        navigate("/manager");
-      }
+        navigate(`/manager/package/${page || '0'}`);      }
     } catch (error) {
       console.error(error);
       setError("Đăng nhập không thành công. Vui lòng thử lại.");

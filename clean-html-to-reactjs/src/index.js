@@ -26,10 +26,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/admin" element={<Admin />} />
-        <Route path="/manager" element={<Manager />} />
+        <Route path="/manager/:menu/:page/" element={<Manager />} />
         <Route path="/manager/oder-detail" element={<OderDetail />} />
         <Route path="/customer" element={<Customer />} />
-
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="/:vnp_TransactionStatus" element={<Home />} />

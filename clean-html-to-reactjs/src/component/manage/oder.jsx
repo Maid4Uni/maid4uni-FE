@@ -26,7 +26,7 @@ const Order = () => {
 
   return (
     <>
-      <Typography variant="h5" sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}>Quản lý dịch vụ</Typography>
+      <Typography variant="h5" sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}>Quản lý đơn hàng</Typography>
       <div className="input-group mb-3" style={{ marginBottom: "20px", width: "20%" }}>
         <input
           type="text"
@@ -102,7 +102,7 @@ const Order = () => {
                       padding: "4px 4px",
                       borderRadius: "4px",
                     }}
-                    onClick={handleDetail} // Sử dụng hàm đã tạo để điều hướng
+                    onClick={handleDetail} 
                   >
                     Chi tiết
                   </Button>

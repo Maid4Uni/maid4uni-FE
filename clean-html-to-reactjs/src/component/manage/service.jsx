@@ -31,7 +31,7 @@ const Service = () => {
     const { data } = useRequest(async () => {
         try {
             const response = await api.getAllService(page);
-            localStorage.setItem("package", JSON.stringify(response.data));
+            localStorage.setItem("service", JSON.stringify(response.data));
             return response.data;
         } catch (error) {
             console.error(error);
@@ -58,8 +58,8 @@ const Service = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>STT</TableCell>
-                            <TableCell align="right">Dịch vụ</TableCell>
-                            <TableCell align="right">Bao gồm</TableCell>
+                            <TableCell align="left">Dịch vụ</TableCell>
+                            <TableCell align="center">Bao gồm</TableCell>
                             <TableCell align="right">Giá</TableCell>
                             <TableCell align="center">Ngày tạo</TableCell>
                             <TableCell align="right">Thao tác</TableCell>
@@ -76,8 +76,8 @@ const Service = () => {
                                         <TableCell component="th" scope="row">
                                             {service.id}
                                         </TableCell>
-                                        <TableCell align="right">{service.name}</TableCell>
-                                        <TableCell align="right"> {service.description}</TableCell>
+                                        <TableCell align="left">{service.name}</TableCell>
+                                        <TableCell align="left"> {service.description}</TableCell>
                                         <TableCell align="right">{service.price}</TableCell>
                                         <TableCell align="center">{service.createdAt}</TableCell>
                                        
@@ -102,6 +102,12 @@ const Service = () => {
                     page={currentPage}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
+                    sx={{
+                        mx: 'auto',
+                        textAlign: 'center',
+                        borderTop: '1px solid rgba(224, 224, 224, 1)', // Add a border at the top
+                        paddingTop: '10px', // Adjust top padding as needed
+                      }}
                 />
             </TableContainer>
         </>

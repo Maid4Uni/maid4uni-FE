@@ -1,12 +1,14 @@
 import { useRequest } from "ahooks";
-import { useCallback, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import BannerSlider from "../component/home/bannerSlide";
 import FeedBackSlider from "../component/home/feedBackSlider";
 import api from "../config/api";
+
+
 const Home = () => {
   const [search] = useSearchParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { data } = useRequest(async () => {
     try {
       const response = await api.getPopularPackage();
@@ -30,21 +32,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (search.size !== 0) {
-      if (search.get("vnp_TransactionStatus") === "00") {
-
-        console.log("Thanh toán thành công!");
-        getVnpayPayment();
-   
-      } else {
-      
-        console.log("Lỗi trong thanh toán!");
-
-    
-      }
+    const vnp_TransactionStatus = search.get('vnp_TransactionStatus');
+    if (vnp_TransactionStatus === '00') {
+      alert('Giao dịch đã thành công!');
+      // navigate('/');
     }
-  }, [search]);
-
+  }, [search, navigate]);
   return (
     <>
       <BannerSlider />
