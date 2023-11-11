@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import api from "../config/api";
 
 const ConfirmationPage = () => {
+  // Trong trang Checkout
+  const order = JSON.parse(localStorage.getItem("order"));
+
   const [data, setData] = useState(null);
+  const [orderInfo, setOrderInfo] = useState("");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
 
   useEffect(() => {
@@ -17,66 +21,78 @@ const ConfirmationPage = () => {
 
     fetchData();
   }, []);
-  const handlePayment = () => {
-    // Gọi API của VNPay tại đây
-    window.location.href = "URL_API_VNPAY";
+  const handlePayment = async () => {
+    try {
+      const response = await api.createPayment({
+        orderTotal: packageInfo.price,
+        orderInfo,
+      });
+      window.location.replace(response.data);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <div class="container">
-      <h4 class="text-center mt-5">Xác Nhận Thanh Toán</h4>
-      <div class="row mt-3">
-        <div class="col-md-6">
-          <img src="" alt="Gói Dịch Vụ" class="img-fluid" />
-          <h5 class="mt-2 mb-1">Tên Gói Dịch Vụ: {packageInfo.name} </h5>
+    <div className="container">
+      <h4 className="text-center mt-5">Xác Nhận Thanh Toán</h4>
+      <div className="row mt-3">
+        <div className="col-md-6">
+          <img src="" alt="Gói Dịch Vụ" className="img-fluid" />
+          <h5 className="mt-2 mb-1">Tên Gói Dịch Vụ: {packageInfo.name} </h5>
         </div>
-        <div class="col-md-6">
-          <div class="mt-3">
+        <div className="col-md-6">
+          <div className="mt-3">
             <h6>Thông tin dịch vụ</h6>
-            <div class="mb-3">
-              {
+            <p><strong>Tên khách hàng:</strong> {order.customer.userName}</p>
+            <p><strong>Địa chỉ:</strong> {order.address}</p>
+            <p><strong>Ngày làm việc:</strong> {order.workDay.join(", ")}</p>
+            <p><strong>Thời gian bắt đầu:</strong> {order.startTime}</p>
+            <p><strong>Thời gian làm:</strong> {order.duration} giờ</p>
+            <p><strong>Loại gói dịch vụ:</strong> {order.periodType}</p>
+            <p><strong>Giá:</strong> {order.price} VND</p>
+            <textarea
+              id="refundPolicy"
+              className="form-control"
+              rows="4"
+              placeholder="Nội dung chuyển tiền"
+              required
+              onChange={(e) => setOrderInfo(e.target.value)}
+              value={orderInfo}
+            ></textarea>
+          </div>
+          <div className="mb-3">
+            <h6 className="fw-bold">Giá dịch vụ dự kiến: {packageInfo.price} VND</h6>
+            <h6 style={{ color: "red" }}>*Lưu ý:</h6>
+            <p>Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được nhân nhân viên thông báo trước khi tiến hành dịch vụ.</p>
+          </div>
 
-              }
-            </div>
-            <div class="mb-3">
-              <textarea
-                id="refundPolicy"
-                class="form-control"
-                rows="4"
-                placeholder="Nội dung chuyển tiền"
-                required
-              ></textarea>
-            </div>
-            <div class="mb-3">
-              <h6 class="fw-bold">Giá Tiền{}</h6>
-            </div>
+          <div className="form-check mb-3">
+            <input type="checkbox" className="form-check-input" id="vnpay" />
+            <label className="form-check-label" for="vnpay" style={{ color: "black", fontWeight: "bold" }}>
+              VNPay
+            </label>
+          </div>
 
-            <div class="form-check mb-3">
-              <input type="checkbox" class="form-check-input" id="vnpay" />
-              <label class="form-check-label" for="vnpay">
-                VNPay
-              </label>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "300px",
+            }}
+          >
+            <a href="/booking1">
+              <button className="btn btn-success">Quay lại</button>
+            </a>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "300px",
-              }}
-            >
-              <a href="/booking1">
-                <button class="btn btn-success">Quay lại</button>
-              </a>
-
-              <button class="btn btn-success" onClick={handlePayment}>
-                Thanh toán
-              </button>
-            </div>
+            <button className="btn btn-success" onClick={handlePayment}>
+              Thanh toán
+            </button>
           </div>
         </div>
       </div>
     </div>
+  
   );
 };
 

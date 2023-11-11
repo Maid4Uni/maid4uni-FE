@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import api from "../../config/api";
 import { useRequest } from "ahooks";
+import { useParams } from "react-router-dom";
 
 const ListUser = () => {
+  const page = useParams();
   const { data } = useRequest(async () => {
     try {
-      const response = await api.getAccountList();
+      const response = await api.getAccountList(page);
       localStorage.setItem("account", JSON.stringify(response.data));
       console.log(data)
       return response.data;

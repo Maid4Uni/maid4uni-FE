@@ -70,7 +70,6 @@ const Combo1 = () => {
                   <li key={index}>{service.name}</li>
                 ))}
               </ul>
-              <p>{data?.creator.username}</p>
 
               <Link to="/booking1" className="btn btn-primary">
                 Đặt lịch ngay

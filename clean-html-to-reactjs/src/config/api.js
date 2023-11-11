@@ -11,14 +11,14 @@ const api = {
     const url = "register";
     return axiosClient.post(url, params);
   },
-  getAccountList: () => {
-    const url = "get-account-list";
+  getAccountList: (page) => {
+    const url = `get-account-list/${page}`;
     return axiosClient.get(url);
   },
 
   // package
-  getAllPackage: () => {
-    const url = "get-all-package";
+  getAllPackage: (page) => {
+    const url = `get-all-package/${page}`;
     return axiosClient.get(url);
   },
 
@@ -26,10 +26,13 @@ const api = {
     const url = `get-a-package/${id}`;
     return axiosClient.get(url);
   },
-  getPopularPackage:()=>{
-    const url ='get-most-popular-packages';
+  getPopularPackage: () => {
+    const url = "get-most-popular-packages";
     return axiosClient.get(url);
-
+  },
+  updatePackage: (id) => {
+    const url = `update-package/${id}`;
+    return axiosClient.put(url);
   },
 
   // order
@@ -37,7 +40,11 @@ const api = {
     const url = "create-order";
     return axiosClient.post(url, params);
   },
-
+  //service
+  getAllService: (page) => {
+    const url = `get-all-service/${page}`;
+    return axiosClient.get(url);
+  },
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";
@@ -45,13 +52,9 @@ const api = {
   },
 
   getPayment: (params) => {
-    const {
-      vnpAmount,
-      vnpOrderInfo,
-      vnpResponseCode
-    } = params;
-    const url = `create-vnpay-payment?vnp_Amount=${vnpAmount}&vnp_OrderInfo=${vnpOrderInfo}&vnp_ResponseCode=${vnpResponseCode}`;
-    return axiosClient.post(url);
+    const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
+    const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
+    return axiosClient.get(url);
   },
 };
 

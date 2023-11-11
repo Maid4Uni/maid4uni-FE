@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -21,47 +21,38 @@ import {
   Menu as MenuIcon,
 } from "@mui/icons-material";
 import Order from "../component/manage/oder";
-import Service from "../component/manage/service"; // Corrected import
+import Service from "../component/manage/package";
 import Package from "../component/manage/package";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
 
 const Manager = () => {
-  const { menu, page } = useParams();
-  const navigate = useNavigate();
-
-  const [isMenu, setMenu] = useState(page?.toString() || "package");
+  const { page } = useParams();
+  const [isMenu, setMenu] = useState("package");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  useEffect(() => {
-    if (!menu) {
-      navigate(`/manager/${isMenu}/${page || ''}`);
-    }
-  }, [menu, isMenu, page, navigate]);
-
   const data = async (values) => {
     try {
       const response = await api.login(values);
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate(`/manager/${isMenu}/${page || ''}`);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
-  };
-
+  }
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
   const handleLogout = () => {
+
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
+
     navigate("/");
   };
-
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,17 +61,19 @@ const Manager = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <>
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
-          <Button color="inherit" onClick={handleDrawerToggle}>
+          <Button
+            color="inherit"
+            onClick={handleDrawerToggle}
+          >
             <MenuIcon />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Quản lý
+            lịch làm việc
           </Typography>
           <Button
             color="inherit"
@@ -88,7 +81,7 @@ const Manager = () => {
             aria-controls="personal-menu"
             aria-haspopup="true"
           >
-            {user ? user.username : "Manager"}
+            {user ? user.username : 'Manager'}
           </Button>
           <Menu
             id="personal-menu"
@@ -98,14 +91,10 @@ const Manager = () => {
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleLogout();
-                handleMenuClose();
-              }}
-            >
-              Đăng xuất
-            </MenuItem>
+            <MenuItem onClick={() => {
+              handleLogout();
+              handleMenuClose();
+            }}>Đăng xuất</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
