@@ -9,16 +9,11 @@ import { useNavigate } from "react-router-dom";
 const Admin = () => {
   const navigate = useNavigate();
   const [isTab, setTab] = useState(true);
-<<<<<<< HEAD
-=======
-
->>>>>>> hh
   const handleActiveTab = (e) => {
     setTab(e);
   };
 
   useEffect(() => {
-<<<<<<< HEAD
     // Thực hiện xác thực người dùng và lấy vai trò của họ sau khi họ đăng nhập
     const authenticateUser = async () => {
       try {
@@ -29,31 +24,14 @@ const Admin = () => {
         // Kiểm tra vai trò của người dùng và điều hướng tùy theo kết quả
         if (userRole !== "ADMIN") {
           navigate("/login"); // Điều hướng đến trang đăng nhập hoặc bất kỳ trang nào bạn chọn
-=======
-    const authenticateUser = async () => {
-      try {
-        const response = await api.login();
-        localStorage.setItem("user", JSON.stringify(response.data.account));
-        const userRole = response.data.account.role;
-
-        if (userRole !== "ADMIN") {
-          navigate("/login");
->>>>>>> hh
         }
       } catch (error) {
         console.error(error);
       }
     };
 
-<<<<<<< HEAD
     authenticateUser(); // Gọi hàm xác thực người dùng khi thành phần được tạo
   }, [navigate]);
-=======
-    authenticateUser();
-
-    // Add a missing closing brace here
-  }, []); // <- Add dependency array if needed
->>>>>>> hh
 
   return (
     <>

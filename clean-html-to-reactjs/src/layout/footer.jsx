@@ -8,15 +8,6 @@ const Footer = () => {
         className="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn"
         data-wow-delay="0.1s"
       >
-<<<<<<< HEAD
-        <div className="container py-5">
-          <div className="row g-5">
-            <div className="col-lg-6 col-md-6">
-              <h5 className="text-light mb-4">Địa chỉ</h5>
-              <p className="mb-2" style={{ fontWeight: "400 !important" }}>
-                <i className="fa fa-map-marker-alt me-3"></i>Lô E2a-7, Đường D1,
-                Khu Công nghệ cao, P.Long Thạnh Mỹ, Tp. Thủ Đức, TP.HCM.
-=======
         <div class="container py-5">
           <div class="row g-5">
             <div class="col-lg-6 col-md-6">
@@ -24,7 +15,6 @@ const Footer = () => {
               <p class="mb-2" style={{ fontWeight: "400 !important" }}>
                 <i class="fa fa-map-marker-alt me-3"></i>Lô E2a-7, Đường D1, Khu
                 Công nghệ cao, P.Long Thạnh Mỹ, Tp. Thủ Đức, TP.HCM.
->>>>>>> hh
               </p>
               <p className="mb-2">
                 <i className="fa fa-phone-alt me-3"></i>+012 345 67890
@@ -32,24 +22,13 @@ const Footer = () => {
               <p className="mb-2">
                 <i className="fa fa-envelope me-3"></i>info@example.com
               </p>
-<<<<<<< HEAD
             </div>
 
-            <div className="col-lg-6 col-md-6">
-              <h5 className="text-light mb-4">Góp ý</h5>
-              <p>
-                Đừng ngần ngại đóng góp ý kiến nhé! Ý kiến của bạn đóng vai trò
-                cho sự phát triển ủa chúng tôi
-=======
-             
-            </div>
-          
             <div class="col-lg-6 col-md-6">
               <h5 class="text-light mb-4">Góp ý</h5>
               <p>
                 Đừng ngần ngại đóng góp ý kiến nhé! Ý kiến của bạn đóng vai trò
-                cho sự phát triển  ủa chúng tôi
->>>>>>> hh
+                cho sự phát triển ủa chúng tôi
               </p>
               <div
                 className="position-relative mx-auto"

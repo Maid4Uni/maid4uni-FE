@@ -22,12 +22,20 @@ const Order = () => {
   // Hàm để điều hướng sang trang chi tiết
   const handleDetail = () => {
     navigate("/manager/oder-detail");
-  }
+  };
 
   return (
     <>
-      <Typography variant="h5" sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}>Quản lý đơn hàng</Typography>
-      <div className="input-group mb-3" style={{ marginBottom: "20px", width: "20%" }}>
+      <Typography
+        variant="h5"
+        sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}
+      >
+        Quản lý đơn hàng
+      </Typography>
+      <div
+        className="input-group mb-3"
+        style={{ marginBottom: "20px", width: "20%" }}
+      >
         <input
           type="text"
           className="form-control"
@@ -35,7 +43,6 @@ const Order = () => {
           // value={searchText}
           // onChange={handleSearchTextChange}
         />
-
       </div>
       <div className="col-2">
         <FormControl variant="outlined" style={{ width: "100%" }}>
@@ -102,7 +109,7 @@ const Order = () => {
                       padding: "4px 4px",
                       borderRadius: "4px",
                     }}
-                    onClick={handleDetail} 
+                    onClick={handleDetail}
                   >
                     Chi tiết
                   </Button>
@@ -112,7 +119,6 @@ const Order = () => {
           </Table>
         </TableContainer>
       </section>
-    
     </>
   );
 };

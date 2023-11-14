@@ -30,15 +30,9 @@ const api = {
     const url = "get-most-popular-packages";
     return axiosClient.get(url);
   },
-<<<<<<< HEAD
-  updatePackage: (id) => {
-    const url = `update-package/${id}`;
-    return axiosClient.put(url);
-=======
   updatePackage: (id, data) => {
     const url = `update-package/${id}`;
     return axiosClient.put(url, data);
->>>>>>> hh
   },
 
   // order
@@ -61,14 +55,11 @@ const api = {
     const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
     const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
     return axiosClient.get(url);
-<<<<<<< HEAD
   },
 
   getBestReview: () => {
     const url = "get-best-review";
     return axiosClient.get(url);
-=======
->>>>>>> hh
   },
 };
 

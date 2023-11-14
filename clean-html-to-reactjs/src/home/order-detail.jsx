@@ -26,11 +26,15 @@ const OrderDetail = () => {
     setOrderStatus(event.target.value);
   };
   const handleGoBack = () => {
-    navigate(`/manager/package/${page || '0'}`);
+    navigate(`/manager/package/${page || "0"}`);
   };
   return (
     <Container maxWidth="md">
-      <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
+      <Typography
+        variant="h6"
+        align="center"
+        style={{ margin: "20px 0", fontSize: "30px" }}
+      >
         Chi tiết đơn hàng
       </Typography>
       <Paper>
@@ -83,11 +87,7 @@ const OrderDetail = () => {
           </Typography>
           <FormControl variant="outlined" fullWidth>
             <InputLabel htmlFor="name">Tên nhân viên</InputLabel>
-            <Select
-              label="Tên nhân viên"
-              fullWidth
-              id="name"
-            ></Select>
+            <Select label="Tên nhân viên" fullWidth id="name"></Select>
           </FormControl>
           <Button
             variant="contained"
@@ -121,7 +121,6 @@ const OrderDetail = () => {
               display: "flex",
               justifyContent: "center",
               margin: "20px 0",
-
             }}
             fullWidth
           >
@@ -134,14 +133,9 @@ const OrderDetail = () => {
           display: "flex",
           justifyContent: "center",
           margin: "20px 0",
-
         }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleGoBack}
-        >
+        <Button variant="contained" color="primary" onClick={handleGoBack}>
           Quay lại
         </Button>
       </div>
