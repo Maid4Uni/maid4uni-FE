@@ -47,7 +47,9 @@ const Login = () => {
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
-        navigate("/admin");
+        navigate(`/admin/${page || '0'}`);
+      }else if (userRole === "STAFF") {
+          navigate("/staff");
       } else if (userRole === "MANAGER") {
         navigate(`/manager/package/${page || '0'}`);      }
     } catch (error) {

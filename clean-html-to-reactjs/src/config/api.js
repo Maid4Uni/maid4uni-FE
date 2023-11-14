@@ -30,9 +30,9 @@ const api = {
     const url = "get-most-popular-packages";
     return axiosClient.get(url);
   },
-  updatePackage: (id) => {
+  updatePackage: (id, data) => {
     const url = `update-package/${id}`;
-    return axiosClient.put(url);
+    return axiosClient.put(url, data);
   },
 
   // order

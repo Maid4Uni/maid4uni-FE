@@ -33,7 +33,7 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    navigate("/tracking")
+    navigate("/customer")
   };
   const [anchorEl, setAnchorEl] = useState(null);
 

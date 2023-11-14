@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../config/api";
 import { useRequest } from "ahooks";
 import { useParams } from "react-router-dom";
 
 const ListUser = () => {
   const page = useParams();
+  const [currentPage, setCurrentPage] = useState(page || 0);
   const { data } = useRequest(async () => {
     try {
-      const response = await api.getAccountList(page);
+      const response = await api.getAccountList(currentPage);
       localStorage.setItem("account", JSON.stringify(response.data));
-      console.log(data)
+
       return response.data;
 
     } catch (error) {
@@ -17,6 +18,14 @@ const ListUser = () => {
 
     }
   });
+  useEffect(() => {
+   
+  }, [currentPage]);
+
+  const handlePageChange = (newPage) => {
+    // Update the URL and current page when the user changes the page
+    setCurrentPage(newPage);
+  };
   return (
     <>
       <div className="content-page">
@@ -67,7 +76,7 @@ const ListUser = () => {
                           <th>Số điện thoại</th>
                           <th>Vai trò</th>
                           <th>Địa chỉ</th>
-                          <th style={{ minWidth: "100px" }}>Thao tác</th>
+                          <th style={{ minWidth: "100px" }}></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -95,40 +104,45 @@ const ListUser = () => {
                       </tbody>
                     </table>
                   </div>
-                  <div className="row justify-content-between mt-3">
+                  <div className="row justify-content-between">
                     <div id="user-list-page-info" className="col-md-6">
-                      <span>Showing 1 to 5 of 5 entries</span>
+                      <span>Showing 1 to {data ? data.length : 0} of {data ? data.length : 0} entries</span>
                     </div>
                     <div className="col-md-6">
                       <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-end mb-0">
-                          <li className="page-item disabled">
+                          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                             <a
                               className="page-link"
                               href="#"
-                              tabindex="-1"
+                              onClick={() => handlePageChange(currentPage - 1)}
+                              tabIndex="-1"
                               aria-disabled="true"
                             >
                               Previous
                             </a>
                           </li>
-                          <li className="page-item active">
-                            <a className="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
+                          {data &&
+                            data.map((_, index) => (
+                              <li
+                                key={index}
+                                className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
+                              >
+                                <a
+                                  className="page-link"
+                                  href="#"
+                                  onClick={() => handlePageChange(index + 1)}
+                                >
+                                  {index + 1}
+                                </a>
+                              </li>
+                            ))}
+                          <li className={`page-item ${currentPage === (data ? data.length : 0) ? "disabled" : ""}`}>
+                            <a
+                              className="page-link"
+                              href="#"
+                              onClick={() => handlePageChange(currentPage + 1)}
+                            >
                               Next
                             </a>
                           </li>

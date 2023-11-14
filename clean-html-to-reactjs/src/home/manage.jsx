@@ -21,7 +21,7 @@ import {
   Menu as MenuIcon,
 } from "@mui/icons-material";
 import Order from "../component/manage/oder";
-import Service from "../component/manage/service"; // Corrected import
+import Service from "../component/manage/service"; 
 import Package from "../component/manage/package";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";

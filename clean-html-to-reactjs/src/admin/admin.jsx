@@ -9,29 +9,30 @@ import { useNavigate } from "react-router-dom";
 const Admin = () => {
   const navigate = useNavigate();
   const [isTab, setTab] = useState(true);
+
   const handleActiveTab = (e) => {
     setTab(e);
   };
 
   useEffect(() => {
-    // Thực hiện xác thực người dùng và lấy vai trò của họ sau khi họ đăng nhập
     const authenticateUser = async () => {
       try {
-        const response = await api.login(); // Thay thế username và password bằng thông tin đăng nhập thực tế
+        const response = await api.login();
         localStorage.setItem("user", JSON.stringify(response.data.account));
         const userRole = response.data.account.role;
 
-        // Kiểm tra vai trò của người dùng và điều hướng tùy theo kết quả
         if (userRole !== "ADMIN") {
-          navigate("/login"); // Điều hướng đến trang đăng nhập hoặc bất kỳ trang nào bạn chọn
+          navigate("/login");
         }
       } catch (error) {
         console.error(error);
       }
     };
 
-    authenticateUser(); // Gọi hàm xác thực người dùng khi thành phần được tạo
-  }, [navigate]);
+    authenticateUser();
+
+    // Add a missing closing brace here
+  }, []); // <- Add dependency array if needed
 
   return (
     <>
