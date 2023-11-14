@@ -63,16 +63,15 @@ const Register = () => {
             formik.handleSubmit();
           }}
         >
-        
-          <div class="form-outline mt-2">
-            <label class="form-label" for="username">
+          <div className="form-outline mt-2">
+            <label className="form-label" for="username">
               Tài khoản
             </label>
             <input
               type="text"
               id="username"
               name="username"
-              class="form-control"
+              className="form-control"
               placeholder="Nhập tài khoản"
               value={formik.values.username}
               onChange={formik.handleChange}
@@ -87,15 +86,15 @@ const Register = () => {
               <div style={{ color: "red" }}>{formik.errors.username}</div>
             ) : null}
           </div>
-          <div class="form-outline mt-2">
-            <label class="form-label" for="fullName">
+          <div className="form-outline mt-2">
+            <label className="form-label" for="fullName">
               Họ và tên
             </label>
             <input
               type="text"
               id="fullName"
               name="fullName"
-              class="form-control"
+              className="form-control"
               placeholder="Họ và tên"
               value={formik.values.fullName}
               onChange={formik.handleChange}
@@ -105,15 +104,15 @@ const Register = () => {
               <div style={{ color: "red" }}>{formik.errors.fullName}</div>
             ) : null}
           </div>
-          <div class="form-outline mb-4">
-            <label class="form-label" for="email">
+          <div className="form-outline mb-4">
+            <label className="form-label" for="email">
               Email
             </label>
             <input
               type="email"
               id="email"
               name="email"
-              class="form-control"
+              className="form-control"
               placeholder="Nhập địa chỉ email"
               value={formik.values.email}
               onChange={formik.handleChange}
@@ -123,15 +122,15 @@ const Register = () => {
               <div style={{ color: "red" }}>{formik.errors.email}</div>
             ) : null}
           </div>
-          <div class="form-outline mb-4">
-            <label class="form-label" for="phoneNumber">
+          <div className="form-outline mb-4">
+            <label className="form-label" for="phoneNumber">
               Số điện thoại
             </label>
             <input
               type="text"
               id="phoneNumber"
               name="phoneNumber"
-              class="form-control"
+              className="form-control"
               placeholder="Nhập số điện thoại"
               value={formik.values.phoneNumber}
               onChange={formik.handleChange}
@@ -141,15 +140,15 @@ const Register = () => {
               <div style={{ color: "red" }}>{formik.errors.phoneNumber}</div>
             ) : null}
           </div>
-          <div class="form-outline mb-4">
-            <label class="form-label" for="password">
+          <div className="form-outline mb-4">
+            <label className="form-label" for="password">
               Mật khẩu
             </label>
             <input
               type="password"
               id="password"
               name="password"
-              class="form-control"
+              className="form-control"
               placeholder="Nhập mật khẩu"
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -159,15 +158,15 @@ const Register = () => {
               <div style={{ color: "red" }}>{formik.errors.password}</div>
             ) : null}
           </div>
-          <div class="form-outline mb-4">
-            <label class="form-label" for="confirmPassword">
+          <div className="form-outline mb-4">
+            <label className="form-label" for="confirmPassword">
               Xác thực mật khẩu
             </label>
             <input
               type="password"
               id="confirmPassword"
               name="confirmPassword"
-              class="form-control"
+              className="form-control"
               placeholder="Nhập lại mật khẩu"
               value={formik.values.confirmPassword}
               onChange={formik.handleChange}
@@ -181,7 +180,7 @@ const Register = () => {
           </div>
           <button
             type="submit"
-            class="btn btn-primary btn-block mb-4"
+            className="btn btn-primary btn-block mb-4"
             style={{
               display: "flex",
               justifyContent: "center",
@@ -192,7 +191,7 @@ const Register = () => {
           >
             Đăng ký
           </button>
-          <div class="text-center">
+          <div className="text-center">
             <p>
               Bạn đã có tài khoản?<Link to={"/login"}>Đăng nhập</Link>
             </p>

@@ -5,7 +5,6 @@ import BannerSlider from "../component/home/bannerSlide";
 import FeedBackSlider from "../component/home/feedBackSlider";
 import api from "../config/api";
 
-
 const Home = () => {
   const [search] = useSearchParams();
   const navigate = useNavigate();
@@ -32,9 +31,9 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const vnp_TransactionStatus = search.get('vnp_TransactionStatus');
-    if (vnp_TransactionStatus === '00') {
-      alert('Giao dịch đã thành công!');
+    const vnp_TransactionStatus = search.get("vnp_TransactionStatus");
+    if (vnp_TransactionStatus === "00") {
+      alert("Giao dịch đã thành công!");
       // navigate('/');
     }
   }, [search, navigate]);
@@ -96,85 +95,89 @@ const Home = () => {
             <div>Loading...</div>
           )}
         </div>
-        <div class="container-xxl py-5">
-          <div class="container">
-            <div class="row g-5">
-              <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <p class="d-inline-block border rounded-pill py-1 px-4">
+        <div className="container-xxl py-5">
+          <div className="container">
+            <div className="row g-5">
+              <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                <p className="d-inline-block border rounded-pill py-1 px-4">
                   Trải nghiệm dịch vụ
                 </p>
-                <h1 class="mb-4">
+                <h1 className="mb-4">
                   LIÊN HỆ NGAY ĐỂ ĐƯỢC TƯ VẤN VỀ CÁC GÓI DỊCH VỤ CỦA EDULUXE
                 </h1>
-                <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
+                <div className="bg-light rounded d-flex align-items-center p-5 mb-4">
                   <div
-                    class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
+                    className="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
                     style={{ width: "55px", height: "55px" }}
                   >
-                    <i class="fa fa-phone-alt text-primary"></i>
+                    <i className="fa fa-phone-alt text-primary"></i>
                   </div>
-                  <div class="ms-4">
-                    <p class="mb-2">Gọi ngay vào số điện thoại </p>
-                    <h5 class="mb-0">+012 345 6789</h5>
+                  <div className="ms-4">
+                    <p className="mb-2">Gọi ngay vào số điện thoại </p>
+                    <h5 className="mb-0">+012 345 6789</h5>
                   </div>
                 </div>
-                <div class="bg-light rounded d-flex align-items-center p-5">
+                <div className="bg-light rounded d-flex align-items-center p-5">
                   <div
-                    class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
+                    className="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
                     style={{ width: "55px", height: "55px" }}
                   >
-                    <i class="fa fa-envelope-open text-primary"></i>
+                    <i className="fa fa-envelope-open text-primary"></i>
                   </div>
-                  <div class="ms-4">
-                    <p class="mb-2">Hoặc có thể gửi Mail </p>
-                    <h5 class="mb-0">info@example.com</h5>
+                  <div className="ms-4">
+                    <p className="mb-2">Hoặc có thể gửi Mail </p>
+                    <h5 className="mb-0">info@example.com</h5>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="bg-light rounded h-100 d-flex align-items-center p-5">
+              <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div className="bg-light rounded h-100 d-flex align-items-center p-5">
                   <form>
-                    <div class="row g-3">
-                      <div class="col-12 col-sm-6">
+                    <div className="row g-3">
+                      <div className="col-12 col-sm-6">
                         <input
                           type="text"
-                          class="form-control border-0"
+                          className="form-control border-0"
                           placeholder="Họ và tên"
                           style={{ height: "55px" }}
                         />
                       </div>
-                      <div class="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6">
                         <input
                           type="email"
-                          class="form-control border-0"
+                          className="form-control border-0"
                           placeholder="Email"
                           style={{ height: "55px" }}
                         />
                       </div>
-                      <div class="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6">
                         <input
                           type="text"
-                          class="form-control border-0"
+                          className="form-control border-0"
                           placeholder="SDT"
                           style={{ height: "55px" }}
                         />
                       </div>
-                      <div class="col-12 col-sm-6">
+                      <div className="col-12 col-sm-6">
                         <select
-                          class="form-select border-0"
+                          className="form-select border-0"
                           style={{ height: "55px" }}
                         >
-                          <option selected>Chọn dịch vụ</option>
+                          <option defaultValue>Chọn dịch vụ</option>
                           <option value="1">Vệ sinh nhà cửa</option>
                           <option value="2">Giao nước</option>
                           <option value="3">Nấu ăn</option>
                         </select>
                       </div>
-                      <div class="col-12 col-sm-6">
-                        <div class="date" id="date" data-target-input="nearest">
+                      <div className="col-12 col-sm-6">
+                        <div
+                          className="date"
+                          id="date"
+                          data-target-input="nearest"
+                        >
                           <input
                             type="text"
-                            class="form-control border-0 datetimepicker-input"
+                            className="form-control border-0 datetimepicker-input"
                             placeholder="Chọn ngày"
                             data-target="#date"
                             data-toggle="datetimepicker"
@@ -182,11 +185,15 @@ const Home = () => {
                           />
                         </div>
                       </div>
-                      <div class="col-12 col-sm-6">
-                        <div class="time" id="time" data-target-input="nearest">
+                      <div className="col-12 col-sm-6">
+                        <div
+                          className="time"
+                          id="time"
+                          data-target-input="nearest"
+                        >
                           <input
                             type="text"
-                            class="form-control border-0 datetimepicker-input"
+                            className="form-control border-0 datetimepicker-input"
                             placeholder="Chọn thời gian"
                             data-target="#time"
                             data-toggle="datetimepicker"
@@ -194,16 +201,16 @@ const Home = () => {
                           />
                         </div>
                       </div>
-                      <div class="col-12">
+                      <div className="col-12">
                         <textarea
-                          class="form-control border-0"
+                          className="form-control border-0"
                           rows="5"
                           placeholder="Những yêu cầu thêm "
                         ></textarea>
                       </div>
-                      <div class="col-12">
+                      <div className="col-12">
                         <button
-                          class="btn btn-primary w-100 py-3"
+                          className="btn btn-primary w-100 py-3"
                           type="submit"
                         >
                           Đặt dịch vụ
@@ -220,9 +227,9 @@ const Home = () => {
 
         <Link
           to="#"
-          class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
+          className="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
         >
-          <i class="bi bi-arrow-up"></i>
+          <i className="bi bi-arrow-up"></i>
         </Link>
       </div>
     </>

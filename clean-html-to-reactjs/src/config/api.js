@@ -56,6 +56,11 @@ const api = {
     const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
     return axiosClient.get(url);
   },
+
+  getBestReview: () => {
+    const url = "get-best-review";
+    return axiosClient.get(url);
+  },
 };
 
 export default api;

@@ -18,7 +18,6 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-
   useEffect(() => {
     validateForm();
   }, [username, password]);
@@ -26,7 +25,9 @@ const Login = () => {
   const validateForm = async () => {
     const schema = Yup.object().shape({
       username: Yup.string().required("Vui lòng nhập tài khoản."),
-      password: Yup.string().required("Vui lòng nhập mật khẩu.").min(6, "Mật khẩu chứa ít nhất 6 chữ số"),
+      password: Yup.string()
+        .required("Vui lòng nhập mật khẩu.")
+        .min(6, "Mật khẩu chứa ít nhất 6 chữ số"),
     });
 
     try {
@@ -47,9 +48,10 @@ const Login = () => {
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
-        navigate("/admin");
+        navigate(`/admin/${page || "0"}`);
       } else if (userRole === "MANAGER") {
-        navigate(`/manager/package/${page || '0'}`);      }
+        navigate(`/manager/package/${page || "0"}`);
+      }
     } catch (error) {
       console.error(error);
       setError("Đăng nhập không thành công. Vui lòng thử lại.");
@@ -67,7 +69,10 @@ const Login = () => {
         }}
       />
       <div className="container" style={{ marginTop: "70px", width: "800px" }}>
-        <div className="card border-primary p-3 mx-auto" style={{ width: "70%" }}>
+        <div
+          className="card border-primary p-3 mx-auto"
+          style={{ width: "70%" }}
+        >
           <h3 className="text-center">Đăng Nhập</h3>
           {error && <div className="alert alert-danger">{error}</div>}
           <form onSubmit={handleSubmit}>

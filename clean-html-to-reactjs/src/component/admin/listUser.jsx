@@ -1,147 +1,169 @@
-import React, { useState } from "react";
-import api from "../../config/api";
-import { useRequest } from "ahooks";
-import { useParams } from "react-router-dom";
+import React from "react";
+import {
+  TablePagination,
+  Button,
+  Typography,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
+import { AddBoxRounded } from "@mui/icons-material";
 
+import { useRequest } from "ahooks";
+import api from "../../config/api";
+import { useNavigate, useParams } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 const ListUser = () => {
-  const page = useParams();
-  const { data } = useRequest(async () => {
+  const navigate = useNavigate();
+  const { page } = useParams();
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [currentPage, setCurrentPage] = React.useState(0);
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
+  };
+
+  const handleLogin = () => {
+    // Redirect to the login page
+    navigate("/login");
+  };
+
+  const handleCreateAccount = () => {
+    navigate(`/admin/create-user`);
+  };
+
+  const handleEditAccount = (accountId) => {
+    // Implement logic to navigate to the edit package page
+    // Example: navigate(`/admin/edit-account/${accountId}`);
+  };
+
+  const { data, loading, error } = useRequest(async () => {
     try {
       const response = await api.getAccountList(page);
       localStorage.setItem("account", JSON.stringify(response.data));
-      console.log(data)
       return response.data;
-
     } catch (error) {
       console.error(error);
-
+      throw error;
     }
   });
+
   return (
     <>
-      <div className="content-page">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="card">
-                <div className="card-header d-flex justify-content-between">
-                  <div className="header-title">
-                    <h4 className="card-title">Danh sách tài khoản</h4>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="table-responsive">
-                    <div className="row justify-content-between">
-                      <div className="col-sm-6 col-md-6">
-                        <div
-                          id="user_list_datatable_info"
-                          className="dataTables_filter"
-                        >
-                          <form className="mr-3 position-relative">
-                            <div className="form-group mb-0">
-                              <input
-                                type="search"
-                                className="form-control"
-                                id="exampleInputSearch"
-                                placeholder="Search"
-                                aria-controls="user-list-table"
-                              />
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    <table
-                      id="user-list-table"
-                      className="table table-striped dataTable mt-4"
-                      role="grid"
-                      aria-describedby="user-list-page-info"
+      <Typography variant="h4" sx={{ margin: "20px", textAlign: "center" }}>
+        Danh sách tài khoản
+      </Typography>
+      <Button
+        variant="contained"
+        startIcon={<AddBoxRounded />}
+        onClick={handleCreateAccount}
+        sx={{ marginBottom: "10px" }}
+      >
+        Tạo account
+      </Button>
+      {localStorage.getItem("accessToken") ? (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Ảnh đại diện</TableCell>
+                <TableCell>Tên tài khoản</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Họ và tên</TableCell>
+                <TableCell>Giới tính</TableCell>
+                <TableCell>Số điện thoại</TableCell>
+                <TableCell>Vai trò</TableCell>
+                <TableCell>Địa chỉ</TableCell>
+                <TableCell style={{ minWidth: "100px" }}>Thao tác</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={7}>
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : error ? (
+                <TableRow>
+                  <TableCell colSpan={7}>
+                    Phát sinh lỗi khi tìm data...
+                  </TableCell>
+                </TableRow>
+              ) : data ? (
+                data
+                  .slice(
+                    currentPage * rowsPerPage,
+                    currentPage * rowsPerPage + rowsPerPage
+                  )
+                  .map((account, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <thead>
-                        <tr className="ligth">
-                          <th>Ảnh đại diện</th>
-                          <th>Tên tài khoản</th>
-                          <th>Email</th>
-                          <th>Họ và tên</th>
-                          <th>Giới tính</th>
-                          <th>Số điện thoại</th>
-                          <th>Vai trò</th>
-                          <th>Địa chỉ</th>
-                          <th style={{ minWidth: "100px" }}>Thao tác</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data ? (
-                          data.map((account, index) => (
-                            <tr key={index}>
-                              <td><img src={account.img} alt={account.accountname} /></td>
-                              <td>{account.username}</td>
-                              <td>{account.email}</td>
-                              <td>{account.fullName}</td>
-                              <td>{account.gender}</td>
-                              <td>{account.phoneNumber}</td>
-                              <td>{account.role}</td>
-                              <td>{account.address}</td>
-                              <td style={{ minWidth: "100px" }}>
-                                {/* Add your action buttons here */}
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <tr>
-                            <td colSpan="8">Loading...</td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="row justify-content-between mt-3">
-                    <div id="user-list-page-info" className="col-md-6">
-                      <span>Showing 1 to 5 of 5 entries</span>
-                    </div>
-                    <div className="col-md-6">
-                      <nav aria-label="Page navigation example">
-                        <ul className="pagination justify-content-end mb-0">
-                          <li className="page-item disabled">
-                            <a
-                              className="page-link"
-                              href="#"
-                              tabindex="-1"
-                              aria-disabled="true"
-                            >
-                              Previous
-                            </a>
-                          </li>
-                          <li className="page-item active">
-                            <a className="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              Next
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                      <TableCell>
+                        <img
+                          src={account.img}
+                          alt={account.accountname}
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell>{account.username}</TableCell>
+                      <TableCell>{account.email}</TableCell>
+                      <TableCell>{account.fullName}</TableCell>
+                      <TableCell>{account.gender}</TableCell>
+                      <TableCell>{account.phoneNumber}</TableCell>
+                      <TableCell>{account.role}</TableCell>
+                      <TableCell>{account.address}</TableCell>
+                      <TableCell style={{ minWidth: "100px" }}>
+                        <EditIcon
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => handleEditAccount(account.id)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7}>Không có dữ liệu account</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <TablePagination
+            rowsPerPageOptions={[10, 25]}
+            component="div"
+            count={data ? data.length : 0}
+            rowsPerPage={rowsPerPage}
+            page={currentPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </TableContainer>
+      ) : (
+        <div>
+          <Typography variant="h6" sx={{ margin: "20px", textAlign: "center" }}>
+            Vui lòng đăng nhập để xem nội dung
+          </Typography>
+          <Button variant="contained" onClick={handleLogin}>
+            Đăng nhập
+          </Button>
         </div>
-      </div>
+      )}
     </>
   );
 };

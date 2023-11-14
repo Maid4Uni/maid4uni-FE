@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 
-const RatingStar = ({ rating, onRatingChange, starSize }) => {
-  const [hoverRating, setHoverRating] = useState(0);
-
-  const handleMouseEnter = (star) => {
-    setHoverRating(star);
-  };
-
-  const handleMouseLeave = () => {
-    setHoverRating(0);
-  };
-
-  const handleClick = (star) => {
-    onRatingChange(star);
-  };
-
+const RatingStar = ({ rating, starSize }) => {
   const getStarSize = () => {
-    return starSize || 24; 
+    return starSize || 24;
   };
 
-  const getStarColor = (star) => {
-    if (star <= (hoverRating || rating)) {
-      return "gold";
-    }
-    return "gray";
+  const getStarColor = (star, rating) => {
+    return star <= rating ? "gold" : "gray";
   };
 
   return (
@@ -32,11 +15,7 @@ const RatingStar = ({ rating, onRatingChange, starSize }) => {
         <span
           key={star}
           className={`star`}
-          style={{ color: getStarColor(star),
-          fontSize: getStarSize()}}
-          onMouseEnter={() => handleMouseEnter(star)}
-          onMouseLeave={handleMouseLeave}
-          onClick={() => handleClick(star)}
+          style={{ color: getStarColor(star, rating), fontSize: getStarSize() }}
         >
           ★
         </span>

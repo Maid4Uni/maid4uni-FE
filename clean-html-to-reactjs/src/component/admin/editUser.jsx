@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CreateUser = () => {
+const EditUser = () => {
   return (
     <>
       <div className="content-page">
@@ -186,4 +186,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default EditUser;

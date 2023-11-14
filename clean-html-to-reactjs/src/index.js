@@ -20,12 +20,15 @@ import Price from "./home/price";
 import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
+import CreateUser from "./component/admin/createUser.jsx";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/:page" element={<Admin />} />
+        <Route path="/admin/create-user" element={<CreateUser />} />
         <Route path="/manager/:menu/:page/" element={<Manager />} />
         <Route path="/manager/oder-detail" element={<OderDetail />} />
         <Route path="/customer" element={<Customer />} />
