@@ -33,7 +33,11 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+<<<<<<< HEAD
     navigate("/tracking");
+=======
+    navigate("/customer")
+>>>>>>> hh
   };
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -101,7 +105,12 @@ const Header = () => {
             >
               <>
                 {user ? (
+<<<<<<< HEAD
                   <div className="h-100 d-inline-flex align-items-center">
+=======
+                  <div class="h-100 d-inline-flex align-items-center">
+
+>>>>>>> hh
                     <Button
                       color="inherit"
                       onClick={handleMenuClick}
@@ -166,6 +175,7 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
+<<<<<<< HEAD
               <div
                 className="dropdown-menu rounded-0 rounded-bottom m-0"
                 style={{ width: "100%", minWidth: "227px" }}
@@ -176,12 +186,21 @@ const Header = () => {
                     className="dropdown-item"
                     key={item.id}
                   >
+=======
+              <div className="dropdown-menu rounded-0 rounded-bottom m-0" style={{ width: "100%", minWidth: "227px" }}>
+                {data?.map((item) => (
+                  <NavLink to={`/service/${item.id}`} className="dropdown-item" key={item.id}>
+>>>>>>> hh
                     {item.name}
                   </NavLink>
                 ))}
               </div>
             </div>
+<<<<<<< HEAD
             <NavLink to="/price" className="nav-item nav-link">
+=======
+            <NavLink to="/price" class="nav-item nav-link">
+>>>>>>> hh
               Phân loại
             </NavLink>
 
@@ -191,6 +210,10 @@ const Header = () => {
           </div>
         </div>
       </nav>
+<<<<<<< HEAD
+=======
+
+>>>>>>> hh
     </>
   );
 };

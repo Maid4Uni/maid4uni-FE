@@ -46,6 +46,7 @@ const History = () => {
 
     return (
         <Box>
+<<<<<<< HEAD
  <Grid container justifyContent="space-between" alignItems="center" style={{ margin: 20 }}>                <Grid item>
                     <FormControl sx={{ minWidth: 120 }}>
                         <InputLabel id="filter-label">Sắp xếp</InputLabel>
@@ -60,6 +61,22 @@ const History = () => {
                         </Select>
                     </FormControl>
                 </Grid>
+=======
+            <Grid container justifyContent="space-between" alignItems="center" style={{ margin: 20 }}>                <Grid item>
+                <FormControl sx={{ minWidth: 120 }}>
+                    <InputLabel id="filter-label">Sắp xếp</InputLabel>
+                    <Select
+                        labelId="filter-label"
+                        value={filter}
+                        onChange={handleFilterChange}
+                    >
+                        <MenuItem value="">Tất cả</MenuItem>
+                        <MenuItem value="completed">Đã hoàn thành</MenuItem>
+                        <MenuItem value="ongoing">Đang tiến hành</MenuItem>
+                    </Select>
+                </FormControl>
+            </Grid>
+>>>>>>> hh
                 <Grid item>
                     <TextField
                         label="Tìm kiếm"

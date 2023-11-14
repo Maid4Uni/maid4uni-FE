@@ -114,6 +114,7 @@ const Customer = () => {
                     >
                         <List>
                             <ListItemButton
+<<<<<<< HEAD
                                 onClick={() => setMenu("history")}
                                 selected={isMenu === "history"}
                             >
@@ -123,14 +124,32 @@ const Customer = () => {
                                 <ListItemText primary="Lịch sử đơn hàng" />
                             </ListItemButton>
                             <ListItemButton
+=======
+>>>>>>> hh
                                 onClick={() => setMenu("tracking")}
                                 selected={isMenu === "tracking"}
                             >
                                 <ListItemIcon>
+<<<<<<< HEAD
                                     <AssignmentIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Chi tiết đơn hàng" />
                             </ListItemButton>
+=======
+                                    <LocalOfferIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Chi tiết đơn hàng" />
+                            </ListItemButton>
+                            <ListItemButton
+                                onClick={() => setMenu("history")}
+                                selected={isMenu === "history"}
+                            >
+                                <ListItemIcon>
+                                    <AssignmentIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Lịch sử đơn hàng" />
+                            </ListItemButton>
+>>>>>>> hh
 
                         </List>
                     </Drawer>

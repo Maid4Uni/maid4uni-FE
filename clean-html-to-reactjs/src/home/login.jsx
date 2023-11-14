@@ -18,6 +18,10 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> hh
   useEffect(() => {
     validateForm();
   }, [username, password]);
@@ -48,10 +52,18 @@ const Login = () => {
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
+<<<<<<< HEAD
         navigate(`/admin/${page || "0"}`);
       } else if (userRole === "MANAGER") {
         navigate(`/manager/package/${page || "0"}`);
       }
+=======
+        navigate(`/admin/${page || '0'}`);
+      }else if (userRole === "STAFF") {
+          navigate("/staff");
+      } else if (userRole === "MANAGER") {
+        navigate(`/manager/package/${page || '0'}`);      }
+>>>>>>> hh
     } catch (error) {
       console.error(error);
       setError("Đăng nhập không thành công. Vui lòng thử lại.");

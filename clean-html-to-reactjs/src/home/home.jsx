@@ -5,6 +5,10 @@ import BannerSlider from "../component/home/bannerSlide";
 import FeedBackSlider from "../component/home/feedBackSlider";
 import api from "../config/api";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> hh
 const Home = () => {
   const [search] = useSearchParams();
   const navigate = useNavigate();
@@ -31,9 +35,15 @@ const Home = () => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     const vnp_TransactionStatus = search.get("vnp_TransactionStatus");
     if (vnp_TransactionStatus === "00") {
       alert("Giao dịch đã thành công!");
+=======
+    const vnp_TransactionStatus = search.get('vnp_TransactionStatus');
+    if (vnp_TransactionStatus === '00') {
+      alert('Giao dịch đã thành công!');
+>>>>>>> hh
       // navigate('/');
     }
   }, [search, navigate]);
@@ -169,12 +179,17 @@ const Home = () => {
                           <option value="3">Nấu ăn</option>
                         </select>
                       </div>
+<<<<<<< HEAD
                       <div className="col-12 col-sm-6">
                         <div
                           className="date"
                           id="date"
                           data-target-input="nearest"
                         >
+=======
+                      <div class="col-12 col-sm-6">
+                        <div class="date" id="date" data-target-input="nearest">
+>>>>>>> hh
                           <input
                             type="text"
                             className="form-control border-0 datetimepicker-input"
@@ -185,12 +200,17 @@ const Home = () => {
                           />
                         </div>
                       </div>
+<<<<<<< HEAD
                       <div className="col-12 col-sm-6">
                         <div
                           className="time"
                           id="time"
                           data-target-input="nearest"
                         >
+=======
+                      <div class="col-12 col-sm-6">
+                        <div class="time" id="time" data-target-input="nearest">
+>>>>>>> hh
                           <input
                             type="text"
                             className="form-control border-0 datetimepicker-input"

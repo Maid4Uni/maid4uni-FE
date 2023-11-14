@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./home/home";
 import Blog from "./home/blog";
 import About from "./home/about";
-import Combo1 from "./home/combo1";
+import Combo1 from "./home/combo1.jsx";
 import Combo2 from "./home/combo2";
 import Booking1 from "./home/booking1";
 import Booking2 from "./home/booking2";
@@ -21,7 +21,7 @@ import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
 import CreateUser from "./component/admin/createUser.jsx";
-
+import Calendar from "./home/staff.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -49,6 +49,7 @@ root.render(
         </Route>
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
+        <Route path="/staff" element={<Calendar />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

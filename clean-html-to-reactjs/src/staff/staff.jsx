@@ -39,10 +39,18 @@ const Manager = () => {
     } catch (error) {
       console.error(error);
     }
+<<<<<<< HEAD
   };
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const handleLogout = () => {
+=======
+  }
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  const handleLogout = () => {
+
+>>>>>>> hh
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
 
@@ -65,7 +73,14 @@ const Manager = () => {
       <CssBaseline />
       <AppBar position="static">
         <Toolbar>
+<<<<<<< HEAD
           <Button color="inherit" onClick={handleDrawerToggle}>
+=======
+          <Button
+            color="inherit"
+            onClick={handleDrawerToggle}
+          >
+>>>>>>> hh
             <MenuIcon />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -77,7 +92,11 @@ const Manager = () => {
             aria-controls="personal-menu"
             aria-haspopup="true"
           >
+<<<<<<< HEAD
             {user ? user.username : "Manager"}
+=======
+            {user ? user.username : 'Manager'}
+>>>>>>> hh
           </Button>
           <Menu
             id="personal-menu"
@@ -87,6 +106,7 @@ const Manager = () => {
             onClose={handleMenuClose}
           >
             <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+<<<<<<< HEAD
             <MenuItem
               onClick={() => {
                 handleLogout();
@@ -95,6 +115,12 @@ const Manager = () => {
             >
               Đăng xuất
             </MenuItem>
+=======
+            <MenuItem onClick={() => {
+              handleLogout();
+              handleMenuClose();
+            }}>Đăng xuất</MenuItem>
+>>>>>>> hh
           </Menu>
         </Toolbar>
       </AppBar>

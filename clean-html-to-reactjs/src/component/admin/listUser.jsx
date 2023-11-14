@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TablePagination,
   Button,
@@ -23,6 +23,9 @@ const ListUser = () => {
   const { page } = useParams();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
+
+  useEffect(() => {}, [currentPage]);
+
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
