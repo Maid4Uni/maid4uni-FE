@@ -21,7 +21,7 @@ import {
   Menu as MenuIcon,
 } from "@mui/icons-material";
 import Order from "../component/manage/oder";
-import Service from "../component/manage/service"; // Corrected import
+import Service from "../component/manage/service";
 import Package from "../component/manage/package";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
@@ -36,7 +36,7 @@ const Manager = () => {
 
   useEffect(() => {
     if (!menu) {
-      navigate(`/manager/${isMenu}/${page || ''}`);
+      navigate(`/manager/${isMenu}/${page || ""}`);
     }
   }, [menu, isMenu, page, navigate]);
 
@@ -45,7 +45,7 @@ const Manager = () => {
       const response = await api.login(values);
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate(`/manager/${isMenu}/${page || ''}`);
+      navigate(`/manager/${isMenu}/${page || ""}`);
     } catch (error) {
       console.error(error);
     }

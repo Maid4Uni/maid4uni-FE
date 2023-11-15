@@ -11,7 +11,6 @@ const Booking1 = () => {
   const [servicePrice, setServicePrice] = useState(0);
   const [selectedWorkDays, setSelectedWorkDays] = useState([]);
 
-
   const formik = useFormik({
     initialValues: {
       address: "",
@@ -53,7 +52,6 @@ const Booking1 = () => {
       }
     },
   });
-
 
   useEffect(() => {
     // Loại gói dịch vụ đã được chọn

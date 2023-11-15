@@ -47,7 +47,7 @@ const CreateUser = () => {
                         className="form-select"
                         aria-label="Default select example"
                       >
-                        <option selected>Vai trò</option>
+                        <option defaultValue>Vai trò</option>
                         <option value="1">Quản lý</option>
                         <option value="2">Nhân viên</option>
                         <option value="3">Khách hàng</option>
@@ -110,7 +110,7 @@ const CreateUser = () => {
                             aria-label="Default select example"
                             data-style="py-0"
                           >
-                            <option selected>Giới tính</option>
+                            <option defaultValue>Giới tính</option>
                             <option value="1">Nam </option>
                             <option value="2">Nữ</option>
                             <option value="3">Khác</option>

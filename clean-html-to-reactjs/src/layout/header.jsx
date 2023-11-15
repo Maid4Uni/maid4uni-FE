@@ -33,7 +33,7 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    navigate("/tracking")
+    navigate("/customer");
   };
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -46,7 +46,9 @@ const Header = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Tài khoản không được bỏ trống"),
-      password: Yup.string().min(6, "Mật khẩu phải có ít nhất 6 chứ số").required("Vui lòng nhập mật khẩu")
+      password: Yup.string()
+        .min(6, "Mật khẩu phải có ít nhất 6 chứ số")
+        .required("Vui lòng nhập mật khẩu"),
     }),
     onSubmit: async (values) => {
       try {
@@ -61,7 +63,6 @@ const Header = () => {
   });
   const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
-
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
 
@@ -70,38 +71,37 @@ const Header = () => {
   return (
     <>
       <div
-        class="container-fluid bg-light p-0 wow fadeIn"
+        className="container-fluid bg-light p-0 wow fadeIn"
         data-wow-delay="0.1s"
       >
-        <div class="row gx-0 d-none d-lg-flex">
-          <div class="col-lg-7 px-5 text-start">
+        <div className="row gx-0 d-none d-lg-flex">
+          <div className="col-lg-7 px-5 text-start">
             <div
-              class="h-100 d-inline-flex align-items-center py-3 me-4"
+              className="h-100 d-inline-flex align-items-center py-3 me-4"
               style={{ fontWeight: "400 !important" }}
             >
-              <small class="fa fa-map-marker-alt text-primary me-2"></small>
+              <small className="fa fa-map-marker-alt text-primary me-2"></small>
               <small style={{ fontWeight: "400 !important" }}>
                 Khu Công nghệ cao, P.Long Thạnh Mỹ, Tp. Thủ Đức, TP.HCM.
               </small>
             </div>
-            <div class="h-100 d-inline-flex align-items-center py-3">
-              <small class="far fa-clock text-primary me-2"></small>
+            <div className="h-100 d-inline-flex align-items-center py-3">
+              <small className="far fa-clock text-primary me-2"></small>
               <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
             </div>
           </div>
-          <div class="col-lg-5 px-5 text-end">
-            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-              <small class="fa fa-phone-alt text-primary me-2"></small>
+          <div className="col-lg-5 px-5 text-end">
+            <div className="h-100 d-inline-flex align-items-center py-3 me-4">
+              <small className="fa fa-phone-alt text-primary me-2"></small>
               <small>+012 345 6789</small>
             </div>
             <div
-              class="h-100 d-inline-flex align-items-center"
+              className="h-100 d-inline-flex align-items-center"
               style={{ cursor: "pointer" }}
             >
               <>
                 {user ? (
                   <div class="h-100 d-inline-flex align-items-center">
-
                     <Button
                       color="inherit"
                       onClick={handleMenuClick}
@@ -117,7 +117,9 @@ const Header = () => {
                       open={Boolean(anchorEl)}
                       onClose={handleMenuClose}
                     >
-                      <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+                      <MenuItem onClick={handleMenuClose}>
+                        Trang cá nhân
+                      </MenuItem>
                       <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
                     </Menu>
                   </div>
@@ -131,32 +133,32 @@ const Header = () => {
       </div>
 
       <nav
-        class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn"
+        className="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 wow fadeIn"
         data-wow-delay="0.1s"
       >
         <Link
           to="/"
-          class="navbar-brand d-flex align-items-center px-4 px-lg-5"
+          className="navbar-brand d-flex align-items-center px-4 px-lg-5"
         >
           <img
-            class="logo"
+            className="logo"
             src="img/Brown Gradient Dreamy Abstract Font Album Cover (1).png"
           />
         </Link>
         <button
           type="button"
-          class="navbar-toggler me-4"
+          className="navbar-toggler me-4"
           data-bs-toggle="collapse"
           data-bs-target="#navbarCollapse"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <NavLink to="/" class="nav-item nav-link active">
+        <div className="collapse navbar-collapse" id="navbarCollapse">
+          <div className="navbar-nav ms-auto p-4 p-lg-0">
+            <NavLink to="/" className="nav-item nav-link active">
               Trang chủ
             </NavLink>
-            <div class="nav-item dropdown" style={{ marginTop: "24px" }}>
+            <div className="nav-item dropdown" style={{ marginTop: "24px" }}>
               <NavLink
                 to="/service"
                 className="nav-link dropdown-toggle"
@@ -164,9 +166,16 @@ const Header = () => {
               >
                 Gói dịch vụ
               </NavLink>
-              <div className="dropdown-menu rounded-0 rounded-bottom m-0" style={{ width: "100%", minWidth: "227px" }}>
+              <div
+                className="dropdown-menu rounded-0 rounded-bottom m-0"
+                style={{ width: "100%", minWidth: "227px" }}
+              >
                 {data?.map((item) => (
-                  <NavLink to={`/service/${item.id}`} className="dropdown-item" key={item.id}>
+                  <NavLink
+                    to={`/service/${item.id}`}
+                    className="dropdown-item"
+                    key={item.id}
+                  >
                     {item.name}
                   </NavLink>
                 ))}
@@ -176,13 +185,12 @@ const Header = () => {
               Phân loại
             </NavLink>
 
-            <NavLink to="/contact" class="nav-item nav-link">
+            <NavLink to="/contact" className="nav-item nav-link">
               Liên hệ
             </NavLink>
           </div>
         </div>
       </nav>
-
     </>
   );
 };

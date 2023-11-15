@@ -44,13 +44,27 @@ const ConfirmationPage = () => {
         <div className="col-md-6">
           <div className="mt-3">
             <h6>Thông tin dịch vụ</h6>
-            <p><strong>Tên khách hàng:</strong> {order.customer.userName}</p>
-            <p><strong>Địa chỉ:</strong> {order.address}</p>
-            <p><strong>Ngày làm việc:</strong> {order.workDay.join(", ")}</p>
-            <p><strong>Thời gian bắt đầu:</strong> {order.startTime}</p>
-            <p><strong>Thời gian làm:</strong> {order.duration} giờ</p>
-            <p><strong>Loại gói dịch vụ:</strong> {order.periodType}</p>
-            <p><strong>Giá:</strong> {order.price} VND</p>
+            <p>
+              <strong>Tên khách hàng:</strong> {order.customer.userName}
+            </p>
+            <p>
+              <strong>Địa chỉ:</strong> {order.address}
+            </p>
+            <p>
+              <strong>Ngày làm việc:</strong> {order.workDay.join(", ")}
+            </p>
+            <p>
+              <strong>Thời gian bắt đầu:</strong> {order.startTime}
+            </p>
+            <p>
+              <strong>Thời gian làm:</strong> {order.duration} giờ
+            </p>
+            <p>
+              <strong>Loại gói dịch vụ:</strong> {order.periodType}
+            </p>
+            <p>
+              <strong>Giá:</strong> {order.price} VND
+            </p>
             <textarea
               id="refundPolicy"
               className="form-control"
@@ -62,14 +76,23 @@ const ConfirmationPage = () => {
             ></textarea>
           </div>
           <div className="mb-3">
-            <h6 className="fw-bold">Giá dịch vụ dự kiến: {packageInfo.price} VND</h6>
+            <h6 className="fw-bold">
+              Giá dịch vụ dự kiến: {packageInfo.price} VND
+            </h6>
             <h6 style={{ color: "red" }}>*Lưu ý:</h6>
-            <p>Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được nhân nhân viên thông báo trước khi tiến hành dịch vụ.</p>
+            <p>
+              Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được
+              nhân nhân viên thông báo trước khi tiến hành dịch vụ.
+            </p>
           </div>
 
           <div className="form-check mb-3">
             <input type="checkbox" className="form-check-input" id="vnpay" />
-            <label className="form-check-label" for="vnpay" style={{ color: "black", fontWeight: "bold" }}>
+            <label
+              className="form-check-label"
+              for="vnpay"
+              style={{ color: "black", fontWeight: "bold" }}
+            >
               VNPay
             </label>
           </div>
@@ -92,7 +115,6 @@ const ConfirmationPage = () => {
         </div>
       </div>
     </div>
-  
   );
 };
 
