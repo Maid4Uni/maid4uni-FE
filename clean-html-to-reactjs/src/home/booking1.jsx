@@ -35,7 +35,7 @@ const Booking1 = () => {
           workDay: values.workDay.map((item) => Number(item)),
           duration: Number(duration),
           startTime,
-          price: packageInfo.price,
+          price: servicePrice,
           customer: {
             id: user.id,
             userName: user.username,
@@ -44,8 +44,9 @@ const Booking1 = () => {
             id: packageInfo.id,
           },
         };
-        localStorage.setItem("order", JSON.stringify(payload));
-        await api.createOrder(payload);
+        const response = await api.createOrder(payload);
+        const orderId = response.data.id;
+        localStorage.setItem("order", JSON.stringify({ payload, orderId }));
         navigate(`/checkout`);
       } catch (error) {
         console.error(error);
@@ -73,9 +74,6 @@ const Booking1 = () => {
       case "TWO_MONTH":
         price = 1800000; // Giá cho gói 2 tháng
         break;
-      case "THREE_MONTH":
-        price = 2500000; // Giá cho gói 3 tháng
-        break;
       default:
         price = 0;
     }
@@ -87,7 +85,7 @@ const Booking1 = () => {
     selectedDays.forEach((day) => {
       // Giả sử bạn có logic xác định giá dựa trên ngày làm việc ở đây
       // Ví dụ: Nếu ngày làm việc là thứ 7 (ngày 7), thì cộng thêm 100.000 VND
-      if (day === 7) {
+      if (day === 7 || day === 8) {
         price += 100000;
       }
     });
@@ -332,7 +330,6 @@ const Booking1 = () => {
                     >
                       <option value="ONE_MONTH">1 tháng</option>
                       <option value="TWO_MONTH">2 tháng</option>
-                      <option value="THREE_MONTH">3 tháng</option>
                     </select>
                   </div>
                 </div>
@@ -340,8 +337,12 @@ const Booking1 = () => {
 
               <div>
                 <label htmlFor="package" className="booking-text mt-3">
-                  Giá: {servicePrice} VND
+                  Giá dự kiến: {servicePrice} VND
                 </label>
+                <p style={{ color: "red" }}>
+                  *Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ
+                  được nhân nhân viên thông báo trước khi tiến hành dịch vụ.
+                </p>
               </div>
 
               <div className="col-md-12 mt-1 text-center">
@@ -353,15 +354,7 @@ const Booking1 = () => {
                 >
                   Đăng ký dịch vụ
                 </button>
-                {/* </Link> */}
               </div>
-              {/* <div className="col-md-12 mt-1 text-center"> */}
-              {/* <Link to="/checkout"> */}
-              {/* <button id="bookButton" className="btn btn-primary booking-btn"> */}
-              {/* Đăng ký
-                </button> */}
-              {/* </Link> */}
-              {/* </div> */}
             </form>
           </div>
         </div>

@@ -24,7 +24,7 @@ const ConfirmationPage = () => {
   const handlePayment = async () => {
     try {
       const response = await api.createPayment({
-        orderTotal: packageInfo.price,
+        orderTotal: order.payload.price,
         orderInfo,
       });
       window.location.replace(response.data);
@@ -38,32 +38,36 @@ const ConfirmationPage = () => {
       <h4 className="text-center mt-5">Xác Nhận Thanh Toán</h4>
       <div className="row mt-3">
         <div className="col-md-6">
-          <img src="" alt="Gói Dịch Vụ" className="img-fluid" />
+          <img
+            src={packageInfo.imageUrl}
+            alt="Gói Dịch Vụ"
+            className="img-fluid"
+          />
           <h5 className="mt-2 mb-1">Tên Gói Dịch Vụ: {packageInfo.name} </h5>
         </div>
         <div className="col-md-6">
           <div className="mt-3">
             <h6>Thông tin dịch vụ</h6>
             <p>
-              <strong>Tên khách hàng:</strong> {order.customer.userName}
+              <strong>Tên khách hàng:</strong> {order.payload.customer.userName}
             </p>
             <p>
-              <strong>Địa chỉ:</strong> {order.address}
+              <strong>Địa chỉ:</strong> {order.payload.address}
             </p>
             <p>
-              <strong>Ngày làm việc:</strong> {order.workDay.join(", ")}
+              <strong>Ngày làm việc:</strong> {order.payload.workDay.join(", ")}
             </p>
             <p>
-              <strong>Thời gian bắt đầu:</strong> {order.startTime}
+              <strong>Thời gian bắt đầu:</strong> {order.payload.startTime}
             </p>
             <p>
-              <strong>Thời gian làm:</strong> {order.duration} giờ
+              <strong>Thời gian làm:</strong> {order.payload.duration} giờ
             </p>
             <p>
-              <strong>Loại gói dịch vụ:</strong> {order.periodType}
+              <strong>Loại gói dịch vụ:</strong> {order.payload.periodType}
             </p>
             <p>
-              <strong>Giá:</strong> {order.price} VND
+              <strong>Giá dự kiến:</strong> {order.payload.price} VND
             </p>
             <textarea
               id="refundPolicy"
@@ -77,10 +81,10 @@ const ConfirmationPage = () => {
           </div>
           <div className="mb-3">
             <h6 className="fw-bold">
-              Giá dịch vụ dự kiến: {packageInfo.price} VND
+              Giá dịch vụ dự kiến: {order.payload.price} VND
             </h6>
             <h6 style={{ color: "red" }}>*Lưu ý:</h6>
-            <p>
+            <p style={{ color: "red" }}>
               Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ được
               nhân nhân viên thông báo trước khi tiến hành dịch vụ.
             </p>

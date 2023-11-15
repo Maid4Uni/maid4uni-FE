@@ -101,7 +101,7 @@ const Header = () => {
             >
               <>
                 {user ? (
-                  <div class="h-100 d-inline-flex align-items-center">
+                  <div className="h-100 d-inline-flex align-items-center">
                     <Button
                       color="inherit"
                       onClick={handleMenuClick}
@@ -181,7 +181,7 @@ const Header = () => {
                 ))}
               </div>
             </div>
-            <NavLink to="/price" class="nav-item nav-link">
+            <NavLink to="/price" className="nav-item nav-link">
               Phân loại
             </NavLink>
 

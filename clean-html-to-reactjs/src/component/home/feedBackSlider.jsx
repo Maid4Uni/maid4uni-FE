@@ -13,29 +13,6 @@ const FeedBackSlider = () => {
       throw error;
     }
   });
-  const carouselRef = useRef(null);
-  const handlePrevClick = () => {
-    if (carouselRef.current) {
-      carouselRef.current.prev();
-    }
-  };
-
-  const handleNextClick = () => {
-    if (carouselRef.current) {
-      carouselRef.current.next();
-    }
-  };
-  useEffect(() => {
-    // Ensure the carouselRef is properly attached to the Bootstrap Carousel component
-    if (carouselRef.current) {
-      carouselRef.current.prev = () => carouselRef.current.prev();
-      carouselRef.current.next = () => carouselRef.current.next();
-    }
-  }, []);
-
-  useEffect(() => {
-    // You can add any additional logic here if needed
-  }, [data]);
 
   const renderFeedbacks = () => {
     if (!data) return null;
@@ -100,7 +77,6 @@ const FeedBackSlider = () => {
             type="button"
             data-bs-target="#carouselExampleControls"
             data-bs-slide="prev"
-            onClick={handlePrevClick}
           >
             <span
               className="carousel-control-prev-icon"
@@ -113,7 +89,6 @@ const FeedBackSlider = () => {
             type="button"
             data-bs-target="#carouselExampleControls"
             data-bs-slide="next"
-            onClick={handleNextClick}
           >
             <span
               className="carousel-control-next-icon"

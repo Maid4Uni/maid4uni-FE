@@ -3,23 +3,26 @@ import { Link } from "react-router-dom";
 const Price = () => {
   return (
     <>
-      <div class="container-xxl py-5">
-        <div class="container">
+      <div className="container-xxl py-5">
+        <div className="container">
           <div
-            class="text-center mx-auto mb-5 wow fadeInUp"
+            className="text-center mx-auto mb-5 wow fadeInUp"
             data-wow-delay="0.1s"
             style={{ maxWidth: "600px" }}
           >
-            <p class="d-inline-block border rounded-pill py-1 px-4">
+            <p className="d-inline-block border rounded-pill py-1 px-4">
               Phân loại
             </p>
             <h1>Các dịch vụ cuả EduLuxe</h1>
           </div>
-          <div class="row g-4">
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+          <div className="row g-4">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -28,17 +31,20 @@ const Price = () => {
                     style={{ maxWidth: "80%", maxHeight: "80%;" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn dẹp nhà cơ bản</h4>
+                <h4 className="mb-3">Dọn dẹp nhà cơ bản</h4>
                 <p>Giá chỉ từ 30k/giờ </p>
-                <Link to={"/booking1"} class="btn" href="booking1.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <Link to={"/booking1"} className="btn" href="booking1.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </Link>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -47,17 +53,20 @@ const Price = () => {
                     style={{ maxWidth: "60%", maxHeight: "60%" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn dẹp nhà tiết kiệm</h4>
+                <h4 className="mb-3">Dọn dẹp nhà tiết kiệm</h4>
                 <p>Giá: 40k/giờ</p>
-                <a class="btn" href="booking2.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <a className="btn" href="booking2.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </a>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -66,17 +75,20 @@ const Price = () => {
                     style={{ maxWidth: "60%", maxHeight: "60%" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn nhà premium</h4>
+                <h4 className="mb-3">Dọn nhà premium</h4>
                 <p>Giá: 80k/lần</p>
-                <a class="btn" href="booking2.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <a className="btn" href="booking2.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </a>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -85,17 +97,20 @@ const Price = () => {
                     style={{ maxWidth: "60%", maxHeight: "60%" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn nhà chuyên sâu</h4>
+                <h4 className="mb-3">Dọn nhà chuyên sâu</h4>
                 <p>Giá: 100k/lần</p>
-                <a class="btn" href="booking2.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <a className="btn" href="booking2.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </a>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -104,17 +119,20 @@ const Price = () => {
                     style={{ maxWidth: "60%", maxHeight: "60%" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn khu vực bếp</h4>
+                <h4 className="mb-3">Dọn khu vực bếp</h4>
                 <p>Chỉ từ 50k/ lần vệ sinh</p>
-                <a class="btn" href="booking2.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <a className="btn" href="booking2.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </a>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-              <div class="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="col-lg-4 col-md-6 wow fadeInUp"
+              data-wow-delay="0.1s"
+            >
+              <div className="service-item bg-light rounded h-100 p-5 d-flex flex-column align-items-center justify-content-center">
                 <div
-                  class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
+                  className="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4"
                   style={{ width: "250px", height: "200px" }}
                 >
                   <img
@@ -123,10 +141,10 @@ const Price = () => {
                     style={{ maxWidth: "60%", maxHeight: "60%" }}
                   />
                 </div>
-                <h4 class="mb-3">Dọn nhà tối giản </h4>
+                <h4 className="mb-3">Dọn nhà tối giản </h4>
                 <p>Với giá 150k/lần</p>
-                <a class="btn" href="booking2.html">
-                  <i class="fa fa-plus text-primary me-3"></i>Chi tiết
+                <a className="btn" href="booking2.html">
+                  <i className="fa fa-plus text-primary me-3"></i>Chi tiết
                 </a>
               </div>
             </div>
