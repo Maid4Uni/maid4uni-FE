@@ -87,12 +87,6 @@ const HeaderAdmin = (props) => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem>
-                <ListItemIcon>
-                  <AccountCircleIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Tài khoản" />
-              </MenuItem>
               <MenuItem onClick={handleLogout}>
                 <ListItemIcon>
                   <ExitToAppIcon fontSize="small" />

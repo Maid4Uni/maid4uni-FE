@@ -34,9 +34,7 @@ const CreateUser = () => {
                       <div className="img-extension mt-3">
                         <div className="d-inline-block align-items-center">
                           <span>"Chỉ </span>
-                          <a href="javascript:void();">.jpg</a>
-                          <a href="javascript:void();">.png</a>
-                          <a href="javascript:void();">.jpeg</a>
+                          <p>.jpg; .png; .jpeg</p>
                           <span>được phép"</span>
                         </div>
                       </div>
