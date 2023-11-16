@@ -21,6 +21,7 @@ import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
 import Calendar from "./home/staff.jsx";
+import CategoryServices from "./home/category.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -29,7 +30,7 @@ root.render(
         <Route path="/admin/:page/" element={<Admin />} />
         <Route path="/manager/:menu/:page/" element={<Manager />} />
         <Route path="/manager/oder-detail" element={<OderDetail />} />
-        <Route path="/customer" element={<Customer />} />
+        <Route path="/customer/:id" element={<Customer />} />
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="/:vnp_TransactionStatus" element={<Home />} />
@@ -37,7 +38,7 @@ root.render(
           <Route path="/booking1" element={<Booking1 />} />
           <Route path="booking2" element={<Booking2 />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="about" element={<About />} />
+          <Route path="/about" element={<About />} />
           <Route path="/service/:id" element={<Combo1 />} />
           <Route path="combo2" element={<Combo2 />} />
           <Route path="login" element={<Login />} />
@@ -48,7 +49,7 @@ root.render(
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
         <Route path="/staff" element={<Calendar />} />
-
+        <Route path="/category/:id&page" element={<CategoryServices/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

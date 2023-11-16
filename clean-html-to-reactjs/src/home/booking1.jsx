@@ -54,49 +54,45 @@ const Booking1 = () => {
     },
   });
 
+  // ... (existing code)
 
-  useEffect(() => {
-    // Loại gói dịch vụ đã được chọn
-    const selectedPackage = JSON.parse(localStorage.getItem("package"));
+useEffect(() => {
+  // Loại gói dịch vụ đã được chọn
+  const selectedPackage = JSON.parse(localStorage.getItem("package"));
 
-    // Số giờ làm việc đã chọn
-    const selectedDuration = formik.values.duration;
+  // Số giờ làm việc đã chọn
+  const selectedDuration = formik.values.duration;
 
-    // Danh sách ngày làm việc đã chọn
-    const selectedDays = selectedWorkDays;
+  // Danh sách ngày làm việc đã chọn
+  const selectedDays = formik.values.workDay;
 
-    // Thực hiện tính toán giá dựa trên loại gói, số giờ làm việc và ngày làm việc
-    let price = 0;
+  // Thực hiện tính toán giá dựa trên loại gói, số giờ làm việc và ngày làm việc
+  let price = 0;
 
-    switch (selectedPackage.periodType) {
-      case "ONE_MONTH":
-        price = 1000000; // Giá cho gói 1 tháng
-        break;
-      case "TWO_MONTH":
-        price = 1800000; // Giá cho gói 2 tháng
-        break;
-      case "THREE_MONTH":
-        price = 2500000; // Giá cho gói 3 tháng
-        break;
-      default:
-        price = 0;
-    }
+  switch (selectedPackage.periodType) {
+    case "ONE_MONTH":
+      price = selectedDuration * 100000; // Assuming 100,000 VND per hour for a monthly package
+      break;
+    case "TWO_MONTH":
+      price = selectedDuration * 90000; // Assuming a discount for a two-month package
+      break;
+    case "THREE_MONTH":
+      price = selectedDuration * 80000; // Assuming a bigger discount for a three-month package
+      break;
+    default:
+      price = 0;
+  }
 
-    // Tính giá dựa trên số giờ làm việc
-    price += selectedDuration * 60000; // Giả sử giá cộng thêm 60.000 VND cho mỗi giờ làm việc
+  // Tính giá dựa trên số giờ làm việc
+  price += selectedDuration * 60000; // Giả sử giá cộng thêm 60.000 VND cho mỗi giờ làm việc
+  // Nhân giá dựa trên số ngày làm việc
+  price *= selectedDays.length;
 
-    // Kiểm tra và tính giá dựa trên ngày làm việc
-    selectedDays.forEach((day) => {
-      // Giả sử bạn có logic xác định giá dựa trên ngày làm việc ở đây
-      // Ví dụ: Nếu ngày làm việc là thứ 7 (ngày 7), thì cộng thêm 100.000 VND
-      if (day === 7) {
-        price += 100000;
-      }
-    });
+  // Thay đổi giá dịch vụ dự kiến dựa trên loại gói, số giờ làm việc và ngày làm việc
+  setServicePrice(price);
+}, [formik.values.duration, formik.values.workDay, formik.values.periodType]);
 
-    // Thay đổi giá dịch vụ dự kiến dựa trên loại gói, số giờ làm việc và ngày làm việc
-    setServicePrice(price);
-  }, [formik.values.duration, formik.values.workDay]);
+// ... (existing code)
 
   return (
     <>
@@ -342,9 +338,10 @@ const Booking1 = () => {
 
               <div>
                 <label htmlFor="package" className="booking-text mt-3">
-                  Giá: {servicePrice} VND
+                  Giá: {servicePrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                 </label>
               </div>
+
 
               <div className="col-md-12 mt-1 text-center">
                 <Link to={isLoggedIn ? "/checkout" : "/login"}></Link>

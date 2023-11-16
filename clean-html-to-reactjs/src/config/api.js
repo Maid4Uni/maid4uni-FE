@@ -34,11 +34,26 @@ const api = {
     const url = `update-package/${id}`;
     return axiosClient.put(url, data);
   },
-
+  createPackage: (params) => {
+    const url = "create-package";
+    return axiosClient.post(url, params);
+  },
+getCategory:(id, page) =>{
+  const url = `get-package-by-category/${id}&${page}`;
+    return axiosClient.put(url);
+},
   // order
   createOrder: (params) => {
     const url = "create-order";
     return axiosClient.post(url, params);
+  },
+  updateOrderStatus: () => {
+    const url = "update-order-status";
+    return axiosClient.put(url);
+  },
+  getOrderList: (id) => {
+    const url = `get-order-list-by-customer/${id}`;
+    return axiosClient.get(url);
   },
   //service
   getAllService: (page) => {
@@ -54,7 +69,7 @@ const api = {
   getPayment: (params) => {
     const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
     const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, params);
   },
 };
 

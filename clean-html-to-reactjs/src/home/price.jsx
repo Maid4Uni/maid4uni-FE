@@ -1,6 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import api from "../config/api";
+import { useRequest } from "ahooks";
 const Price = () => {
+    const { id, page } = useParams();
+    const { data } = useRequest(async () => {
+        try {
+            const response = await api.getCategory(id, page);
+            localStorage.setItem("package", JSON.stringify(response.data));
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    });
+    const pkg = data ? data[0] : null;
     return (
         <>
             <div class="container-xxl py-5">
@@ -19,8 +33,13 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "80%", maxHeight: "80%;" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn dẹp nhà cơ bản</h4>
-                                <p>Giá chỉ từ 30k/giờ </p>
-                                <Link to={"/booking1"} class="btn" href="booking1.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</Link>
+                                {data ? (
+                                    data.map((pkg) => (
+                                        <Link to={`category/${pkg.id}&${pkg.page}`} class="btn" href="booking1.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</Link>
+                                    ))
+                                ) : (
+                                    <div>Loading...</div>
+                                )}
                             </div>
 
                         </div>
@@ -33,7 +52,7 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "60%", maxHeight: "60%" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn dẹp nhà tiết kiệm</h4>
-                                <p>Giá: 40k/giờ</p>
+
                                 <a class="btn" href="booking2.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</a>
                             </div>
 
@@ -47,7 +66,7 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "60%", maxHeight: "60%" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn nhà premium</h4>
-                                <p>Giá: 80k/lần</p>
+
                                 <a class="btn" href="booking2.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</a>
                             </div>
 
@@ -61,8 +80,10 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "60%", maxHeight: "60%" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn nhà chuyên sâu</h4>
-                                <p>Giá: 100k/lần</p>
-                                <a class="btn" href="booking2.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</a>
+                                <Link
+                                    className="btn btn-primary rounded-pill py-3 px-5 mt-3"
+                                    to={`category/${pkg.id}`}
+                                ><i class="fa fa-plus text-primary me-3"></i>Chi tiết</Link>
                             </div>
 
                         </div>
@@ -75,7 +96,7 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "60%", maxHeight: "60%" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn khu vực bếp</h4>
-                                <p>Chỉ từ 50k/ lần vệ sinh</p>
+
                                 <a class="btn" href="booking2.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</a>
                             </div>
 
@@ -89,7 +110,7 @@ const Price = () => {
                                         alt="quet nha" style={{ maxWidth: "60%", maxHeight: "60%" }} />
                                 </div>
                                 <h4 class="mb-3">Dọn nhà tối giản </h4>
-                                <p>Với giá 150k/lần</p>
+
                                 <a class="btn" href="booking2.html"><i class="fa fa-plus text-primary me-3"></i>Chi tiết</a>
                             </div>
 

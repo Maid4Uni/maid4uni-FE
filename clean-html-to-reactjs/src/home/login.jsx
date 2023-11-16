@@ -51,7 +51,7 @@ const Login = () => {
       }else if (userRole === "STAFF") {
           navigate("/staff");
       } else if (userRole === "MANAGER") {
-        navigate(`/manager/package/${page || '0'}`);      }
+        navigate(`/manager/package/${page || '0'}`); }
     } catch (error) {
       console.error(error);
       setError("Đăng nhập không thành công. Vui lòng thử lại.");

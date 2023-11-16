@@ -31,6 +31,7 @@ const ConfirmationPage = () => {
     } catch (e) {
       console.error(e);
     }
+   
   };
 
   return (

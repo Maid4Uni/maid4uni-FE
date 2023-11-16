@@ -19,7 +19,7 @@ const Home = () => {
     }
   });
 
-  const getVnpayPayment = async () => {
+  const getVnpayPayment = async (params) => {
     try {
       await api.getPayment({
         vnp_Amount: search.get("vnp_Amount"),
