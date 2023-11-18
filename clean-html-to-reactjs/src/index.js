@@ -23,6 +23,7 @@ import Customer from "./home/customer.jsx";
 import Calendar from "./home/staff.jsx";
 import CategoryServices from "./home/category.jsx";
 import CreatePackage from "./component/manage/createpackage.jsx";
+import Header from "./layout/header.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -30,13 +31,15 @@ root.render(
       <Routes>
         <Route path="/admin/:page/" element={<Admin />} />
         <Route path="/manager/:menu/:page/" element={<Manager />} />
-        <Route path="/manager/package/create" element={<CreatePackage/>}/>
+        <Route path="/manager/package/create" element={<CreatePackage />} />
         <Route path="/manager/oder-detail" element={<OderDetail />} />
         <Route path="/customer/:id" element={<Customer />} />
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="/:vnp_TransactionStatus" element={<Home />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="/category/:id&:page" element={<CategoryServices />} />
+
           <Route path="/booking1" element={<Booking1 />} />
           <Route path="booking2" element={<Booking2 />} />
           <Route path="/contact" element={<Contact />} />
@@ -51,7 +54,7 @@ root.render(
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
         <Route path="/staff" element={<Calendar />} />
-        <Route path="/category/:id&page" element={<CategoryServices/>} />
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

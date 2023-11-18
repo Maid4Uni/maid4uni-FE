@@ -19,17 +19,29 @@ const Home = () => {
     }
   });
 
-  const getVnpayPayment = async (params) => {
-    try {
-      await api.getPayment({
-        vnp_Amount: search.get("vnp_Amount"),
-        vnp_OrderInfo: search.get("vnp_OrderInfo"),
-        vnp_ResponseCode: search.get("vnp_ResponseCode"),
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  useEffect(() => {
+    const orderId = localStorage.getItem("orderId");
+    const vnp_Amount = localStorage.getItem("vnp_Amount");
+    const vnp_OrderInfo = localStorage.getItem("vnp_OrderInfo");
+    const vnp_ResponseCode = localStorage.getItem("vnp_ResponseCode");
+
+    const fetchPaymentInfo = async () => {
+      try {
+        if (orderId && vnp_Amount && vnp_OrderInfo && vnp_ResponseCode) {
+          const response = await api.getPayment(orderId, {
+            vnp_Amount,
+            vnp_OrderInfo,
+            vnp_ResponseCode,
+          });
+          console.log(response.data); // Dữ liệu thanh toán từ API
+        }
+      } catch (error) {
+        console.error("Error fetching payment data", error);
+      }
+    };
+
+    fetchPaymentInfo();
+  }, []);
 
   useEffect(() => {
     const vnp_TransactionStatus = search.get('vnp_TransactionStatus');

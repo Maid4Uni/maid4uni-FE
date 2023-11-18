@@ -40,7 +40,7 @@ const api = {
   },
   getCategory: (id, page) => {
     const url = `get-package-by-category/${id}&${page}`;
-    return axiosClient.put(url);
+    return axiosClient.get(url);
   },
   deletePackage: (id) => {
     const url = `delete-package/${id}`;
@@ -74,9 +74,9 @@ const api = {
     return axiosClient.post(url, params);
   },
 
-  getPayment: (params) => {
+  getPayment: (params, orderId) => {
     const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
-    const url = `get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
+    const url = `get-vnpay-payment/${orderId}?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
     return axiosClient.get(url, params);
   },
 };
