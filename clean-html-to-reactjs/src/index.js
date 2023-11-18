@@ -22,6 +22,7 @@ import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
 import Calendar from "./home/staff.jsx";
 import CategoryServices from "./home/category.jsx";
+import CreatePackage from "./component/manage/createpackage.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ root.render(
       <Routes>
         <Route path="/admin/:page/" element={<Admin />} />
         <Route path="/manager/:menu/:page/" element={<Manager />} />
+        <Route path="/manager/package/create" element={<CreatePackage/>}/>
         <Route path="/manager/oder-detail" element={<OderDetail />} />
         <Route path="/customer/:id" element={<Customer />} />
         <Route path="/" element={<App />}>

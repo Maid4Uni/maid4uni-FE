@@ -25,7 +25,6 @@ const Package = () => {
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
-  const handleDeletePackage = () => { };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0);
@@ -44,17 +43,40 @@ const Package = () => {
       return response.data;
     } catch (error) {
       console.error(error);
-      throw error; 
+      throw error;
     }
   });
 
+  const handleDeletePackage = async (id) => {
+    try {
+      const response = await api.deletePackage(id);
+      // Xử lý khi xóa thành công
+      if (response.status === 200) {
+        const updatedPackageList = pkg.filter((pkg) => pkg.id !== id);
+        setPkg(updatedPackageList);
+        // Hiển thị thông báo khi xóa thành công
+        // setOpenDeleteSuccess(true);
+      }
+    } catch (error) {
+      console.error(error);
+      // Hiển thị thông báo khi xóa thất bại
+      // setOpenDeleteError(true);
+    }
+  };
+  const handleConfirmDelete = (id) => {
+    // Xác nhận xóa trước khi thực hiện
+    if (window.confirm('Bạn có chắc chắn muốn xóa gói dịch vụ này không?')) {
+      handleDeletePackage(id);
+    }
+  };
+
   const handleCreateService = () => {
-    navigate(`/manager/package/${page || 0}`);
+    navigate(`/manager/package/create`);
   };
   // EDIT
   const handleOpenUpdateDialog = async (id) => {
     try {
-      
+
       const response = await api.getPackage(id);
       const selectedPackage = response.data;
       setDetailUser(selectedPackage);
@@ -81,7 +103,7 @@ const Package = () => {
     }
   };
   const getPackageById = (id) => {
-    const selectedPackage = pkg.find(pkg => pkg.id === id); 
+    const selectedPackage = pkg.find(pkg => pkg.id === id);
     setDetailUser(selectedPackage);
   };
   const handleCloseUpdateSuccessNotificate = () => {
@@ -158,7 +180,7 @@ const Package = () => {
                         <TableCell align="left">
                           <DeleteIcon
                             sx={{ cursor: "pointer" }}
-                            onClick={() => handleDeletePackage(packages.id)}
+                            onClick={() => handleConfirmDelete(packages.id)}
                           />
                           <IconButton
                             color="primary"

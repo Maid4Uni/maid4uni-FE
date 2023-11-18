@@ -38,10 +38,14 @@ const api = {
     const url = "create-package";
     return axiosClient.post(url, params);
   },
-getCategory:(id, page) =>{
-  const url = `get-package-by-category/${id}&${page}`;
+  getCategory: (id, page) => {
+    const url = `get-package-by-category/${id}&${page}`;
     return axiosClient.put(url);
-},
+  },
+  deletePackage: (id) => {
+    const url = `delete-package/${id}`;
+    return axiosClient.delete(url);
+  },
   // order
   createOrder: (params) => {
     const url = "create-order";
@@ -53,6 +57,10 @@ getCategory:(id, page) =>{
   },
   getOrderList: (id) => {
     const url = `get-order-list-by-customer/${id}`;
+    return axiosClient.get(url);
+  },
+  getAllOrder: (page)=>{
+    const url = `get-all-order/${page}`;
     return axiosClient.get(url);
   },
   //service
