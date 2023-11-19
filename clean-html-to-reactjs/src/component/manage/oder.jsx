@@ -21,6 +21,7 @@ import api from "../../config/api";
 import { useRequest } from "ahooks";
 
 const Order = () => {
+  const [sortData, setSortedData] = useState([]);
   const { page } = useParams();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
@@ -41,17 +42,28 @@ const Order = () => {
     }
   });
   const navigate = useNavigate();
+  
   const sortedDataByOrderID = data ? [...data].sort((a, b) => a.id - b.id) : [];
-  const sortedDataByDate = data ? [...data].sort((a, b) => new Date(a.startDay) - new Date(b.startDay)) : [];
-  const sortedData = sortedDataByOrderID; // Set default sorting by OrderID
+  const sortedData = sortedDataByOrderID;
 
-  // Hàm để điều hướng sang trang chi tiết
+  const handleUpdateOrderStatus = async (orderId, newStatus) => {
+    try {
+      const response = await api.updateOrderStatus(orderId, newStatus);
+      if (response.status === 200) {
+
+        const updatedOrder = sortedData.find((order) => order.id === orderId);
+        updatedOrder.orderStatus = newStatus;
+        setSortedData(sortedData);
+      } else {
+        console.error("Error updating order status:", response.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleDetail = async (orderId) => {
     try {
-      // Call the API to update the order status to "thanh toán thành công"
-      await api.updateOrderStatus(orderId, 'Thanh toán thành công');
-
-      // Navigate to the order detail page
+      await api.getOrderDetail(orderId);
       navigate(`/manager/oder-detail/${orderId}`);
     } catch (error) {
       console.error(error);
@@ -81,8 +93,10 @@ const Order = () => {
             fullWidth
           >
             <MenuItem value="all">Tất cả</MenuItem>
-            <MenuItem value="chua-xac-nhan">Chưa xác nhận</MenuItem>
-            <MenuItem value="da-xac-nhan">Đã xác nhận</MenuItem>
+            <MenuItem value="DECLINED">Từ chối</MenuItem>
+            <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
+            <MenuItem value="APPROVED">Đồng ý</MenuItem>
+
           </Select>
         </FormControl>
       </div>
@@ -94,7 +108,7 @@ const Order = () => {
                 <TableCell>OrderID</TableCell>
                 <TableCell>Tên gói</TableCell>
                 <TableCell>Ngày bắt đầu</TableCell>
-                <TableCell>Ngày kết thúc</TableCell> 
+                <TableCell>Ngày kết thúc</TableCell>
                 <TableCell>Giá</TableCell>
                 <TableCell>Trạng thái</TableCell>
                 <TableCell></TableCell>
@@ -112,7 +126,7 @@ const Order = () => {
                   <TableRow>
                     <TableCell colSpan={6}>Error loading data...</TableCell>
                   </TableRow>
-                 ) : sortedData ? (
+                ) : sortedData ? (
                   sortedData
                     .slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage)
                     .map((order, index) => (
@@ -132,7 +146,15 @@ const Order = () => {
                         <TableCell>{order.startDay}</TableCell>
                         <TableCell>{order.endDay}</TableCell>
                         <TableCell align="left">{order.price}</TableCell>
-                        <TableCell align="center">{order.orderStatus}</TableCell>
+                        <TableCell align="center">
+                          <Select
+                          value={order.orderStatus} // Set current status as default value
+                          onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
+                        >
+                          <MenuItem value="chua-xac-nhan">Chưa xác nhận</MenuItem>
+                          <MenuItem value="da-xac-nhan">Đã xác nhận</MenuItem>
+                          {/* Add other status options */}
+                        </Select></TableCell>
                         <TableCell align="left">
                           <Button onClick={handleDetail}>Chi tiết</Button>
                         </TableCell>

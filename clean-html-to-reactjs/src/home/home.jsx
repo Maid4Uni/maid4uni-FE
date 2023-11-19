@@ -20,35 +20,41 @@ const Home = () => {
   });
 
   useEffect(() => {
-    const orderId = localStorage.getItem("orderId");
-    const vnp_Amount = localStorage.getItem("vnp_Amount");
-    const vnp_OrderInfo = localStorage.getItem("vnp_OrderInfo");
-    const vnp_ResponseCode = localStorage.getItem("vnp_ResponseCode");
+    const orderId = search.get("id");
+    const vnp_Amount = search.get("vnp_Amount");
+    const vnp_OrderInfo = search.get("vnp_OrderInfo");
+    const vnp_ResponseCode = search.get("vnp_ResponseCode");
 
-    const fetchPaymentInfo = async () => {
-      try {
-        if (orderId && vnp_Amount && vnp_OrderInfo && vnp_ResponseCode) {
-          const response = await api.getPayment(orderId, {
-            vnp_Amount,
-            vnp_OrderInfo,
-            vnp_ResponseCode,
-          });
-          console.log(response.data); // Dữ liệu thanh toán từ API
-        }
-      } catch (error) {
-        console.error("Error fetching payment data", error);
-      }
-    };
-
-    fetchPaymentInfo();
-  }, []);
-
-  useEffect(() => {
-    const vnp_TransactionStatus = search.get('vnp_TransactionStatus');
-    if (vnp_TransactionStatus === '00') {
-      alert('Giao dịch đã thành công!');
-      // navigate('/');
+    if (orderId && vnp_Amount && vnp_OrderInfo && vnp_ResponseCode) {
+      saveOrderDetails(orderId, vnp_Amount, vnp_OrderInfo, vnp_ResponseCode);
     }
+  }, [search]);
+
+  const saveOrderDetails = async (orderId, vnp_Amount, vnp_OrderInfo, vnp_ResponseCode) => {
+    try {
+      const response = await api.getPayment(orderId, {
+        vnp_Amount,
+        vnp_OrderInfo,
+        vnp_ResponseCode,
+      });
+      console.log("Order details saved:", response.data);
+    } catch (error) {
+      console.error("Error saving order details:", error);
+    }
+  };
+  useEffect(() => {
+    const vnp_TransactionStatus = search.get("vnp_TransactionStatus");
+    if (vnp_TransactionStatus === "00") {
+      alert("Giao dịch đã thành công!");
+      search.delete("vnp_TransactionStatus");
+    } else if (
+      vnp_TransactionStatus === "01" ||
+      vnp_TransactionStatus === "02"
+    ) {
+      alert("Giao dịch thất bại!");
+      search.delete("vnp_TransactionStatus");
+    }
+    navigate("/");
   }, [search, navigate]);
   return (
     <>
@@ -108,126 +114,7 @@ const Home = () => {
             <div>Loading...</div>
           )}
         </div>
-        <div class="container-xxl py-5">
-          <div class="container">
-            <div class="row g-5">
-              <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <p class="d-inline-block border rounded-pill py-1 px-4">
-                  Trải nghiệm dịch vụ
-                </p>
-                <h1 class="mb-4">
-                  LIÊN HỆ NGAY ĐỂ ĐƯỢC TƯ VẤN VỀ CÁC GÓI DỊCH VỤ CỦA EDULUXE
-                </h1>
-                <div class="bg-light rounded d-flex align-items-center p-5 mb-4">
-                  <div
-                    class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
-                    style={{ width: "55px", height: "55px" }}
-                  >
-                    <i class="fa fa-phone-alt text-primary"></i>
-                  </div>
-                  <div class="ms-4">
-                    <p class="mb-2">Gọi ngay vào số điện thoại </p>
-                    <h5 class="mb-0">+012 345 6789</h5>
-                  </div>
-                </div>
-                <div class="bg-light rounded d-flex align-items-center p-5">
-                  <div
-                    class="d-flex flex-shrink-0 align-items-center justify-content-center rounded-circle bg-white"
-                    style={{ width: "55px", height: "55px" }}
-                  >
-                    <i class="fa fa-envelope-open text-primary"></i>
-                  </div>
-                  <div class="ms-4">
-                    <p class="mb-2">Hoặc có thể gửi Mail </p>
-                    <h5 class="mb-0">info@example.com</h5>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="bg-light rounded h-100 d-flex align-items-center p-5">
-                  <form>
-                    <div class="row g-3">
-                      <div class="col-12 col-sm-6">
-                        <input
-                          type="text"
-                          class="form-control border-0"
-                          placeholder="Họ và tên"
-                          style={{ height: "55px" }}
-                        />
-                      </div>
-                      <div class="col-12 col-sm-6">
-                        <input
-                          type="email"
-                          class="form-control border-0"
-                          placeholder="Email"
-                          style={{ height: "55px" }}
-                        />
-                      </div>
-                      <div class="col-12 col-sm-6">
-                        <input
-                          type="text"
-                          class="form-control border-0"
-                          placeholder="SDT"
-                          style={{ height: "55px" }}
-                        />
-                      </div>
-                      <div class="col-12 col-sm-6">
-                        <select
-                          class="form-select border-0"
-                          style={{ height: "55px" }}
-                        >
-                          <option selected>Chọn dịch vụ</option>
-                          <option value="1">Vệ sinh nhà cửa</option>
-                          <option value="2">Giao nước</option>
-                          <option value="3">Nấu ăn</option>
-                        </select>
-                      </div>
-                      <div class="col-12 col-sm-6">
-                        <div class="date" id="date" data-target-input="nearest">
-                          <input
-                            type="text"
-                            class="form-control border-0 datetimepicker-input"
-                            placeholder="Chọn ngày"
-                            data-target="#date"
-                            data-toggle="datetimepicker"
-                            style={{ height: "55px" }}
-                          />
-                        </div>
-                      </div>
-                      <div class="col-12 col-sm-6">
-                        <div class="time" id="time" data-target-input="nearest">
-                          <input
-                            type="text"
-                            class="form-control border-0 datetimepicker-input"
-                            placeholder="Chọn thời gian"
-                            data-target="#time"
-                            data-toggle="datetimepicker"
-                            style={{ height: "55px" }}
-                          />
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <textarea
-                          class="form-control border-0"
-                          rows="5"
-                          placeholder="Những yêu cầu thêm "
-                        ></textarea>
-                      </div>
-                      <div class="col-12">
-                        <button
-                          class="btn btn-primary w-100 py-3"
-                          type="submit"
-                        >
-                          Đặt dịch vụ
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      
         <FeedBackSlider />
 
         <Link

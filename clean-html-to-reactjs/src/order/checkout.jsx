@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../config/api";
 
 const ConfirmationPage = () => {
-  // Trong trang Checkout
+ 
   const order = JSON.parse(localStorage.getItem("order"));
 
   const [data, setData] = useState(null);
@@ -15,7 +15,7 @@ const ConfirmationPage = () => {
         const response = await api.createPayment();
         setData(response.data);
       } catch (error) {
-        console.error("Error fetching data from API", error);
+        console.error("Error fetching data from API", error.response.data);
       }
     };
 

@@ -9,7 +9,6 @@ const Booking1 = () => {
   const isLoggedIn = localStorage.getItem("accessToken");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
   const [servicePrice, setServicePrice] = useState(0);
-  const [selectedWorkDays, setSelectedWorkDays] = useState([]);
 
 
   const formik = useFormik({
@@ -69,15 +68,14 @@ useEffect(() => {
   // Thực hiện tính toán giá dựa trên loại gói, số giờ làm việc và ngày làm việc
   let price = 0;
 
-  switch (selectedPackage.periodType) {
+  const selectedPeriod = formik.values.periodType;
+
+  switch (selectedPeriod) {
     case "ONE_MONTH":
-      price = selectedDuration * 100000; // Assuming 100,000 VND per hour for a monthly package
+      price = selectedDuration *10000;
       break;
     case "TWO_MONTH":
-      price = selectedDuration * 90000; // Assuming a discount for a two-month package
-      break;
-    case "THREE_MONTH":
-      price = selectedDuration * 80000; // Assuming a bigger discount for a three-month package
+      price = selectedDuration * 20000; 
       break;
     default:
       price = 0;
@@ -299,7 +297,7 @@ useEffect(() => {
                 <div className="col-md-12 mt-3">
                   <div className="form-group">
                     <label for="period" className="booking-text">
-                      Thời gian:
+                      Thời lượng:
                     </label>
                     <select
                       id=" period"
@@ -330,7 +328,6 @@ useEffect(() => {
                     >
                       <option value="ONE_MONTH">1 tháng</option>
                       <option value="TWO_MONTH">2 tháng</option>
-                      <option value="THREE_MONTH">3 tháng</option>
                     </select>
                   </div>
                 </div>
