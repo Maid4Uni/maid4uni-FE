@@ -8,14 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useRequest } from "ahooks";
-import { useFormik } from "formik";
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+
 import api from "../config/api";
 
 const Header = () => {
-  const [open, setOpen] = React.useState(false);
   const { data } = useRequest(
     async () => {
       const response = await api.getPopularPackage();
@@ -33,34 +31,16 @@ const Header = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    navigate("/customer");
+    if (user) {
+      // Assuming user.id exists in the user object, replace it with the appropriate key
+      navigate(`/customer/${user.id}`);
+    }
   };
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
 
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      username: Yup.string().required("Tài khoản không được bỏ trống"),
-      password: Yup.string()
-        .min(6, "Mật khẩu phải có ít nhất 6 chứ số")
-        .required("Vui lòng nhập mật khẩu"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        const response = await api.login(values);
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(response.data.account));
-        navigate("/");
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  });
   const user = JSON.parse(localStorage.getItem("user"));
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -168,7 +148,7 @@ const Header = () => {
               </NavLink>
               <div
                 className="dropdown-menu rounded-0 rounded-bottom m-0"
-                style={{ width: "100%", minWidth: "227px" }}
+                style={{ width: "100%", minWidth: "270px" }}
               >
                 {data?.map((item) => (
                   <NavLink
@@ -185,8 +165,8 @@ const Header = () => {
               Phân loại
             </NavLink>
 
-            <NavLink to="/contact" className="nav-item nav-link">
-              Liên hệ
+            <NavLink to="/about" className="nav-item nav-link">
+              Giới thiệu
             </NavLink>
           </div>
         </div>

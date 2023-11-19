@@ -331,7 +331,11 @@ const Booking1 = () => {
 
               <div>
                 <label htmlFor="package" className="booking-text mt-3">
-                  Giá dự kiến: {servicePrice} VND
+                  Giá dự kiến:{" "}
+                  {servicePrice.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
                 </label>
                 <p style={{ color: "red" }}>
                   *Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ

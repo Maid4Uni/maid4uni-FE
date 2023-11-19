@@ -19,12 +19,13 @@ import {
   Assignment as AssignmentIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
 import History from "../order/history";
 import TrackingPage from "../order/tracking";
 
 const Customer = () => {
+  const { id } = useParams();
   const [isMenu, setMenu] = useState("tracking");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const data = async (values) => {
@@ -32,7 +33,7 @@ const Customer = () => {
       const response = await api.login(values);
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate("/");
+      navigate(`customer/${id}`);
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +70,7 @@ const Customer = () => {
             sx={{
               flex: 1,
               display: "flex",
-              justifyContent: "flex-end", // Align the user name to the right
+              justifyContent: "flex-end",
             }}
           >
             <Button

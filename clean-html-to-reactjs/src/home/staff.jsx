@@ -1,83 +1,75 @@
-import React, { useState } from "react";
-import Fullcalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
+import React, { useState, useEffect } from "react";
+import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { AppBar, Button, Menu, MenuItem, Toolbar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import api from "../config/api";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import TextField from "@mui/material/TextField";
 
 function Calendar() {
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const data = async (values) => {
-    try {
-      const response = await api.login(values);
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate("/staff");
-    } catch (error) {
-      console.error(error);
-    }
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        // Replace "YOUR_API_ENDPOINT" with the actual API endpoint
+        const response = await fetch("YOUR_API_ENDPOINT");
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const filteredEvents = events.filter((event) => {
+    const eventDate = new Date(event.start);
+    return (
+      eventDate.getFullYear() === selectedDate.getFullYear() &&
+      eventDate.getMonth() === selectedDate.getMonth() &&
+      eventDate.getDate() === selectedDate.getDate()
+    );
+  });
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
-
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <div>
-      <AppBar position="static" sx={{ marginBottom: "20px" }}>
-        <Toolbar>
-          <Button
-            color="inherit"
-            onClick={handleMenuClick}
-            aria-controls="personal-menu"
-            aria-haspopup="true"
-          >
-            {user ? user.username : "Staff"}
-          </Button>
-          <Menu
-            id="personal-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleLogout();
-                handleMenuClose();
-              }}
-            >
-              Đăng xuất
-            </MenuItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-      <Fullcalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView={"dayGridMonth"}
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => handleDateChange(date)}
+        dateFormat="MM/dd/yyyy"
+        customInput={<TextField />} // Use MUI TextField for styling
+      />
+      <FullCalendar
+        plugins={[timeGridPlugin, interactionPlugin]}
+        initialView="timeGridDay"
         headerToolbar={{
-          start: "today prev,next",
+          start: "",
           center: "title",
-          end: "dayGridMonth,timeGridWeek,timeGridDay",
+          end: "today prev,next",
         }}
-        height={"90vh"}
+        height="90vh"
+        allDaySlot={false}
+        slotDuration="00:30:00"
+        events={filteredEvents}
+        eventContent={renderEventContent}
       />
     </div>
+  );
+}
+
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
   );
 }
 
