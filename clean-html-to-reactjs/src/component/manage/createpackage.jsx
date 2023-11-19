@@ -114,8 +114,8 @@ const CreatePackage = () => {
             </Typography>
           )}
           <TextField
-            label="Hình ảnh"
             name="imageUrl"
+            type="file"
             value={formik.values.imageUrl}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
