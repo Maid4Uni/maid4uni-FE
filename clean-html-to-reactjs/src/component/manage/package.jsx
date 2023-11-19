@@ -63,21 +63,15 @@ const Package = () => {
   const handleDeletePackage = async (id) => {
     try {
       const response = await api.deletePackage(id);
-      // Xử lý khi xóa thành công
       if (response.status === 200) {
         const updatedPackageList = pkg.filter((pkg) => pkg.id !== id);
         setPkg(updatedPackageList);
-        // Hiển thị thông báo khi xóa thành công
-        // setOpenDeleteSuccess(true);
       }
     } catch (error) {
       console.error(error);
-      // Hiển thị thông báo khi xóa thất bại
-      // setOpenDeleteError(true);
     }
   };
   const handleConfirmDelete = (id) => {
-    // Xác nhận xóa trước khi thực hiện
     if (window.confirm("Bạn có chắc chắn muốn xóa gói dịch vụ này không?")) {
       handleDeletePackage(id);
     }

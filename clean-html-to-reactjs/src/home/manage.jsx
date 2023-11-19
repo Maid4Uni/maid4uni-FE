@@ -36,7 +36,7 @@ const Manager = () => {
 
   useEffect(() => {
     if (!menu) {
-      navigate(`/manager/${isMenu}/${page || ""}`);
+      navigate(`/manager/${isMenu}/${page}`);
     }
   }, [menu, isMenu, page, navigate]);
 
@@ -45,7 +45,7 @@ const Manager = () => {
       const response = await api.login(values);
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate(`/manager/${isMenu}/${page || ""}`);
+      navigate(`/manager/${isMenu}`);
     } catch (error) {
       console.error(error);
     }
@@ -124,7 +124,7 @@ const Manager = () => {
             <List>
               <ListItemButton
                 onClick={() => setMenu("package")}
-                selected={isMenu === "package"}
+                selected={isMenu === `package/${page}`}
               >
                 <ListItemIcon>
                   <LocalOfferIcon />
