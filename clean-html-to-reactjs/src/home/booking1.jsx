@@ -9,7 +9,6 @@ const Booking1 = () => {
   const isLoggedIn = localStorage.getItem("accessToken");
   const packageInfo = JSON.parse(localStorage.getItem("package"));
   const [servicePrice, setServicePrice] = useState(0);
-  const [selectedWorkDays, setSelectedWorkDays] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -81,8 +80,18 @@ const Booking1 = () => {
     // Adjust price based on duration
     price += selectedDuration * 30000; // Assuming 30,000 VND per hour
 
-    // Adjust price based on selected work days
-    price *= selectedDays.length;
+    const selectedPeriod = formik.values.periodType;
+
+    switch (selectedPeriod) {
+      case "ONE_MONTH":
+        price = selectedDuration * 10000;
+        break;
+      case "TWO_MONTH":
+        price = selectedDuration * 20000;
+        break;
+      default:
+        price = 0;
+    }
 
     // Update the state with the calculated price
     setServicePrice(price);
@@ -331,7 +340,11 @@ const Booking1 = () => {
 
               <div>
                 <label htmlFor="package" className="booking-text mt-3">
-                  Giá dự kiến: {servicePrice} VND
+                  Giá dự kiến:{" "}
+                  {servicePrice.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
                 </label>
                 <p style={{ color: "red" }}>
                   *Đây chỉ mới là giá dự kiến, nếu có phát sinh ngoài dự kiến sẽ

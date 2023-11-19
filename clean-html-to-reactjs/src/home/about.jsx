@@ -26,28 +26,13 @@ const About = () => {
             </h1>
             <p>
               Chúng tôi đã bắt đầu vào năm 2023 tại Đại học FPT, và sứ mệnh của
-              chúng tôi vẫn không đổi: cung cấp một giải pháp đơn giản, đáng tin
-              cậy và tiết kiệm thời gian cho sinh viên . Sự bận rộn của cuộc
-              sống sinh viên yêu cầu mọi người phải làm việc chăm chỉ, và đó là
-              lý do tại sao chúng tôi tự hào về việc đảm bảo căn hộ của bạn luôn
-              ở trong tình trạng tốt nhất.
+              chúng tôi là: cung cấp một giải pháp đơn giản, đáng tin cậy và
+              tiết kiệm thời gian cho sinh viên . Sự bận rộn của cuộc sống sinh
+              viên yêu cầu mọi người phải làm việc chăm chỉ, và đó là lý do tại
+              sao chúng tôi tự hào về việc đảm bảo căn hộ của bạn luôn ở trong
+              tình trạng tốt nhất.
             </p>
-            <p>
-              Dịch vụ của chúng tôi đã được xây dựng với mục tiêu làm cho cuộc
-              sống của bạn dễ dàng hơn. Bạn có thể lựa chọn lịch trình dọn dẹp
-              hàng tuần hoặc hàng tuần thứ hai để đảm bảo căn hộ luôn được duy
-              trì sạch sẽ và gọn gàng. Mỗi lần dọn dẹp của chúng tôi đều được
-              điều chỉnh theo ý muốn của bạn, và chúng tôi cam kết bảo đảm sự
-              hài lòng của bạn trong vòng 24 giờ.
-            </p>
-            <p className="mb-4">
-              Như một doanh nghiệp được điều hành cục bộ, chúng tôi tự tin về
-              chất lượng dịch vụ của mình. Với vật tư và thiết bị dọn dẹp được
-              cung cấp sẵn, bạn không cần lo lắng về bất kỳ chi phí hoặc cam kết
-              dài hạn nào. Và đặc biệt, chúng tôi có đội ngũ chuyên nghiệp và
-              đáng tin cậy, luôn sẵn sàng đưa căn hộ của bạn lên một tầm cao
-              mới.
-            </p>
+
             <p>
               Sứ mệnh của Eduluxe không chỉ đơn giản là dọn dẹp căn hộ. Đó là để
               giúp bạn thư giãn, tập trung vào học tập và thưởng thức cuộc sống
@@ -78,6 +63,68 @@ const About = () => {
               <i className="far fa-check-circle text-primary me-3"></i>Đội ngũ
               chuyên nghiệp và đáng tin cậy
             </p>
+          </div>
+          <div
+            className="customer-benefits row justify-content-around"
+            style={{ marginTop: "30px" }}
+          >
+            <h2 className="mb-3 text-center">
+              Quyền Lợi của Bạn Khi Đăng Ký Dịch Vụ
+            </h2>
+          </div>
+          <div className="row">
+            <div className="col-md-3 mb-3">
+              <div className="benefit-item text-center">
+                <img
+                  src="https://img.freepik.com/premium-vector/contract-cancellation-business-concept-sign-forbidden-vector-stock-illustration_100456-8966.jpg"
+                  alt="Hình ảnh mô tả quyền lợi của khách hàng"
+                  className="img-fluid"
+                  style={{ width: "100%", maxWidth: "150px", height: "auto" }}
+                />
+                <p> Không cần hợp đồng</p>
+              </div>
+            </div>
+
+            <div className="col-md-3 mb-3">
+              <div className="benefit-item text-center">
+                <img
+                  src="https://img.freepik.com/free-vector/hand-holding-phone-with-digital-wallet-service-sending-money-payment-transaction-transfer-through-mobile-app-flat-illustration_74855-20589.jpg?size=626&ext=jpg&ga=GA1.1.44546679.1699920000&semt=ais"
+                  alt="Hình ảnh mô tả quyền lợi của khách hàng"
+                  className="img-fluid"
+                  style={{
+                    width: "100%",
+                    maxWidth: "150px",
+                    height: "auto",
+                    marginBottom: "20px",
+                  }}
+                />
+                <p>Thanh toán nhanh chóng bằng hình thức thanh toán online</p>
+              </div>
+            </div>
+
+            <div className="col-md-3 mb-3">
+              <div className="benefit-item text-center">
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/022/346/594/non_2x/get-a-gift-voucher-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg"
+                  alt="Hình ảnh mô tả quyền lợi của khách hàng"
+                  className="img-fluid"
+                  style={{ width: "100%", maxWidth: "150px", height: "auto" }}
+                />
+                <p>Tặng voucher vào các dịp lễ, tết</p>
+              </div>
+            </div>
+
+            <div className="col-md-3 mb-3">
+              <div className="benefit-item text-center">
+                <img
+                  src="https://t4.ftcdn.net/jpg/03/74/05/33/360_F_374053323_QmlKtu75fySUkU4dGKhHZqfxJMC2U0Pl.jpg"
+                  alt="Hình ảnh mô tả quyền lợi của khách hàng"
+                  className="img-fluid"
+                  style={{ width: "100%", maxWidth: "150px", height: "auto" }}
+                />
+                <p>Chăm sóc khách hàng 24/7</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

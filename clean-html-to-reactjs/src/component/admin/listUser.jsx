@@ -65,14 +65,14 @@ const ListUser = () => {
       <Typography variant="h4" sx={{ margin: "20px", textAlign: "center" }}>
         Danh sách tài khoản
       </Typography>
-      <Button
+      {/* <Button
         variant="contained"
         startIcon={<AddBoxRounded />}
         onClick={handleCreateAccount}
         sx={{ marginBottom: "10px" }}
       >
         Tạo account
-      </Button>
+      </Button> */}
       {localStorage.getItem("accessToken") ? (
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">

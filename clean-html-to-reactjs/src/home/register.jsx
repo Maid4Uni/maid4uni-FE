@@ -64,7 +64,7 @@ const Register = () => {
           }}
         >
           <div className="form-outline mt-2">
-            <label className="form-label" for="username">
+            <label className="form-label" htmlFor="username">
               Tài khoản
             </label>
             <input
@@ -87,7 +87,7 @@ const Register = () => {
             ) : null}
           </div>
           <div className="form-outline mt-2">
-            <label className="form-label" for="fullName">
+            <label className="form-label" htmlFor="fullName">
               Họ và tên
             </label>
             <input
@@ -105,7 +105,7 @@ const Register = () => {
             ) : null}
           </div>
           <div className="form-outline mb-4">
-            <label className="form-label" for="email">
+            <label className="form-label" htmlFor="email">
               Email
             </label>
             <input
@@ -123,7 +123,7 @@ const Register = () => {
             ) : null}
           </div>
           <div className="form-outline mb-4">
-            <label className="form-label" for="phoneNumber">
+            <label className="form-label" htmlFor="phoneNumber">
               Số điện thoại
             </label>
             <input
@@ -141,7 +141,7 @@ const Register = () => {
             ) : null}
           </div>
           <div className="form-outline mb-4">
-            <label className="form-label" for="password">
+            <label className="form-label" htmlFor="password">
               Mật khẩu
             </label>
             <input
@@ -159,7 +159,7 @@ const Register = () => {
             ) : null}
           </div>
           <div className="form-outline mb-4">
-            <label className="form-label" for="confirmPassword">
+            <label className="form-label" htmlFor="confirmPassword">
               Xác thực mật khẩu
             </label>
             <input

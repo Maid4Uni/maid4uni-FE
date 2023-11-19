@@ -44,9 +44,19 @@ const Update = ({
       setOpenSuccessFulUpdate(true);
       handleClose();
     } catch (error) {
-      console.error(error);
+      if (error.response) {
+        console.error("Server responded with an error:", error.response.data);
+        console.error("Status code:", error.response.status);
+        console.error("Headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received from the server:", error.request);
+      } else {
+        console.error("Error setting up the request:", error.message);
+      }
+      // Display an error message to the user or handle the error appropriately
     }
   };
+
   const changeImmediatelyImage = (data1, data2) => {
     return data1 === data2 ? data1 : data2;
   };
@@ -69,7 +79,7 @@ const Update = ({
       imageUrl: Yup.string()
         .required("Chỉnh sửa gói hình ảnh")
         .min(2, "Ít nhất 2 kí tự"),
-      description: Yup.date().required("Thêm miêu tả gói dịch vụ"),
+      description: Yup.string().required("Thêm miêu tả gói dịch vụ"),
       price: Yup.number().required("Đừng bỏ trống giá gói dịch vụ"),
     }),
     enableReinitialize: true,
