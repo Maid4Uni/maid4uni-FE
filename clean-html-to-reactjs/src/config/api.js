@@ -53,7 +53,7 @@ const api = {
 
   getPayment: (params, id) => {
     const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
-    const url = `${id}/get-vnpay-payment?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
+    const url = `/get-vnpay-payment/${id}?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
     return axiosClient.get(url);
   },
 

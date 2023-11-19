@@ -55,44 +55,38 @@ const Booking1 = () => {
   });
 
   useEffect(() => {
-    // Loại gói dịch vụ đã được chọn
+    // Load selected package from local storage
     const selectedPackage = JSON.parse(localStorage.getItem("package"));
 
-    // Số giờ làm việc đã chọn
-    const selectedDuration = formik.values.duration;
-
-    // Danh sách ngày làm việc đã chọn
-    const selectedDays = selectedWorkDays;
-
-    // Thực hiện tính toán giá dựa trên loại gói, số giờ làm việc và ngày làm việc
+    // Initialize price with the base package price
     let price = 0;
 
-    switch (selectedPackage.periodType) {
+    // Extract relevant information
+    const selectedDuration = formik.values.duration;
+    const selectedDays = formik.values.workDay; // Corrected from selectedWorkDays
+
+    // Adjust price based on period type
+    switch (formik.values.periodType) {
       case "ONE_MONTH":
-        price = 1000000; // Giá cho gói 1 tháng
+        price += 1000000; // Additional cost for a one-month package
         break;
       case "TWO_MONTH":
-        price = 1800000; // Giá cho gói 2 tháng
+        price += 1800000; // Additional cost for a two-month package
         break;
       default:
-        price = 0;
+        // Handle other period types if necessary
+        break;
     }
 
-    // Tính giá dựa trên số giờ làm việc
-    price += selectedDuration * 60000; // Giả sử giá cộng thêm 60.000 VND cho mỗi giờ làm việc
+    // Adjust price based on duration
+    price += selectedDuration * 30000; // Assuming 30,000 VND per hour
 
-    // Kiểm tra và tính giá dựa trên ngày làm việc
-    selectedDays.forEach((day) => {
-      // Giả sử bạn có logic xác định giá dựa trên ngày làm việc ở đây
-      // Ví dụ: Nếu ngày làm việc là thứ 7 (ngày 7), thì cộng thêm 100.000 VND
-      if (day === 7 || day === 8) {
-        price += 100000;
-      }
-    });
+    // Adjust price based on selected work days
+    price *= selectedDays.length;
 
-    // Thay đổi giá dịch vụ dự kiến dựa trên loại gói, số giờ làm việc và ngày làm việc
+    // Update the state with the calculated price
     setServicePrice(price);
-  }, [formik.values.duration, formik.values.workDay]);
+  }, [formik.values.duration, formik.values.workDay, formik.values.periodType]);
 
   return (
     <>
@@ -263,7 +257,7 @@ const Booking1 = () => {
                       type="time"
                       id="time"
                       min="07:00"
-                      max="16:00"
+                      max="17:00"
                       step="300"
                       className="form-control"
                       required
@@ -299,7 +293,7 @@ const Booking1 = () => {
                 <div className="col-md-12 mt-3">
                   <div className="form-group">
                     <label for="period" className="booking-text">
-                      Thời gian:
+                      Thời lượng:
                     </label>
                     <select
                       id=" period"
