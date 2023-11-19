@@ -5,6 +5,7 @@ import FooterAmin from "../layout/footerAdmin";
 import CreateUser from "../component/admin/createUser";
 import api from "../config/api";
 import { useNavigate } from "react-router-dom";
+import EditUser from "../component/admin/editUser";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -37,7 +38,6 @@ const Admin = () => {
     <>
       <div className="admin" style={{ position: "relative", height: "100%" }}>
         <div style={{ display: "flex" }}>
-          <div style={{ width: "231px" }}></div>
           <HeaderAdmin handleActiveTab={handleActiveTab} />
 
           <main

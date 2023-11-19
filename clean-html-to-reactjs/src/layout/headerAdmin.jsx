@@ -103,7 +103,7 @@ const HeaderAdmin = (props) => {
         anchor="left"
         open={drawerOpen}
         onClose={handleDrawerToggle}
-        sx={{ display: { xs: "block", md: "none" } }}
+        sx={{ display: { xs: "block", md: "block" } }}
         ModalProps={{
           keepMounted: true,
         }}
