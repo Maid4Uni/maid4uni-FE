@@ -46,14 +46,15 @@ const api = {
     const url = `delete-package/${id}`;
     return axiosClient.delete(url);
   },
+
   // order
   createOrder: (params) => {
     const url = "create-order";
     return axiosClient.post(url, params);
   },
-  updateOrderStatus: () => {
+  updateOrderStatus: (params) => {
     const url = "update-order-status";
-    return axiosClient.put(url);
+    return axiosClient.put(url,params);
   },
   getOrderList: (id) => {
     const url = `get-order-list-by-customer/${id}`;
@@ -63,11 +64,16 @@ const api = {
     const url = `get-all-order/${page}`;
     return axiosClient.get(url);
   },
+  getOrderDetail: (id) => {
+    const url = `get-order-detail-by-orderId/${id}`;
+    return axiosClient.get(url);
+  },
   //service
   getAllService: (page) => {
     const url = `get-all-service/${page}`;
     return axiosClient.get(url);
   },
+
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";

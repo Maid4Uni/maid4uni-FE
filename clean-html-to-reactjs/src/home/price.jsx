@@ -9,6 +9,28 @@ const Price = () => {
       image:
         "https://i.pinimg.com/736x/8c/bd/a7/8cbda70ca4ee212d4c8dda623610f11f.jpg",
     },
+    {
+        name: "Dọn dẹp nhà tiết kiệm",
+        image: "https://i.pinimg.com/564x/f6/94/fd/f694fdb8cb385be2501dfa7460e56fbf.jpg",
+    },
+    {
+        name: "Dọn nhà premium",
+        image: "https://i.pinimg.com/564x/f4/0a/37/f40a375d46b81f304fc4cbaa48250d22.jpg",
+    },
+    {
+        name: "Dọn nhà chuyên sâu",
+        image: "https://i.pinimg.com/564x/f9/99/18/f99918c72317bfb77ee9cb53fb44dab7.jpg",
+    },
+    {
+        name: "Dọn khu vực bếp",
+        image:"https://i.pinimg.com/564x/6a/8a/89/6a8a8989d5a65ebd62c3420889e19a11.jpg",
+    },
+    {
+        name: "Dọn nhà tối giản",
+        image:"https://i.pinimg.com/564x/c5/93/60/c59360a4b1eda21fb805966493116637.jpg",
+    },
+
+
   ];
 
   // Generating links from 0 to 5 for id and page

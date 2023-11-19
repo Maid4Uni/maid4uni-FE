@@ -38,29 +38,7 @@ const CreatePackage = () => {
     };
     fetchData();
   }, [currentPage]);
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
-  };
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    try {
-      const response = await api.createPackage({
-        packageName: values.name,
-        packagePrice: values.price,
-        packageDescription: values.description,
-        packageCategory: values.category,
-        packageImageURL: values.imageUrl,
-        serviceList: values.serviceList, // Giả sử serviceList là một mảng các ID dịch vụ
-      });
-      setSelectedServices([]);
-      console.log("Package created:", response.data);
-      setSuccessMessage("Package created successfully!");
-      resetForm();
-    } catch (error) {
-      console.error("Error creating package:", error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -79,29 +57,15 @@ const CreatePackage = () => {
         .min(10, "Mô tả nhiều hơn 10 kí tự"),
       imageUrl: Yup.string().required("Thêm link hình ảnh cho gói dịch vụ"),
     }),
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const response = await api.createPackage(values);
-        console.log("Package created:", response.data);
-        setSuccessMessage("Package created successfully!");
+        await api.createPackage(values);
         resetForm(); // Reset form after successful submission
       } catch (error) {
         console.error("Error creating package:", error);
-      } finally {
-        setSubmitting(false);
       }
     },
   });
-  const handleChange = async (e) => {
-    const selectedOptions = e.target.selectedOptions;
-
-    if (selectedOptions && selectedOptions.length > 0) {
-      const selectedServiceId = selectedOptions[0].value;
-      setSelectedServices([selectedServiceId]);
-    } else {
-      setSelectedServices([]);
-    }
-  };
 
   return (
     <Box maxWidth="400px" mx="auto" p={3}>
@@ -109,10 +73,15 @@ const CreatePackage = () => {
         <Typography variant="subtitle1">{successMessage}</Typography>
       )}
       <Typography variant="h4" mb={2}>
-        Create Package
+        Tạo gói dịch vụ
       </Typography>
       <Formik {...formik}>
-        <Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            formik.handleSubmit();
+          }}
+        >
           <TextField
             label="Tên gói dịch vụ"
             name="name"
@@ -173,14 +142,14 @@ const CreatePackage = () => {
           <FormControl fullWidth margin="normal">
             <Select
               multiple
-              value={selectedServices}
-              onChange={handleChange}
+              name="serviceList"
+              value={formik.values.serviceList}
+              onChange={(event) => {
+                setSelectedServices(selectedServices);
+              }}
               variant="outlined"
               displayEmpty
             >
-              <MenuItem value="" disabled>
-                Chọn dịch vụ
-              </MenuItem>
               {services.map((service) => (
                 <MenuItem key={service.id} value={service.id}>
                   {service.name}
@@ -188,14 +157,7 @@ const CreatePackage = () => {
               ))}
             </Select>
           </FormControl>
-
-          <Button
-            onClick={handleSubmit}
-            type="submit"
-            disabled={formik.isSubmitting}
-            variant="contained"
-            color="primary"
-          >
+          <Button type="submit" variant="contained" color="primary">
             Tạo
           </Button>
         </Form>
