@@ -16,13 +16,14 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../../config/api";
 import { useRequest } from "ahooks";
 
 const Order = () => {
-  const [sortData, setSortedData] = useState([]);
   const { page } = useParams();
+  const [orderStatus, setStatus] = useState(""); // Define orderStatus
+  const [id, setOrderId] = useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
   const handleChangePage = (event, newPage) => {
@@ -41,33 +42,20 @@ const Order = () => {
       console.error(error);
     }
   });
-  const navigate = useNavigate();
 
-  const sortedDataByOrderID = data ? [...data].sort((a, b) => a.id - b.id) : [];
-  const sortedData = sortedDataByOrderID;
+  // const orderStatus= parseInt(status);
 
-  const handleUpdateOrderStatus = async (orderId, newStatus) => {
+
+  const handleUpdateOrderStatus = async (id, orderStatus) => {
     try {
-      const response = await api.updateOrderStatus(orderId, newStatus);
-      if (response.status === 200) {
-        const updatedOrder = sortedData.find((order) => order.id === orderId);
-        updatedOrder.orderStatus = newStatus;
-        setSortedData(sortedData);
-      } else {
-        console.error("Error updating order status:", response.error);
-      }
+      const response = await api.updateOrderStatus({ id, orderStatus });
+      console.log(response);
     } catch (error) {
       console.error(error);
+      alert("Error updating order status");
     }
   };
-  const handleDetail = async (orderId) => {
-    try {
-      await api.getOrderDetail(orderId);
-      navigate(`/manager/oder-detail/${orderId}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   return (
     <>
@@ -85,8 +73,7 @@ const Order = () => {
           type="text"
           className="form-control"
           placeholder="Tìm kiếm..."
-          // value={searchText}
-          // onChange={handleSearchTextChange}
+
         />
       </div>
       <div className="col-2">
@@ -130,8 +117,8 @@ const Order = () => {
                 <TableRow>
                   <TableCell colSpan={6}>Error loading data...</TableCell>
                 </TableRow>
-              ) : sortedData ? (
-                sortedData
+              ) : data ? (
+                data
                   .slice(
                     currentPage * rowsPerPage,
                     currentPage * rowsPerPage + rowsPerPage
@@ -156,32 +143,48 @@ const Order = () => {
                       <TableCell>{order.startDay}</TableCell>
                       <TableCell>{order.endDay}</TableCell>
                       <TableCell align="left">{order.price}</TableCell>
-                      <TableCell align="center">
-                        <Select
-                          value={order.orderStatus} // Set current status as default value
-                          onChange={(e) =>
-                            handleUpdateOrderStatus(order.id, e.target.value)
-                          }
-                        >
-                          <MenuItem value="chua-xac-nhan">
-                            Chưa xác nhận
-                          </MenuItem>
-                          <MenuItem value="da-xac-nhan">Đã xác nhận</MenuItem>
-                          {/* Add other status options */}
-                        </Select>
+                      <TableCell align="left">
+                        {order.orderStatus === "APPROVED" ? (
+                          <Link to={`manager/order-detail/${order.id}`}>
+                            Chi tiết
+                          </Link>
+                        ) : (
+                          "---"
+                        )}
                       </TableCell>
                       <TableCell align="left">
-                        <Button onClick={handleDetail}>Chi tiết</Button>
+                        {order.orderStatus !== "APPROVED" && (
+
+                          <Select
+                            labelId="trang-thai-label"
+                            label="Trạng thái"
+                            value={
+                              order.orderStatus === "DECLINED"
+                                ? "DECLINED"
+                                : order.orderStatus === "WAITING_FOR_APPROVAL"
+                                  ? "WAITING_FOR_APPROVAL"
+                                  : "APPROVED"
+                            }
+                            fullWidth
+                            disabled={order.orderStatus === "APPROVED"} // Disable for APPROVED orders
+                            onChange={(e) =>
+                              handleUpdateOrderStatus(order.id, e.target.value)
+                            }
+                          >
+                            <MenuItem value="DECLINED">Từ chối</MenuItem>
+                            <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
+                            <MenuItem value="APPROVED">Đồng ý</MenuItem>                          </Select>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))
               ) : (
                 <TableRow>
                   <TableCell colSpan={6}>No data available</TableCell>
-                </TableRow>
-              )}
+                </TableRow>)}
             </TableBody>
           </Table>
+
           <TablePagination
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -192,7 +195,7 @@ const Order = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </TableContainer>
-      </section>
+      </section >
     </>
   );
 };
