@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -22,6 +22,8 @@ import { useRequest } from "ahooks";
 
 const Order = () => {
   const { page } = useParams();
+  const [data, setData] = useState([]); // Manage order data
+
   const [orderStatus, setStatus] = useState(""); // Define orderStatus
   const [id, setOrderId] = useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -33,28 +35,43 @@ const Order = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0);
   };
-  const { data, loading, error } = useRequest(async () => {
-    try {
-      const response = await api.getAllOrder(page);
-      localStorage.setItem("order", JSON.stringify(response.data));
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
 
-  // const orderStatus= parseInt(status);
+  useEffect(() => {
+    // Fetch data on initial load
+    const fetchData = async () => {
+      try {
+        const response = await api.getAllOrder(page);
+        localStorage.setItem("order", JSON.stringify(response.data));
+        setData(response.data); // Set initial data
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [page]);
 
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value); // Lưu giá trị trạng thái khi thay đổi
+  };
 
   const handleUpdateOrderStatus = async (id, orderStatus) => {
     try {
       const response = await api.updateOrderStatus({ id, orderStatus });
+      const updatedData = data.map(order => {
+        if (order.id === id) {
+          return { ...order, orderStatus }; // Update the order status
+        }
+        return order;
+      });
+      localStorage.setItem("order", JSON.stringify(updatedData)); // Update local storage
+      setData(updatedData); // Update the data state
       console.log(response);
     } catch (error) {
       console.error(error);
       alert("Error updating order status");
     }
   };
+
 
 
   return (
@@ -84,9 +101,10 @@ const Order = () => {
             label="Trạng thái"
             value="all"
             fullWidth
+            onChange={handleStatusChange}
           >
             <MenuItem value="all">Tất cả</MenuItem>
-            <MenuItem value="DECLINED">Từ chối</MenuItem>
+            <MenuItem value={0}>Từ chối</MenuItem>
             <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
             <MenuItem value="APPROVED">Đồng ý</MenuItem>
           </Select>
@@ -107,82 +125,72 @@ const Order = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={6}>
-                    <CircularProgress />
-                  </TableCell>
-                </TableRow>
-              ) : error ? (
-                <TableRow>
-                  <TableCell colSpan={6}>Error loading data...</TableCell>
-                </TableRow>
-              ) : data ? (
-                data
-                  .slice(
-                    currentPage * rowsPerPage,
-                    currentPage * rowsPerPage + rowsPerPage
-                  )
-                  .map((order, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {order.id}
-                      </TableCell>
-                      <TableCell align="left">
-                        {Array.isArray(order.pkgRes) ? (
-                          order.pkgRes.map((pkg, pkgIndex) => (
-                            <div key={pkgIndex}>{pkg.name}</div>
-                          ))
-                        ) : (
-                          <div>{order.pkgRes.name}</div> // Assuming order.pkgRes contains a single object
-                        )}
-                      </TableCell>
-                      <TableCell>{order.startDay}</TableCell>
-                      <TableCell>{order.endDay}</TableCell>
-                      <TableCell align="left">{order.price}</TableCell>
-                      <TableCell align="left">
-                        {order.orderStatus === "APPROVED" ? (
-                          <Link to={`manager/order-detail/${order.id}`}>
-                            Chi tiết
-                          </Link>
-                        ) : (
-                          "---"
-                        )}
-                      </TableCell>
-                      <TableCell align="left">
-                        {order.orderStatus !== "APPROVED" && (
 
-                          <Select
-                            labelId="trang-thai-label"
-                            label="Trạng thái"
-                            value={
-                              order.orderStatus === "DECLINED"
-                                ? "DECLINED"
-                                : order.orderStatus === "WAITING_FOR_APPROVAL"
-                                  ? "WAITING_FOR_APPROVAL"
-                                  : "APPROVED"
-                            }
-                            fullWidth
-                            disabled={order.orderStatus === "APPROVED"} // Disable for APPROVED orders
-                            onChange={(e) =>
-                              handleUpdateOrderStatus(order.id, e.target.value)
-                            }
-                          >
-                            <MenuItem value="DECLINED">Từ chối</MenuItem>
-                            <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
-                            <MenuItem value="APPROVED">Đồng ý</MenuItem>                          </Select>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={6}>No data available</TableCell>
-                </TableRow>)}
-            </TableBody>
+
+              {data
+                .slice(
+                  currentPage * rowsPerPage,
+                  currentPage * rowsPerPage + rowsPerPage
+                )
+                .map((order, index) => (
+                  <TableRow key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                    <TableCell component="th" scope="row">
+                      {order.id}
+                    </TableCell>
+                    <TableCell align="left">
+                      {Array.isArray(order.pkgRes) ? (
+                        order.pkgRes.map((pkg, pkgIndex) => (
+                          <div key={pkgIndex}>{pkg.name}</div>
+                        ))
+                      ) : (
+                        <div>{order.pkgRes.name}</div> // Assuming order.pkgRes contains a single object
+                      )}
+                    </TableCell>
+                    <TableCell>{order.startDay}</TableCell>
+                    <TableCell>{order.endDay}</TableCell>
+                    <TableCell align="left">{order.price}</TableCell>
+
+                    <TableCell align="left">
+                      {order.orderStatus !== "APPROVED" && (
+
+                        <Select
+                          labelId="trang-thai-label"
+                          label="Trạng thái"
+                          value={
+                            order.orderStatus === "DECLINED"
+                              ? 0
+                              : order.orderStatus === "WAITING_FOR_APPROVAL"
+                                ? 1
+                                : order.orderStatus === "APPROVED" ? 2 : 3
+                          }
+                          fullWidth
+                          disabled={order.orderStatus === "APPROVED"}
+                          onChange={(e) =>
+                            handleUpdateOrderStatus(order.id, e.target.value)
+                          }
+                        >
+                          <MenuItem value={0}>Từ chối</MenuItem>
+                          <MenuItem value={1}>Chờ duyệt</MenuItem>
+                          <MenuItem value={2}>Đồng ý</MenuItem>
+                          <MenuItem value={3}>Hoàn tiền</MenuItem>
+                        </Select>
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {order.orderStatus === "APPROVED" ? (
+                        <Link to={`/order-detail/${order.id}`}>
+                          Chi tiết
+                        </Link>
+                      ) : (
+                        "---"
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+                      }
+             </TableBody>
           </Table>
 
           <TablePagination

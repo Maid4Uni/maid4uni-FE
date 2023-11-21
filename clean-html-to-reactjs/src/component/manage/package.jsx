@@ -1,32 +1,19 @@
-import * as React from "react";
-import {
-  Typography,
-  Button,
-  TablePagination,
-  CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  Alert,
-  AlertTitle,
-  DialogActions,
-  IconButton,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { AddBoxRounded } from "@mui/icons-material";
-import { useRequest } from "ahooks";
-import api from "../../config/api";
-import { useNavigate, useParams } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Update from "./updatePackage";
+import * as React from 'react';
+import { Typography, Button, TablePagination, CircularProgress, Dialog, DialogTitle, DialogContent, DialogContentText, Alert, AlertTitle, DialogActions, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { AddBoxRounded } from '@mui/icons-material';
+import { useRequest } from 'ahooks';
+import api from '../../config/api';
+import { useNavigate, useParams } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Update from './updatePackage';
 
 const Package = () => {
   const navigate = useNavigate();
@@ -63,16 +50,22 @@ const Package = () => {
   const handleDeletePackage = async (id) => {
     try {
       const response = await api.deletePackage(id);
+      // Xử lý khi xóa thành công
       if (response.status === 200) {
         const updatedPackageList = pkg.filter((pkg) => pkg.id !== id);
         setPkg(updatedPackageList);
+        // Hiển thị thông báo khi xóa thành công
+        // setOpenDeleteSuccess(true);
       }
     } catch (error) {
       console.error(error);
+      // Hiển thị thông báo khi xóa thất bại
+      // setOpenDeleteError(true);
     }
   };
   const handleConfirmDelete = (id) => {
-    if (window.confirm("Bạn có chắc chắn muốn xóa gói dịch vụ này không?")) {
+    // Xác nhận xóa trước khi thực hiện
+    if (window.confirm('Bạn có chắc chắn muốn xóa gói dịch vụ này không?')) {
       handleDeletePackage(id);
     }
   };
@@ -83,6 +76,7 @@ const Package = () => {
   // EDIT
   const handleOpenUpdateDialog = async (id) => {
     try {
+
       const response = await api.getPackage(id);
       const selectedPackage = response.data;
       setDetailUser(selectedPackage);
@@ -91,7 +85,7 @@ const Package = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   const handleUpdatePackage = async () => {
     try {
@@ -109,19 +103,21 @@ const Package = () => {
     }
   };
   const getPackageById = (id) => {
-    const selectedPackage = pkg.find((pkg) => pkg.id === id);
+    const selectedPackage = pkg.find(pkg => pkg.id === id);
     setDetailUser(selectedPackage);
   };
   const handleCloseUpdateSuccessNotificate = () => {
-    setOpenUpdateSuccess(false);
-  };
+    setOpenUpdateSuccess(false)
+  }
   const handleCloseUpdateDialog = () => {
     setOpenUpdateNotice(false);
     setOpen(false);
-  };
+  }
+
+
 
   const handleLogin = () => {
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
@@ -164,16 +160,11 @@ const Package = () => {
                   </TableRow>
                 ) : data ? (
                   data
-                    .slice(
-                      currentPage * rowsPerPage,
-                      currentPage * rowsPerPage + rowsPerPage
-                    )
+                    .slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage)
                     .map((packages, index) => (
                       <TableRow
                         key={index}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
                         <TableCell component="th" scope="row">
                           {packages.id}
@@ -185,9 +176,7 @@ const Package = () => {
                           ))}
                         </TableCell>
                         <TableCell align="left">{packages.price}</TableCell>
-                        <TableCell align="center">
-                          {packages.createdAt}
-                        </TableCell>
+                        <TableCell align="center">{packages.createdAt}</TableCell>
                         <TableCell align="left">
                           <DeleteIcon
                             sx={{ cursor: "pointer" }}
@@ -204,11 +193,10 @@ const Package = () => {
                           >
                             <EditIcon
                               sx={{ cursor: "pointer" }}
-                              onClick={() =>
-                                handleOpenUpdateDialog(packages.id)
-                              }
+                              onClick={() => handleOpenUpdateDialog(packages.id)}
                             />
                           </IconButton>
+
                         </TableCell>
                       </TableRow>
                     ))
@@ -229,23 +217,17 @@ const Package = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </TableContainer>
-          {openUpdateNotice && (
-            <Update
-              dataUser={detailUser}
-              open={openUpdateNotice}
-              handleClose={handleCloseUpdateDialog}
-              setOpenSuccessFulUpdate={setOpenUpdateSuccess}
-              updateDataList={setCurrentDataDog}
-            />
-          )}
+          {openUpdateNotice && <Update
+            dataUser={detailUser}
+            open={openUpdateNotice}
+            handleClose={handleCloseUpdateDialog}
+            setOpenSuccessFulUpdate={setOpenUpdateSuccess}
+            updateDataList={setCurrentDataDog} />}
         </>
       ) : (
         <>
           <div>
-            <Typography
-              variant="h6"
-              sx={{ margin: "20px", textAlign: "center" }}
-            >
+            <Typography variant="h6" sx={{ margin: "20px", textAlign: "center" }}>
               Vui lòng đăng nhập để xem nội dung
             </Typography>
             <Button variant="contained" onClick={handleLogin}>
@@ -259,7 +241,9 @@ const Package = () => {
               aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description"
             >
-              <DialogTitle>{"Congraturation"}</DialogTitle>
+              <DialogTitle>
+                {"Congraturation"}
+              </DialogTitle>
               <DialogContent>
                 <DialogContentText>
                   <Alert severity="success">

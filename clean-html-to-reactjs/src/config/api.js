@@ -90,6 +90,12 @@ const api = {
     const url = "get-best-review";
     return axiosClient.get(url);
   },
+
+  //task
+  getTask: (id, page)=>{
+    const url =`get-task-by-staff-id/${id}&${page}`;
+    return axiosClient.get(url)
+  }
 };
 
 export default api;

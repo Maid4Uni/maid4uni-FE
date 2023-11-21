@@ -30,7 +30,7 @@ const Manager = () => {
   const { menu, page } = useParams();
   const navigate = useNavigate();
 
-  const [isMenu, setMenu] = useState(page?.toString() || "package");
+  const [isMenu, setMenu] = useState(`package/${page || 0}`);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 

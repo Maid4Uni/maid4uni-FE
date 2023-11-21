@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Grid,
@@ -13,31 +13,51 @@ import {
   Select,
   MenuItem,
   Button,
+  TableHead,
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "../config/api";
+import { useRequest } from "ahooks";
 
 const OrderDetail = () => {
-  const { page } = useParams();
+  const { id } = useParams();
+  const [order, setOrderData] = useState([]);
+  const [customer, setCustomer] = useState([]);
   const navigate = useNavigate();
 
-  const [orderStatus, setOrderStatus] = useState("Đã đặt hàng");
 
-  const handleStatusChange = (event) => {
-    setOrderStatus(event.target.value);
-  };
   const handleGoBack = () => {
-    navigate(`/manager/package/${page || "0"}`);
+    navigate(`/manager/package/0}`);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.getOrderDetail(id);
+        setOrderData(response.data);
+        localStorage.setItem("order", JSON.stringify(response.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+  const { data } = useRequest(async () => {
+    try {
+      const response = await api.getOrderList(id);
+      localStorage.setItem("order", JSON.stringify(response.data));
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  });
   return (
     <Container maxWidth="md">
-      <Typography
-        variant="h6"
-        align="center"
-        style={{ margin: "20px 0", fontSize: "30px" }}
-      >
+      <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
         Chi tiết đơn hàng
       </Typography>
-      <Paper>
+      <Paper style={{ marginBottom: "20px" }}>
+        
         <Table>
           <TableBody>
             <TableRow>
@@ -52,89 +72,38 @@ const OrderDetail = () => {
               <TableCell>Địa chỉ</TableCell>
               <TableCell>Hẻm 111, Đường HHH, TP HCM</TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>Trạng thái đơn hàng</TableCell>
-              <TableCell>{orderStatus}</TableCell>
-            </TableRow>
           </TableBody>
         </Table>
       </Paper>
+
+      {/* Grid for Work Schedule */}
       <Grid container spacing={2} style={{ marginTop: "20px" }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <Typography variant="h6">Lịch làm việc</Typography>
           <Table>
-            <TableBody>
+            <TableHead>
               <TableRow>
                 <TableCell>Ngày bắt đầu</TableCell>
-                <TableCell>20-10-2023</TableCell>
+                <TableCell>Thời gian</TableCell>
+                <TableCell>Trạng thái đơn hàng</TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>Ngày kết thúc</TableCell>
-                <TableCell>20-12-2023</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Giờ làm</TableCell>
-                <TableCell>7AM</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Số lượng nhân viên</TableCell>
-                <TableCell>2</TableCell>
-              </TableRow>
+            </TableHead>
+            <TableBody>
+              {order.map((detail, index) => (
+                <TableRow key={index}>
+                  <TableCell>{detail.workDay}</TableCell>
+                  <TableCell>{detail.startTime}- {detail.endTime}</TableCell>
+                  <TableCell>{detail.status}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
-          <Typography variant="h6" style={{ marginTop: "20px" }}>
-            Thêm nhân viên
-          </Typography>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="name">Tên nhân viên</InputLabel>
-            <Select label="Tên nhân viên" fullWidth id="name"></Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ marginTop: "10px" }}
-            fullWidth
-          >
-            Thêm
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6">Cập nhật trạng thái đơn hàng</Typography>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="status">Trạng thái đơn hàng</InputLabel>
-            <Select
-              label="Trạng thái đơn hàng"
-              fullWidth
-              id="status"
-              value={orderStatus}
-              onChange={handleStatusChange}
-            >
-              <MenuItem value="Đã đặt hàng">Đã đặt hàng</MenuItem>
-              <MenuItem value="Đang làm">Đang làm</MenuItem>
-              <MenuItem value="Đã hoàn thành">Đã hoàn thành</MenuItem>
-            </Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px 0",
-            }}
-            fullWidth
-          >
-            Cập nhật
-          </Button>
         </Grid>
       </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 0",
-        }}
-      >
+
+      {/* Add more Grid items for other sections if needed */}
+
+      <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
         <Button variant="contained" color="primary" onClick={handleGoBack}>
           Quay lại
         </Button>

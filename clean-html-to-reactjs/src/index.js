@@ -36,7 +36,7 @@ root.render(
         <Route path="/manager/:menu/:page/" element={<Manager />} />
         <Route path="package/:page" element={<Package />} />
         <Route path="/manager/package/create" element={<CreatePackage />} />
-        <Route path="/manager/oder-detail" element={<OderDetail />} />
+        <Route path="/order-detail/:id" element={<OderDetail />} />
         <Route path="/customer/:id" element={<Customer />} />
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
@@ -56,7 +56,7 @@ root.render(
         </Route>
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
-        <Route path="/staff" element={<Calendar />} />
+        <Route path="/staff/:id/:page" element={<Calendar/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
