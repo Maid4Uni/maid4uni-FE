@@ -24,6 +24,7 @@ const Package = () => {
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
+    navigate(`/package/${newPage + 1}`);
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));

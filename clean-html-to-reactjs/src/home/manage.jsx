@@ -21,7 +21,7 @@ import {
   Menu as MenuIcon,
 } from "@mui/icons-material";
 import Order from "../component/manage/oder";
-import Service from "../component/manage/service";
+import Service from "../component/manage/service"; 
 import Package from "../component/manage/package";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
@@ -30,8 +30,8 @@ const Manager = () => {
   const { menu, page } = useParams();
   const navigate = useNavigate();
 
-  const [isMenu, setMenu] = useState(`package/${page || 0}`);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMenu, setMenu] = useState("package/0");
+    const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const Manager = () => {
             <List>
               <ListItemButton
                 onClick={() => setMenu("package")}
-                selected={isMenu === `package/${page}`}
+                selected={isMenu === "package"}
               >
                 <ListItemIcon>
                   <LocalOfferIcon />

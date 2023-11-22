@@ -17,7 +17,6 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
-import { useRequest } from "ahooks";
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -27,13 +26,14 @@ const OrderDetail = () => {
 
 
   const handleGoBack = () => {
-    navigate(`/manager/package/0}`);
+    navigate(`/manager/package/0`);
   };
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await api.getOrderDetail(id);
         setOrderData(response.data);
+        console.log(response.data);
         localStorage.setItem("order", JSON.stringify(response.data));
       } catch (error) {
         console.error(error);
@@ -41,42 +41,37 @@ const OrderDetail = () => {
     };
     fetchData();
   }, [id]);
-  const { data } = useRequest(async () => {
-    try {
-      const response = await api.getOrderList(id);
-      localStorage.setItem("order", JSON.stringify(response.data));
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  });
+
+
   return (
     <Container maxWidth="md">
       <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
         Chi tiết đơn hàng
       </Typography>
+
       <Paper style={{ marginBottom: "20px" }}>
-        
         <Table>
           <TableBody>
-            <TableRow>
-              <TableCell>Mã đơn hàng</TableCell>
-              <TableCell>123456</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Tên khách hàng</TableCell>
-              <TableCell>Nguyễn Văn A</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Địa chỉ</TableCell>
-              <TableCell>Hẻm 111, Đường HHH, TP HCM</TableCell>
-            </TableRow>
+            {order.map((customer, index) => (
+              <React.Fragment key={index}>
+                {index === 0 && (
+                  <>
+                    <TableRow>
+                      <TableCell>Mã đơn hàng</TableCell>
+                      <TableCell>{customer.order.id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Địa chỉ</TableCell>
+                      <TableCell>{customer.order.address}</TableCell>
+                    </TableRow>
+                  </>
+                )}
+              </React.Fragment>
+            ))}
           </TableBody>
         </Table>
       </Paper>
 
-      {/* Grid for Work Schedule */}
       <Grid container spacing={2} style={{ marginTop: "20px" }}>
         <Grid item xs={12} >
           <Typography variant="h6">Lịch làm việc</Typography>
@@ -93,7 +88,9 @@ const OrderDetail = () => {
                 <TableRow key={index}>
                   <TableCell>{detail.workDay}</TableCell>
                   <TableCell>{detail.startTime}- {detail.endTime}</TableCell>
-                  <TableCell>{detail.status}</TableCell>
+                  <TableCell>
+                    {detail.status === 'ON_GOING' ? 'Đang tiến hành' : detail.status}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
