@@ -92,8 +92,8 @@ const api = {
   },
 
   //task
-  getTask: (id, page)=>{
-    const url =`get-task-by-staff-id/${id}&${page}`;
+  getTask: (id)=>{
+    const url =`get-task-by-staff-id/${id}`;
     return axiosClient.get(url)
   }
 };

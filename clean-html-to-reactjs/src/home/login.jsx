@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import api from "../config/api";
 
 const Login = () => {
-  const { menu, page } = useParams();
+  const { id, page } = useParams();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,12 +45,13 @@ const Login = () => {
       localStorage.setItem("user", JSON.stringify(response.data.account));
 
       const userRole = response.data.account.role;
+      const userId = response.data.account.id; 
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
         navigate(`/admin/${page || "0"}`);
       } else if (userRole === "STAFF") {
-        navigate("/staff");
+        navigate(`/staff/${userId}`);
       } else if (userRole === "MANAGER") {
         navigate(`/manager/package/${page || "0"}`);
       }

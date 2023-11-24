@@ -56,7 +56,7 @@ root.render(
         </Route>
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
-        <Route path="/staff/:id/:page" element={<Calendar/>}/>
+        <Route path="/staff/:id" element={<Calendar/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

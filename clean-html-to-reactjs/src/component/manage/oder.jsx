@@ -54,22 +54,25 @@ const Order = () => {
     setStatus(event.target.value); // Lưu giá trị trạng thái khi thay đổi
   };
 
-  const handleUpdateOrderStatus = async (id, orderStatus) => {
-    try {
-      const response = await api.updateOrderStatus({ id, orderStatus });
-      const updatedData = data.map(order => {
-        if (order.id === id) {
-          return { ...order, orderStatus }; // Update the order status
-        }
-        return order;
+  const handleUpdateOrderStatus = (id, orderStatus) => {
+    const updatedData = data.map(order => {
+      if (order.id === id) {
+        return { ...order, orderStatus };
+      }
+      return order;
+    });
+
+    localStorage.setItem("order", JSON.stringify(updatedData));
+    setData(updatedData);
+
+    api.updateOrderStatus({ id, orderStatus })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error updating order status");
       });
-      localStorage.setItem("order", JSON.stringify(updatedData)); // Update local storage
-      setData(updatedData); // Update the data state
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-      alert("Error updating order status");
-    }
   };
 
 
@@ -135,7 +138,7 @@ const Order = () => {
                 .map((order, index) => (
                   <TableRow key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
+                  >
                     <TableCell component="th" scope="row">
                       {order.id}
                     </TableCell>
@@ -189,8 +192,8 @@ const Order = () => {
                     </TableCell>
                   </TableRow>
                 ))
-                      }
-             </TableBody>
+              }
+            </TableBody>
           </Table>
 
           <TablePagination
