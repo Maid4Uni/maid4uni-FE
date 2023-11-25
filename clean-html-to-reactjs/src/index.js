@@ -21,11 +21,11 @@ import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
 import CreateUser from "./component/admin/createUser.jsx";
-import Calendar from "./home/staff.jsx";
 import CategoryServices from "./home/category.jsx";
 import CreatePackage from "./component/manage/createpackage.jsx";
-import Header from "./layout/header.jsx";
 import Package from "./component/manage/package.jsx";
+import UserProfile from "./home/profile.jsx";
+import Staff from "./home/staffpage.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -56,7 +56,8 @@ root.render(
         </Route>
         <Route path="/tracking" element={<TrackingPage />} />
         <Route path="/history" element={<History />} />
-        <Route path="/staff/:id" element={<Calendar/>}/>
+        <Route path="/staff/:id" element={<Staff/>}/>
+        <Route path="/profile" element={<UserProfile/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

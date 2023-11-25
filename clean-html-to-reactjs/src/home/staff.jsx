@@ -25,6 +25,7 @@ import {
   Assignment as AssignmentIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
+import UserProfile from "./profile";
 
 const localizer = momentLocalizer(moment);
 
@@ -114,7 +115,7 @@ const MyCalendar = () => {
 
   return (
     <>
-      <CssBaseline />
+      {/* <CssBaseline />
       <AppBar position="static">
         <Toolbar>
           <Button color="inherit" onClick={handleDrawerToggle}>
@@ -129,7 +130,7 @@ const MyCalendar = () => {
             aria-controls="personal-menu"
             aria-haspopup="true"
           >
-            {user ? user.username : "Manager"}
+            {user ? user.username : "Staff"}
           </Button>
           <Menu
             id="personal-menu"
@@ -163,32 +164,24 @@ const MyCalendar = () => {
           >
             <List>
               <ListItemButton
-                onClick={() => setMenu("package")}
-                selected={isMenu === "package"}
+                onClick={() => setMenu("calendar")}
+                selected={isMenu === "calender"}
               >
                 <ListItemIcon>
                   <LocalOfferIcon />
                 </ListItemIcon>
-                <ListItemText primary="Quản lý gói dịch vụ" />
+                <ListItemText primary="Lịch làm việc" />
               </ListItemButton>
               <ListItemButton
-                onClick={() => setMenu("order")}
-                selected={isMenu === "order"}
+                onClick={() => setMenu("profile")}
+                selected={isMenu === "profile"}
               >
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Quản lý đơn hàng" />
+                <ListItemText primary="Cài đặt tài khoản" />
               </ListItemButton>
-              <ListItemButton
-                onClick={() => setMenu("service")}
-                selected={isMenu === "service"}
-              >
-                <ListItemIcon>
-                  <LocalOfferIcon />
-                </ListItemIcon>
-                <ListItemText primary="Quản lý dịch vụ" />
-              </ListItemButton>
+              
             </List>
           </Drawer>
 
@@ -198,12 +191,11 @@ const MyCalendar = () => {
               padding: 2,
             }}
           >
-            {isMenu === "service"}
-            {isMenu === "order"}
-            {isMenu === "package"}
+            {isMenu === "calender" && <Calendar/>}
+            {isMenu === "profile" && <UserProfile/>}
           </Box>
         </Box>
-      </Container>
+      </Container> */}
       <div style={{ height:700, margin:"20px" }}>
         <Calendar
           localizer={localizer}

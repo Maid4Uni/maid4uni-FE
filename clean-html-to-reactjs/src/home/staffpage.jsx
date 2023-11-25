@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+import api from "../config/api";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -20,38 +22,27 @@ import {
   Assignment as AssignmentIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
-import Order from "../component/manage/oder";
-import Service from "../component/manage/package";
-import Package from "../component/manage/package";
-import { useNavigate, useParams } from "react-router-dom";
-import api from "../config/api";
+import UserProfile from "./profile";
+import { useState } from "react";
+import MyCalendar from "./staff";
 
-const Manager = () => {
-  const { page } = useParams();
-  const [isMenu, setMenu] = useState("package");
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const data = async (values) => {
-    try {
-      const response = await api.login(values);
-      localStorage.setItem("accessToken", response.data.accessToken);
-      localStorage.setItem("user", JSON.stringify(response.data.account));
-      navigate("/");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
+
+
+const Staff = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-
     navigate("/");
   };
+
   const handleDrawerToggle = () => {
     setDrawerOpen(!drawerOpen);
   };
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,6 +51,10 @@ const Manager = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  const [isMenu, setMenu] = useState("calendar");
+
+
+
   return (
     <>
       <CssBaseline />
@@ -69,7 +64,7 @@ const Manager = () => {
             <MenuIcon />
           </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            lịch làm việc
+            Quản lý
           </Typography>
           <Button
             color="inherit"
@@ -77,7 +72,7 @@ const Manager = () => {
             aria-controls="personal-menu"
             aria-haspopup="true"
           >
-            {user ? user.username : "Manager"}
+            {user ? user.username : "Staff"}
           </Button>
           <Menu
             id="personal-menu"
@@ -98,7 +93,6 @@ const Manager = () => {
           </Menu>
         </Toolbar>
       </AppBar>
-
       <Container maxWidth="lg">
         <Box display="flex">
           <Drawer
@@ -112,32 +106,24 @@ const Manager = () => {
           >
             <List>
               <ListItemButton
-                onClick={() => setMenu("package")}
-                selected={isMenu === "package"}
+                onClick={() => setMenu("calendar")}
+                selected={isMenu === "calender"}
               >
                 <ListItemIcon>
                   <LocalOfferIcon />
                 </ListItemIcon>
-                <ListItemText primary="Quản lý gói dịch vụ" />
+                <ListItemText primary="Lịch làm việc" />
               </ListItemButton>
               <ListItemButton
-                onClick={() => setMenu("order")}
-                selected={isMenu === "order"}
+                onClick={() => setMenu("profile")}
+                selected={isMenu === "profile"}
               >
                 <ListItemIcon>
                   <AssignmentIcon />
                 </ListItemIcon>
-                <ListItemText primary="Quản lý đơn hàng" />
+                <ListItemText primary="Cài đặt tài khoản" />
               </ListItemButton>
-              <ListItemButton
-                onClick={() => setMenu("service")}
-                selected={isMenu === "service"}
-              >
-                <ListItemIcon>
-                  <LocalOfferIcon />
-                </ListItemIcon>
-                <ListItemText primary="Quản lý dịch vụ" />
-              </ListItemButton>
+              
             </List>
           </Drawer>
 
@@ -147,14 +133,14 @@ const Manager = () => {
               padding: 2,
             }}
           >
-            {isMenu === "service" && <Service />}
-            {isMenu === "order" && <Order />}
-            {isMenu === "package" && <Package />}
+            {isMenu === "calendar" && <MyCalendar/>}
+            {isMenu === "profile" && <UserProfile/>}
           </Box>
         </Box>
       </Container>
+     
     </>
   );
 };
 
-export default Manager;
+export default Staff;

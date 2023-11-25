@@ -19,10 +19,12 @@ import {
   Assignment as AssignmentIcon,
   Menu as MenuIcon,
 } from "@mui/icons-material";
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
 import History from "../order/history";
 import TrackingPage from "../order/tracking";
+import UserProfile from "./profile";
 
 const Customer = () => {
   const { id } = useParams();
@@ -132,7 +134,17 @@ const Customer = () => {
                 </ListItemIcon>
                 <ListItemText primary="Lịch sử đơn hàng" />
               </ListItemButton>
+              <ListItemButton
+              onClick={() => setMenu("profile")}
+              selected={isMenu === "profile"}
+            >
+              <ListItemIcon>
+                <BadgeOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Thông tin tài khoản" />
+            </ListItemButton>
             </List>
+          
           </Drawer>
 
           <Box
@@ -143,6 +155,7 @@ const Customer = () => {
           >
             {isMenu === "history" && <History />}
             {isMenu === "tracking" && <TrackingPage />}
+            {isMenu === "profile" && <UserProfile/>}
           </Box>
         </Box>
       </Container>
