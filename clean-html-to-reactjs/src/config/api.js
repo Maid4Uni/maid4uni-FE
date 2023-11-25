@@ -98,6 +98,10 @@ getAccountInfo:(id) =>{
   getTask: (id)=>{
     const url =`get-task-by-staff-id/${id}`;
     return axiosClient.get(url)
+  },
+  updateTask:(id, updateData) => {
+    const url =`update-task/${id}`;
+    return axiosClient.put(url, updateData)
   }
 };
 
