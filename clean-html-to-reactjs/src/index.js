@@ -21,11 +21,11 @@ import ConfirmationPage from "./order/checkout";
 import OderDetail from "./home/order-detail";
 import Customer from "./home/customer.jsx";
 import CreateUser from "./component/admin/createUser.jsx";
-import Calendar from "./home/staff.jsx";
 import CategoryServices from "./home/category.jsx";
 import CreatePackage from "./component/manage/createpackage.jsx";
-import Header from "./layout/header.jsx";
 import Package from "./component/manage/package.jsx";
+import UserProfile from "./home/profile.jsx";
+import Staff from "./home/staffpage.jsx";
 import EditUser from "./component/admin/editUser.jsx";
 import { AuthenticationProvider } from "./authentication/AuthenticationContext.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -40,7 +40,7 @@ root.render(
           <Route path="/manager/:menu/:page/" element={<Manager />} />
           <Route path="/package/:page" element={<Package />} />
           <Route path="/manager/package/create" element={<CreatePackage />} />
-          <Route path="/manager/oder-detail" element={<OderDetail />} />
+          <Route path="/order-detail/:id" element={<OderDetail />} />
           <Route path="/customer/:id" element={<Customer />} />
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
@@ -60,7 +60,8 @@ root.render(
           </Route>
           <Route path="/tracking" element={<TrackingPage />} />
           <Route path="/history" element={<History />} />
-          <Route path="/staff" element={<Calendar />} />
+          <Route path="/staff/:id" element={<Staff />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </AuthenticationProvider>

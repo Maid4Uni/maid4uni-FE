@@ -5,7 +5,7 @@ import api from "../config/api";
 import { useAuthentication } from "../authentication/AuthenticationContext.js";
 
 const Login = () => {
-  const { menu, page } = useParams();
+  const { id, page } = useParams();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -52,12 +52,13 @@ const Login = () => {
       });
       const userRole = response.data.account.role;
       console.log(userRole);
+      const userId = response.data.account.id;
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
         navigate(`/admin/${page || "0"}`);
       } else if (userRole === "STAFF") {
-        navigate("/staff");
+        navigate(`/staff/${userId}`);
       } else if (userRole === "MANAGER") {
         navigate(`/manager/package/${page || "0"}`);
       }

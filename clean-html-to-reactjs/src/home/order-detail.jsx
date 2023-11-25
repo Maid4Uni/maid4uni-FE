@@ -1,140 +1,113 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
+  Typography,
   Grid,
   Paper,
-  Typography,
   Table,
   TableBody,
   TableCell,
   TableRow,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  List,
+  ListItem,
+  ListItemText,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Button,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate, useParams } from "react-router-dom";
+import api from "../config/api";
 
 const OrderDetail = () => {
-  const { page } = useParams();
+  const { id } = useParams();
+  const [order, setOrderData] = useState([]);
   const navigate = useNavigate();
 
-  const [orderStatus, setOrderStatus] = useState("Đã đặt hàng");
-
-  const handleStatusChange = (event) => {
-    setOrderStatus(event.target.value);
-  };
   const handleGoBack = () => {
-    navigate(`/manager/package/${page || "0"}`);
+    navigate(`/manager/package/0`);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.getOrderDetail(id);
+        setOrderData(response.data);
+        localStorage.setItem("order", JSON.stringify(response.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
   return (
     <Container maxWidth="md">
-      <Typography
-        variant="h6"
-        align="center"
-        style={{ margin: "20px 0", fontSize: "30px" }}
-      >
+      <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
         Chi tiết đơn hàng
       </Typography>
-      <Paper>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell>Mã đơn hàng</TableCell>
-              <TableCell>123456</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Tên khách hàng</TableCell>
-              <TableCell>Nguyễn Văn A</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Địa chỉ</TableCell>
-              <TableCell>Hẻm 111, Đường HHH, TP HCM</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Trạng thái đơn hàng</TableCell>
-              <TableCell>{orderStatus}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+      <Paper elevation={3} style={{ marginBottom: "20px", padding: "20px" }}>
+        <Grid container spacing={2}>
+          {order.map((customer, index) => (
+            <React.Fragment key={index}>
+              {index === 0 && (
+                <>
+                  <Grid item xs={6}>
+                    <Typography variant="subtitle1">Đơn hàng:</Typography>
+                    <Typography>{customer.order.id}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="subtitle1">Địa chỉ:</Typography>
+                    <Typography>{customer.order.address}</Typography>
+                  </Grid>
+                </>
+              )}
+            </React.Fragment>
+          ))}
+        </Grid>
       </Paper>
-      <Grid container spacing={2} style={{ marginTop: "20px" }}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6">Lịch làm việc</Typography>
-          <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>Ngày bắt đầu</TableCell>
-                <TableCell>20-10-2023</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Ngày kết thúc</TableCell>
-                <TableCell>20-12-2023</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Giờ làm</TableCell>
-                <TableCell>7AM</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Số lượng nhân viên</TableCell>
-                <TableCell>2</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-          <Typography variant="h6" style={{ marginTop: "20px" }}>
-            Thêm nhân viên
-          </Typography>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="name">Tên nhân viên</InputLabel>
-            <Select label="Tên nhân viên" fullWidth id="name"></Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ marginTop: "10px" }}
-            fullWidth
-          >
-            Thêm
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6">Cập nhật trạng thái đơn hàng</Typography>
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel htmlFor="status">Trạng thái đơn hàng</InputLabel>
-            <Select
-              label="Trạng thái đơn hàng"
-              fullWidth
-              id="status"
-              value={orderStatus}
-              onChange={handleStatusChange}
-            >
-              <MenuItem value="Đã đặt hàng">Đã đặt hàng</MenuItem>
-              <MenuItem value="Đang làm">Đang làm</MenuItem>
-              <MenuItem value="Đã hoàn thành">Đã hoàn thành</MenuItem>
-            </Select>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "20px 0",
-            }}
-            fullWidth
-          >
-            Cập nhật
-          </Button>
-        </Grid>
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          margin: "20px 0",
-        }}
-      >
+
+      {order.map((orderDetail, index) => (
+        <Accordion key={index} style={{ marginBottom: "20px" }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}a-content`} id={`panel${index}a-header`}>
+            <Typography variant="subtitle1">Mã chi tiết đơn hàng: {orderDetail.id}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Grid container spacing={2}>
+
+              <Grid item xs={6}>
+                <List>
+                  <ListItem>
+                    <ListItemText primary={`Ngày làm: ${orderDetail.workDay}`} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={`Giờ làm việc: ${orderDetail.startTime}-${orderDetail.endTime}`} />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={`Trạng thái: ${orderDetail.status === "ON_GOING" ? "Đang thực hiện" : orderDetail.status}`} />
+                  </ListItem>
+                </List>
+              </Grid>
+              <Grid item xs={6}>
+                <List>
+                  <ListItem>
+                    <ListItemText primary="Công việc:" />
+                  </ListItem>
+                  <List>
+                    {orderDetail.taskList.map((task, taskIndex) => (
+                      <ListItem key={taskIndex}>
+                        <ListItemText primary={task.service.name} secondary={`Nhân viên thực hiện: ${task.staff.fullName}`} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </List>
+              </Grid>
+            </Grid>
+          </AccordionDetails>
+        </Accordion>
+      ))}
+      <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
         <Button variant="contained" color="primary" onClick={handleGoBack}>
           Quay lại
         </Button>

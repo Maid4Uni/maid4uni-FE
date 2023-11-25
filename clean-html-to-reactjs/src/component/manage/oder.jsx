@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FormControl,
   InputLabel,
@@ -16,13 +16,16 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../../config/api";
 import { useRequest } from "ahooks";
 
 const Order = () => {
-  const [sortData, setSortedData] = useState([]);
   const { page } = useParams();
+  const [data, setData] = useState([]); // Manage order data
+
+  const [orderStatus, setStatus] = useState(""); // Define orderStatus
+  const [id, setOrderId] = useState("");
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
   const handleChangePage = (event, newPage) => {
@@ -32,42 +35,47 @@ const Order = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0);
   };
-  const { data, loading, error } = useRequest(async () => {
-    try {
-      const response = await api.getAllOrder(page);
-      localStorage.setItem("order", JSON.stringify(response.data));
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
-  });
-  const navigate = useNavigate();
 
-  const sortedDataByOrderID = data ? [...data].sort((a, b) => a.id - b.id) : [];
-  const sortedData = sortedDataByOrderID;
-
-  const handleUpdateOrderStatus = async (orderId, newStatus) => {
-    try {
-      const response = await api.updateOrderStatus(orderId, newStatus);
-      if (response.status === 200) {
-        const updatedOrder = sortedData.find((order) => order.id === orderId);
-        updatedOrder.orderStatus = newStatus;
-        setSortedData(sortedData);
-      } else {
-        console.error("Error updating order status:", response.error);
+  useEffect(() => {
+    // Fetch data on initial load
+    const fetchData = async () => {
+      try {
+        const response = await api.getAllOrder(page);
+        localStorage.setItem("order", JSON.stringify(response.data));
+        setData(response.data); // Set initial data
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
+    };
+    fetchData();
+  }, [page]);
+
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value); // Lưu giá trị trạng thái khi thay đổi
   };
-  const handleDetail = async (orderId) => {
-    try {
-      await api.getOrderDetail(orderId);
-      navigate(`/manager/oder-detail/${orderId}`);
-    } catch (error) {
-      console.error(error);
-    }
+
+  const handleUpdateOrderStatus = (id, orderStatus) => {
+    const updatedData = data.map(order => {
+      if (order.id === id) {
+        return { ...order, orderStatus };
+      }
+      return order;
+    });
+
+    localStorage.setItem("order", JSON.stringify(updatedData));
+    setData(updatedData);
+
+    api.updateOrderStatus({ id, orderStatus })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error updating order status");
+      });
   };
+
+
 
   return (
     <>
@@ -85,8 +93,7 @@ const Order = () => {
           type="text"
           className="form-control"
           placeholder="Tìm kiếm..."
-          // value={searchText}
-          // onChange={handleSearchTextChange}
+
         />
       </div>
       <div className="col-2">
@@ -97,9 +104,10 @@ const Order = () => {
             label="Trạng thái"
             value="all"
             fullWidth
+            onChange={handleStatusChange}
           >
             <MenuItem value="all">Tất cả</MenuItem>
-            <MenuItem value="DECLINED">Từ chối</MenuItem>
+            <MenuItem value={0}>Từ chối</MenuItem>
             <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
             <MenuItem value="APPROVED">Đồng ý</MenuItem>
           </Select>
@@ -120,68 +128,74 @@ const Order = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {loading ? (
-                <TableRow>
-                  <TableCell colSpan={6}>
-                    <CircularProgress />
-                  </TableCell>
-                </TableRow>
-              ) : error ? (
-                <TableRow>
-                  <TableCell colSpan={6}>Error loading data...</TableCell>
-                </TableRow>
-              ) : sortedData ? (
-                sortedData
-                  .slice(
-                    currentPage * rowsPerPage,
-                    currentPage * rowsPerPage + rowsPerPage
-                  )
-                  .map((order, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {order.id}
-                      </TableCell>
-                      <TableCell align="left">
-                        {Array.isArray(order.pkgRes) ? (
-                          order.pkgRes.map((pkg, pkgIndex) => (
-                            <div key={pkgIndex}>{pkg.name}</div>
-                          ))
-                        ) : (
-                          <div>{order.pkgRes.name}</div> // Assuming order.pkgRes contains a single object
-                        )}
-                      </TableCell>
-                      <TableCell>{order.startDay}</TableCell>
-                      <TableCell>{order.endDay}</TableCell>
-                      <TableCell align="left">{order.price}</TableCell>
-                      <TableCell align="center">
+
+
+              {data
+                .slice(
+                  currentPage * rowsPerPage,
+                  currentPage * rowsPerPage + rowsPerPage
+                )
+                .map((order, index) => (
+                  <TableRow key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {order.id}
+                    </TableCell>
+                    <TableCell align="left">
+                      {Array.isArray(order.pkgRes) ? (
+                        order.pkgRes.map((pkg, pkgIndex) => (
+                          <div key={pkgIndex}>{pkg.name}</div>
+                        ))
+                      ) : (
+                        <div>{order.pkgRes.name}</div> // Assuming order.pkgRes contains a single object
+                      )}
+                    </TableCell>
+                    <TableCell>{order.startDay}</TableCell>
+                    <TableCell>{order.endDay}</TableCell>
+                    <TableCell align="left">{order.price}</TableCell>
+
+                    <TableCell align="left">
+                      {order.orderStatus !== "APPROVED" && (
+
                         <Select
-                          value={order.orderStatus} // Set current status as default value
+                          labelId="trang-thai-label"
+                          label="Trạng thái"
+                          value={
+                            order.orderStatus === "DECLINED"
+                              ? 0
+                              : order.orderStatus === "WAITING_FOR_APPROVAL"
+                                ? 1
+                                : order.orderStatus === "APPROVED" ? 2 : 3
+                          }
+                          fullWidth
+                          disabled={order.orderStatus === "APPROVED"}
                           onChange={(e) =>
                             handleUpdateOrderStatus(order.id, e.target.value)
                           }
                         >
-                          <MenuItem value="chua-xac-nhan">
-                            Chưa xác nhận
-                          </MenuItem>
-                          <MenuItem value="da-xac-nhan">Đã xác nhận</MenuItem>
-                          {/* Add other status options */}
+                          <MenuItem value={0}>Từ chối</MenuItem>
+                          <MenuItem value={1}>Chờ duyệt</MenuItem>
+                          <MenuItem value={2}>Đồng ý</MenuItem>
+                          <MenuItem value={3}>Hoàn tiền</MenuItem>
                         </Select>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Button onClick={handleDetail}>Chi tiết</Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={6}>No data available</TableCell>
-                </TableRow>
-              )}
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      {order.orderStatus === "APPROVED" ? (
+                        <Link to={`/order-detail/${order.id}`}>
+                          Chi tiết
+                        </Link>
+                      ) : (
+                        "---"
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              }
             </TableBody>
           </Table>
+
           <TablePagination
             rowsPerPageOptions={[10, 25]}
             component="div"
@@ -192,7 +206,7 @@ const Order = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </TableContainer>
-      </section>
+      </section >
     </>
   );
 };

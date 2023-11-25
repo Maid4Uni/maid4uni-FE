@@ -61,9 +61,9 @@ const FeedBackSlider = () => {
           style={{ maxWidth: "600px" }}
         >
           <p className="d-inline-block border rounded-pill py-1 px-4">
-            Cảm nhận của khách hàng
+            Bình chọn của khách hàng
           </p>
-          <h1>Khách hàng nhận xét gì về nhân viên của chúng tôi</h1>
+          <h1>Top nhân viên được khách hàng bình chọn</h1>
         </div>
         <div
           id="carouselExampleControls"

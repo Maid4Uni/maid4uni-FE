@@ -15,6 +15,10 @@ const api = {
     const url = `get-account-list/${page}`;
     return axiosClient.get(url);
   },
+  getAccountInfo: (id) => {
+    const url = `get-account-info-by-id?id=${id}`;
+    return axiosClient.get(url);
+  },
 
   // package
   getAllPackage: (page) => {
@@ -90,9 +94,16 @@ const api = {
     const url = "get-best-review";
     return axiosClient.get(url);
   },
+
   updateAccountInfo: (id, data) => {
     const url = `update-account-info/${id}}`;
     return axiosClient.put(url, data);
+  },
+
+  //task
+  getTask: (id) => {
+    const url = `get-task-by-staff-id/${id}`;
+    return axiosClient.get(url);
   },
 };
 
