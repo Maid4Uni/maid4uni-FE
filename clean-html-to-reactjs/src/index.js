@@ -26,38 +26,43 @@ import CategoryServices from "./home/category.jsx";
 import CreatePackage from "./component/manage/createpackage.jsx";
 import Header from "./layout/header.jsx";
 import Package from "./component/manage/package.jsx";
+import EditUser from "./component/admin/editUser.jsx";
+import { AuthenticationProvider } from "./authentication/AuthenticationContext.js";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin/:page" element={<Admin />} />
-        <Route path="/admin/create-user" element={<CreateUser />} />
-        <Route path="/manager/:menu/:page/" element={<Manager />} />
-        <Route path="package/:page" element={<Package />} />
-        <Route path="/manager/package/create" element={<CreatePackage />} />
-        <Route path="/manager/oder-detail" element={<OderDetail />} />
-        <Route path="/customer/:id" element={<Customer />} />
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="/:vnp_TransactionStatus" element={<Home />} />
-          <Route path="blog" element={<Blog />} />
-          <Route path="/category/:id&:page" element={<CategoryServices />} />
-          <Route path="/booking1" element={<Booking1 />} />
-          <Route path="booking2" element={<Booking2 />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service/:id" element={<Combo1 />} />
-          <Route path="combo2" element={<Combo2 />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/checkout" element={<ConfirmationPage />} />
-          <Route path="register" element={<Register />} />
-          <Route path="/price" element={<Price />} />
-        </Route>
-        <Route path="/tracking" element={<TrackingPage />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/staff" element={<Calendar />} />
-      </Routes>
-    </BrowserRouter>
+    <AuthenticationProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin/:page" element={<Admin />} />
+          <Route path="/admin/create-user" element={<CreateUser />} />
+          <Route path="/admin/update-account-info/:id" element={<EditUser />} />
+          <Route path="/manager/:menu/:page/" element={<Manager />} />
+          <Route path="/package/:page" element={<Package />} />
+          <Route path="/manager/package/create" element={<CreatePackage />} />
+          <Route path="/manager/oder-detail" element={<OderDetail />} />
+          <Route path="/customer/:id" element={<Customer />} />
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="/:vnp_TransactionStatus" element={<Home />} />
+            <Route path="blog" element={<Blog />} />
+            <Route path="/category/:id&:page" element={<CategoryServices />} />
+            <Route path="/booking1" element={<Booking1 />} />
+            <Route path="booking2" element={<Booking2 />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/service/:id" element={<Combo1 />} />
+            <Route path="combo2" element={<Combo2 />} />
+            <Route path="login" element={<Login />} />
+            <Route path="/checkout" element={<ConfirmationPage />} />
+            <Route path="register" element={<Register />} />
+            <Route path="/price" element={<Price />} />
+          </Route>
+          <Route path="/tracking" element={<TrackingPage />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/staff" element={<Calendar />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthenticationProvider>
   </React.StrictMode>
 );

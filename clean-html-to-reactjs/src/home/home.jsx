@@ -170,53 +170,11 @@ const Home = () => {
                         <input
                           type="text"
                           className="form-control border-0"
-                          placeholder="SDT"
+                          placeholder="Số điện thoại"
                           style={{ height: "55px" }}
                         />
                       </div>
-                      <div className="col-12 col-sm-6">
-                        <select
-                          className="form-select border-0"
-                          style={{ height: "55px" }}
-                        >
-                          <option defaultValue>Chọn dịch vụ</option>
-                          <option value="1">Vệ sinh nhà cửa</option>
-                          <option value="2">Giao nước</option>
-                          <option value="3">Nấu ăn</option>
-                        </select>
-                      </div>
-                      <div className="col-12 col-sm-6">
-                        <div
-                          className="date"
-                          id="date"
-                          data-target-input="nearest"
-                        >
-                          <input
-                            type="text"
-                            className="form-control border-0 datetimepicker-input"
-                            placeholder="Chọn ngày"
-                            data-target="#date"
-                            data-toggle="datetimepicker"
-                            style={{ height: "55px" }}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12 col-sm-6">
-                        <div
-                          className="time"
-                          id="time"
-                          data-target-input="nearest"
-                        >
-                          <input
-                            type="text"
-                            className="form-control border-0 datetimepicker-input"
-                            placeholder="Chọn thời gian"
-                            data-target="#time"
-                            data-toggle="datetimepicker"
-                            style={{ height: "55px" }}
-                          />
-                        </div>
-                      </div>
+
                       <div className="col-12">
                         <textarea
                           className="form-control border-0"
@@ -229,7 +187,7 @@ const Home = () => {
                           className="btn btn-primary w-100 py-3"
                           type="submit"
                         >
-                          Đặt dịch vụ
+                          Tư vấn ngay
                         </button>
                       </div>
                     </div>

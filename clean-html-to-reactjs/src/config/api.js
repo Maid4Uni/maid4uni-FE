@@ -54,7 +54,7 @@ const api = {
   },
   updateOrderStatus: (params) => {
     const url = "update-order-status";
-    return axiosClient.put(url,params);
+    return axiosClient.put(url, params);
   },
   getOrderList: (id) => {
     const url = `get-order-list-by-customer/${id}`;
@@ -89,6 +89,10 @@ const api = {
   getBestReview: () => {
     const url = "get-best-review";
     return axiosClient.get(url);
+  },
+  updateAccountInfo: (id, data) => {
+    const url = `update-account-info/${id}}`;
+    return axiosClient.put(url, data);
   },
 };
 

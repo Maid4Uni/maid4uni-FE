@@ -44,9 +44,11 @@ const ListUser = () => {
     navigate(`/admin/create-user`);
   };
 
-  const handleEditAccount = (accountId) => {
+  const handleEditAccount = (account) => {
     // Implement logic to navigate to the edit package page
-    // Example: navigate(`/admin/edit-account/${accountId}`);
+    navigate(`/admin/update-account-info/${account.id}`, {
+      state: { account },
+    });
   };
 
   const { data, loading, error } = useRequest(async () => {
@@ -135,7 +137,7 @@ const ListUser = () => {
                       <TableCell style={{ minWidth: "100px" }}>
                         <EditIcon
                           sx={{ cursor: "pointer" }}
-                          onClick={() => handleEditAccount(account.id)}
+                          onClick={() => handleEditAccount(account)}
                         />
                       </TableCell>
                     </TableRow>

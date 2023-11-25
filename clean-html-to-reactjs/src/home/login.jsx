@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import api from "../config/api";
+import { useAuthentication } from "../authentication/AuthenticationContext.js";
 
 const Login = () => {
   const { menu, page } = useParams();
@@ -9,6 +10,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { token } = useAuthentication();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -43,8 +45,13 @@ const Login = () => {
       const response = await api.login({ username, password });
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("user", JSON.stringify(response.data.account));
-
+      console.log({
+        "accessToken:": response.data.accessToken,
+        token: token,
+        if: token === response.data.accessToken,
+      });
       const userRole = response.data.account.role;
+      console.log(userRole);
       if (userRole === "CUSTOMER") {
         navigate("/");
       } else if (userRole === "ADMIN") {
