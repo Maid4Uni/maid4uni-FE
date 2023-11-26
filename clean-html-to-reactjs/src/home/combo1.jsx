@@ -1,12 +1,12 @@
 import { useRequest } from "ahooks";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import api from "../config/api";
 
 const Combo1 = () => {
   const { id } = useParams();
 
-  const { data } = useRequest(async () => {
+  const { data, run } = useRequest(async () => {
     try {
       const response = await api.getPackage(id);
       localStorage.setItem("package", JSON.stringify(response.data));
@@ -15,7 +15,9 @@ const Combo1 = () => {
       console.error(error);
     }
   });
-
+  useEffect(() => {
+    run();
+  }, [id, run]);
   return (
     <>
       <div

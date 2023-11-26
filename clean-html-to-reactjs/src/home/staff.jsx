@@ -1,76 +1,214 @@
-import React, { useState, useEffect } from "react";
-import FullCalendar from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import TextField from "@mui/material/TextField";
+import React, { useEffect, useState } from "react";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import api from "../config/api";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+import {
+  LocalOffer as LocalOfferIcon,
+  Assignment as AssignmentIcon,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
+import UserProfile from "./profile";
 
-function Calendar() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [events, setEvents] = useState([]);
+const localizer = momentLocalizer(moment);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        // Replace "YOUR_API_ENDPOINT" with the actual API endpoint
-        const response = await fetch("YOUR_API_ENDPOINT");
-        const data = await response.json();
-        setEvents(data);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-
-    fetchEvents();
-  }, []);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+const MyCalendar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
-  const filteredEvents = events.filter((event) => {
-    const eventDate = new Date(event.start);
-    return (
-      eventDate.getFullYear() === selectedDate.getFullYear() &&
-      eventDate.getMonth() === selectedDate.getMonth() &&
-      eventDate.getDate() === selectedDate.getDate()
-    );
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const [isMenu, setMenu] = useState("package");
+
+  const { id } = useParams();
+  const [task, setTask] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.getTask(id);
+        setTask(response.data);
+        console.log(response.data);
+        localStorage.setItem("order", JSON.stringify(response.data));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const uniqueEvents = {};
+  task.forEach((item) => {
+    const eventId = item.id; //
+    if (!uniqueEvents[eventId]) {
+      const startDate = new Date(
+        item.orderDetail.workDay + "T" + item.orderDetail.startTime
+      );
+      const endDate = new Date(
+        item.orderDetail.workDay + "T" + item.orderDetail.endTime
+      );
+      uniqueEvents[eventId] = {
+        title: item.service.name,
+        start: startDate,
+        end: endDate,
+      };
+    }
   });
 
-  return (
-    <div>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => handleDateChange(date)}
-        dateFormat="MM/dd/yyyy"
-        customInput={<TextField />} // Use MUI TextField for styling
-      />
-      <FullCalendar
-        plugins={[timeGridPlugin, interactionPlugin]}
-        initialView="timeGridDay"
-        headerToolbar={{
-          start: "",
-          center: "title",
-          end: "today prev,next",
-        }}
-        height="90vh"
-        allDaySlot={false}
-        slotDuration="00:30:00"
-        events={filteredEvents}
-        eventContent={renderEventContent}
-      />
-    </div>
-  );
-}
+  const events = Object.values(uniqueEvents);
 
-function renderEventContent(eventInfo) {
+  console.log(events);
+  const handleEventClick = async (event) => {
+    try {
+      // Find the task by its ID from the event
+      const taskId = event.id; // Assuming event.id corresponds to the task ID
+      const taskToUpdate = task.find((item) => item.id === taskId);
+
+      if (taskToUpdate) {
+        // Update the task status
+        const updatedTask = { ...taskToUpdate, status: true }; // Update status to true
+
+        // Perform an API call to update the task status
+        await api.updateTaskStatus(taskId, updatedTask); // Replace with your actual API call
+
+        // Update the local state with the modified task
+        const updatedTaskList = task.map((item) =>
+          item.id === taskId ? updatedTask : item
+        );
+        setTask(updatedTaskList);
+      }
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
+  };
+
   return (
     <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
+      {/* <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick={handleDrawerToggle}>
+            <MenuIcon />
+          </Button>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Quản lý
+          </Typography>
+          <Button
+            color="inherit"
+            onClick={handleMenuClick}
+            aria-controls="personal-menu"
+            aria-haspopup="true"
+          >
+            {user ? user.username : "Staff"}
+          </Button>
+          <Menu
+            id="personal-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleLogout();
+                handleMenuClose();
+              }}
+            >
+              Đăng xuất
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+      <Container maxWidth="lg">
+        <Box display="flex">
+          <Drawer
+            variant="temporary"
+            anchor="left"
+            open={drawerOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true,
+            }}
+          >
+            <List>
+              <ListItemButton
+                onClick={() => setMenu("calendar")}
+                selected={isMenu === "calender"}
+              >
+                <ListItemIcon>
+                  <LocalOfferIcon />
+                </ListItemIcon>
+                <ListItemText primary="Lịch làm việc" />
+              </ListItemButton>
+              <ListItemButton
+                onClick={() => setMenu("profile")}
+                selected={isMenu === "profile"}
+              >
+                <ListItemIcon>
+                  <AssignmentIcon />
+                </ListItemIcon>
+                <ListItemText primary="Cài đặt tài khoản" />
+              </ListItemButton>
+              
+            </List>
+          </Drawer>
+
+          <Box
+            sx={{
+              width: "100%",
+              padding: 2,
+            }}
+          >
+            {isMenu === "calender" && <Calendar/>}
+            {isMenu === "profile" && <UserProfile/>}
+          </Box>
+        </Box>
+      </Container> */}
+      <div style={{ height: 700, margin: "20px" }}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          views={["month", "week", "day"]}
+          defaultView="month"
+          onSelectEvent={handleEventClick}
+        />
+      </div>
     </>
   );
-}
+};
 
-export default Calendar;
+export default MyCalendar;

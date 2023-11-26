@@ -6,10 +6,11 @@ import CreateUser from "../component/admin/createUser";
 import api from "../config/api";
 import { useNavigate } from "react-router-dom";
 import EditUser from "../component/admin/editUser";
-
+import { useAuthentication } from "../authentication/AuthenticationContext.js";
 const Admin = () => {
   const navigate = useNavigate();
   const [isTab, setTab] = useState(true);
+  const { token } = useAuthentication();
   const handleActiveTab = (e) => {
     setTab(e);
   };
@@ -18,13 +19,13 @@ const Admin = () => {
     // Thực hiện xác thực người dùng và lấy vai trò của họ sau khi họ đăng nhập
     const authenticateUser = async () => {
       try {
-        const response = await api.login(); // Thay thế username và password bằng thông tin đăng nhập thực tế
-        localStorage.setItem("user", JSON.stringify(response.data.account));
-        const userRole = response.data.account.role;
+        const user = JSON.parse(localStorage.getItem("user"));
 
+        const userRole = user.role;
         // Kiểm tra vai trò của người dùng và điều hướng tùy theo kết quả
         if (userRole !== "ADMIN") {
-          navigate("/login"); // Điều hướng đến trang đăng nhập hoặc bất kỳ trang nào bạn chọn
+          navigate("/"); // Điều hướng đến trang đăng nhập hoặc bất kỳ trang nào bạn chọn
+          alert("Bạn không có quyền truy cập vào trang này");
         }
       } catch (error) {
         console.error(error);
@@ -32,7 +33,7 @@ const Admin = () => {
     };
 
     authenticateUser(); // Gọi hàm xác thực người dùng khi thành phần được tạo
-  }, [navigate]);
+  }, []);
 
   return (
     <>
@@ -56,13 +57,6 @@ const Admin = () => {
         </div>
 
         <FooterAmin />
-
-        <a
-          href="#"
-          className="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"
-        >
-          <i className="bi bi-arrow-up"></i>
-        </a>
       </div>
     </>
   );

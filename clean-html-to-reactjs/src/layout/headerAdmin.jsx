@@ -20,7 +20,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import api from "../config/api";
-
 const HeaderAdmin = (props) => {
   const navigate = useNavigate();
   const { handleActiveTab } = props;
@@ -66,9 +65,18 @@ const HeaderAdmin = (props) => {
           </IconButton>
           <Link to="/">
             <img
-              style={{ marginTop: "10px" }}
-              src="img/Brown Gradient Dreamy Abstract Font Album Cover (1).png"
-              height="40"
+              className="logo"
+              style={{
+                marginTop: "10px",
+                width: "150px",
+                height: "auto",
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+              src={
+                process.env.PUBLIC_URL +
+                "/img/Brown Gradient Dreamy Abstract Font Album Cover (1).png"
+              }
               alt="M4U logo"
               loading="lazy"
             />

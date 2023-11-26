@@ -32,8 +32,13 @@ const Header = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     if (user) {
-      // Assuming user.id exists in the user object, replace it with the appropriate key
-      navigate(`/customer/${user.id}`);
+      if (user.role === "ADMIN") {
+        navigate("/admin/0");
+      } else if (user.role === "MANAGER") {
+        navigate("/manager/package/0");
+      } else {
+        navigate(`/customer/${user.id}`);
+      }
     }
   };
 
@@ -67,7 +72,7 @@ const Header = () => {
             </div>
             <div className="h-100 d-inline-flex align-items-center py-3">
               <small className="far fa-clock text-primary me-2"></small>
-              <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+              <small>All Week: 07.00 AM - 04.00 PM</small>
             </div>
           </div>
           <div className="col-lg-5 px-5 text-end">
