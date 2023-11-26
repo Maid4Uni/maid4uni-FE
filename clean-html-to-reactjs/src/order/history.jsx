@@ -15,28 +15,16 @@ import {
 } from "@mui/material";
 import {
   Box,
-  Typography,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Menu,
-  MenuItem,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
+
+ 
 } from "@mui/material";
-import ReorderIcon from "@mui/icons-material/Reorder";
-import { ArrowDropDown, Search } from "@mui/icons-material";
-import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
-import HistoryIcon from "@mui/icons-material/History";
-import { Link, useParams } from "react-router-dom";
+
+import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
 import { useRequest } from "ahooks";
 
 const History = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data } = useRequest(async () => {
     try {
@@ -49,66 +37,15 @@ const History = () => {
     }
   });
 
-  // const [searchInput, setSearchInput] = useState('');
-  // const [filter, setFilter] = useState('');
-
-  // const handleSearch = (e) => {
-  //     setSearchInput(e.target.value);
-  // };
-
-  // const handleFilterChange = (e) => {
-  //     setFilter(e.target.value);
-  // };
-
-  // const data = [
-  //     { id: 1, order: 'Order 1', status: 'Completed', details: 'Details 1', feedback: 'Good' },
-  //     { id: 2, order: 'Order 2', status: 'Ongoing', details: 'Details 2', feedback: '' },
-  // ];
-
-  // const filteredData = data.filter((item) =>
-  //     item.order.toLowerCase().includes(searchInput.toLowerCase()) &&
-  //     (filter === '' || item.status.toLowerCase() === filter.toLowerCase())
-  // );
+  const handleOrderDetails = (orderId) => {
+    navigate(`/tracking/${orderId}`);
+  };
 
   return (
     <Box>
-      <Grid
-        container
-        justifyContent="space-between"
-        alignItems="center"
-        style={{ margin: 10 }}
-      >
-        {" "}
-        <Grid item>
-          {/* <FormControl sx={{ minWidth: 120 }}>
-                    <InputLabel id="filter-label">Sắp xếp</InputLabel>
-                    <Select
-                        labelId="filter-label"
-                        value={filter}
-                        onChange={handleFilterChange}
-                    >
-                        <MenuItem value="">Tất cả</MenuItem>
-                        <MenuItem value="completed">Đã hoàn thành</MenuItem>
-                        <MenuItem value="ongoing">Đang tiến hành</MenuItem>
-                    </Select>
-                </FormControl> */}
-        </Grid>
-        {/* <Grid item>
-                    <TextField
-                        label="Tìm kiếm"
-                        variant="outlined"
-                        value={searchInput}
-                        onChange={handleSearch}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <Search />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Grid> */}
-      </Grid>
+   
+        
+     
       <Table style={{ margin: "auto", marginTop: "20px", border: "1px solid #e0e0e0" }}>
   <TableHead sx={{ backgroundColor: "cornflowerblue" }}>
     <TableRow>
@@ -119,6 +56,8 @@ const History = () => {
       <TableCell sx={{ color: "white", width: "10%" }}>Giá</TableCell>
       <TableCell sx={{ color: "white", width: "15%" }}>Trạng thái</TableCell>
       <TableCell sx={{ color: "white", width: "10%" }}>Feedback</TableCell>
+      <TableCell sx={{ color: "white", width: "10%" }}></TableCell>
+
     </TableRow>
   </TableHead>
 
@@ -146,7 +85,7 @@ const History = () => {
           </TableCell>
           <TableCell>{order.feedback}</TableCell>
           <TableCell>
-            {order.status === "Completed" ? (
+            {order.status === "DONE" ? (
               <Button
                 variant="contained"
                 onClick={() => alert("Reorder clicked")}
@@ -155,6 +94,16 @@ const History = () => {
               </Button>
             ) : null}
           </TableCell>
+          <TableCell>
+                {order.orderStatus === "APPROVED" && (
+                  <Button
+                    variant="contained"
+                    onClick={() => handleOrderDetails(order.id)}
+                  >
+                    Chi tiết
+                  </Button>
+                )}
+              </TableCell>
         </TableRow>
       ))}
   </TableBody>

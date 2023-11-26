@@ -21,19 +21,50 @@ import {
   ListItem,
   ListItemText,
   TextField,
+  CssBaseline,
+  AppBar,
+  Toolbar,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../config/api";
 import { Container } from "@mui/system";
+import FeedbackPage from "./createfb";
 
 const steps = ["Đăng ký", "Thanh toán", "Đã duyệt", "Đang tiến hành", "Hoàn thành"];
 const TrackingPage = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // Chuyển hướng trở lại trang trước đó
+  };
   const { id } = useParams();
   const [order, setOrderData] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
+  const user = JSON.parse(localStorage.getItem("user"));
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+
+    navigate("/");
+  };
+  ;
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleTurnBack = () => {
+    navigate("/");
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,7 +89,54 @@ const TrackingPage = () => {
 
   return (
     <>
-      <Box>
+      <CssBaseline />
+      <AppBar position="static">
+        <Toolbar>
+
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Button
+              color="inherit"
+              onClick={handleMenuClick}
+              aria-controls="personal-menu"
+              aria-haspopup="true"
+            >
+              {user ? user.username : "Customer"}
+            </Button>
+          </Box>
+          <Menu
+            id="personal-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}>Trang cá nhân</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleLogout();
+                handleMenuClose();
+              }}
+            >
+              Đăng xuất
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleTurnBack();
+                handleMenuClose();
+              }}
+            >
+              Quay lại
+            </MenuItem>
+          </Menu>
+        </Toolbar>
+      </AppBar>
+      <Box marginTop={5}>
         {filteredOrders.length > 0 && (
           <Stepper activeStep={filteredOrders[0].status === 'ON_GOING' ? 3 : activeStep} alternativeLabel>
             {steps.map((label) => (
@@ -108,16 +186,24 @@ const TrackingPage = () => {
                 </Grid>
               </Grid>
               {orderDetail.status === "DONE" && (
-                <Box mt={2} sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button variant="contained" type="submit">
-                    Feedback
-                  </Button>
-                </Box>
+                <FeedbackPage />
               )}
             </AccordionDetails>
           </Accordion>
         ))}
       </Container>
+      <Button
+        variant="contained"
+        onClick={handleGoBack}
+        sx={{
+          display: "block",
+          margin: "auto",
+          textAlign: "center",
+          mt: 2, // Margin-top
+        }}
+      >
+        Quay lại
+      </Button>
     </>
   );
 };
