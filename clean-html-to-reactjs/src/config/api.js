@@ -86,7 +86,7 @@ const api = {
 
   getPayment: (params, id) => {
     const { vnp_Amount, vnp_OrderInfo, vnp_ResponseCode } = params;
-    const url = `/get-vnpay-payment/${id}?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
+    const url = `get-vnpay-payment/${id}?vnp_Amount=${vnp_Amount}&vnp_OrderInfo=${vnp_OrderInfo}&vnp_ResponseCode=${vnp_ResponseCode}`;
     return axiosClient.get(url);
   },
 
@@ -96,7 +96,7 @@ const api = {
   },
 
   updateAccountInfo: (id, data) => {
-    const url = `update-account-info/${id}}`;
+    const url = `update-account-info/${id}`;
     return axiosClient.put(url, data);
   },
 

@@ -29,8 +29,6 @@ import UserProfile from "./profile";
 
 const localizer = momentLocalizer(moment);
 
-
-
 const MyCalendar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -73,15 +71,18 @@ const MyCalendar = () => {
 
   const uniqueEvents = {};
   task.forEach((item) => {
-    const eventId = item.id; // 
+    const eventId = item.id; //
     if (!uniqueEvents[eventId]) {
-      const startDate = new Date(item.orderDetail.workDay + 'T' + item.orderDetail.startTime);
-      const endDate = new Date(item.orderDetail.workDay + 'T' + item.orderDetail.endTime);
+      const startDate = new Date(
+        item.orderDetail.workDay + "T" + item.orderDetail.startTime
+      );
+      const endDate = new Date(
+        item.orderDetail.workDay + "T" + item.orderDetail.endTime
+      );
       uniqueEvents[eventId] = {
         title: item.service.name,
         start: startDate,
         end: endDate,
-
       };
     }
   });
@@ -196,15 +197,14 @@ const MyCalendar = () => {
           </Box>
         </Box>
       </Container> */}
-      <div style={{ height:700, margin:"20px" }}>
+      <div style={{ height: 700, margin: "20px" }}>
         <Calendar
           localizer={localizer}
           events={events}
           startAccessor="start"
-          views={['month', 'week', 'day']}
+          views={["month", "week", "day"]}
           defaultView="month"
-          onSelectEvent={handleEventClick} 
-
+          onSelectEvent={handleEventClick}
         />
       </div>
     </>

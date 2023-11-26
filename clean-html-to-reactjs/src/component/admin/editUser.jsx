@@ -15,10 +15,12 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuthentication } from "../../authentication/AuthenticationContext.js";
+import { values } from "lodash";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Họ và tên không được bỏ trống"),
-  birthDate: Yup.date().required("Ngày sinh không được bỏ trống"),
+  fullName: Yup.string().required("Họ và tên không được bỏ trống"),
+  dOB: Yup.date().required("Ngày sinh không được bỏ trống"),
   address: Yup.string().required("Địa chỉ không được bỏ trống"),
   gender: Yup.string().required("Vui lòng chọn giới tính"),
   phoneNumber: Yup.string().required("Số điện thoại không được bỏ trống"),
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
     [Yup.ref("password"), null],
     "Mật khẩu nhập lại không khớp"
   ),
+  img: Yup.string().url("Invalid URL format"),
 });
 
 const EditUser = () => {
@@ -38,20 +41,27 @@ const EditUser = () => {
   const { account } = location.state;
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [imagePreview, setImagePreview] = useState(account.img);
   const { page } = useParams();
 
+  const { token } = useAuthentication();
+
   const initialValues = {
-    name: `${account.fullName || ""}`,
-    birthDate: `${account.dOB || ""}`,
+    fullName: `${account.fullName || ""}`,
+    dOB: `${account.dOB || ""}`,
     address: `${account.address || ""}`,
     gender: `${account.gender || ""}`,
     phoneNumber: `${account.phoneNumber || ""}`,
+    role: `${account.role || ""}`,
     email: `${account.email || ""}`,
     username: `${account.username || ""}`,
+    img: `${account.img || ""}`,
     password: "",
     confirmPassword: "",
   };
+
+  console.log("initialValues: ", initialValues);
+  console.log("account role: ", account.role);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -69,24 +79,30 @@ const EditUser = () => {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      console.log("Submit button clicked");
       // Assuming you have an ID property in your account object
-      const accountId = account.id;
 
+      const accountId = account.id;
       // Construct the data object to be sent to the API
+      // Exclude confirmPassword from the data object
+      values.img = imagePreview.toString();
+      if (account.role === "ADMIN") {
+        values.role = "ADMIN";
+      }
+      const { confirmPassword, ...dataWithoutConfirmPassword } = values;
       const data = {
         id: accountId,
-        ...values,
+        ...dataWithoutConfirmPassword,
       };
 
-      // Make the API call
+      console.log("updated data: ", data);
+      console.log(localStorage.getItem("accessToken"));
       await api.updateAccountInfo(accountId, data);
 
-      // Handle success, you might want to show a success message or redirect
       console.log("Account info updated successfully!");
       alert("Cập nhật tài khoản thành công");
       navigate(`/admin/${page || "0"}`);
     } catch (error) {
-      // Handle error, you might want to show an error message
       console.error("Error updating account info:", error);
     } finally {
       // Reset the form's submission state
@@ -150,6 +166,7 @@ const EditUser = () => {
           </Toolbar>
         </AppBar>
       </div>
+      {/* ------------------- main page here */}
       <div className="content-page">
         <div className="container-fluid">
           <div className="row">
@@ -158,7 +175,7 @@ const EditUser = () => {
                 <div className="card-header d-flex justify-content-between">
                   <div className="header-title">
                     <h4 className="card-title">
-                      Sửa tài khoản {account.username}
+                      Edit thông tin tài khoản: {account.username}
                     </h4>
                   </div>
                 </div>
@@ -171,46 +188,38 @@ const EditUser = () => {
                     <Form>
                       <div className="form-group">
                         <div className="crm-profile-img-edit position-relative">
-                          <img
-                            className="w-25 crm-profile-pic rounded avatar-100"
-                            src="img/11.png"
-                            alt="profile-pic"
-                          />
-                          <div className="crm-p-image bg-primary">
-                            <i className="las la-pen upload-button"></i>
-                            <Field
-                              className="file-upload"
-                              type="file"
-                              name="profileImage"
-                              accept="image/*"
+                          {imagePreview ? (
+                            <img
+                              className="w-25 crm-profile-pic rounded avatar-100"
+                              src={imagePreview}
+                              alt="profile-preview"
                             />
+                          ) : (
+                            <img
+                              className="w-25 crm-profile-pic rounded avatar-100"
+                              src={account.img}
+                              alt="profile-pic"
+                            />
+                          )}
+                          <div>
+                            <label htmlFor="img">Đường dẫn image:</label>
                           </div>
+                          <Field
+                            className="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            type="text"
+                            name="img"
+                            id="img"
+                            value={
+                              imagePreview
+                                ? imagePreview.toString()
+                                : account.img
+                            }
+                            onChange={(e) => {
+                              setImagePreview(e.target.value);
+                              values.img = e.target.value.toString();
+                            }}
+                          />
                         </div>
-                        <div className="img-extension mt-3">
-                          <div className="d-inline-block align-items-center">
-                            <span>
-                              "Chỉ file thuộc type .jpg; .png; .jpeg được phép"
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label>Vai trò:</label>
-                        <Field
-                          as="select"
-                          className="form-select"
-                          name="role"
-                          aria-label="Default select example"
-                        >
-                          <option value="1">Quản lý (Manager)</option>
-                          <option value="2">Nhân viên (Staff)</option>
-                          <option value="3">Khách hàng (Client)</option>
-                        </Field>
-                        <ErrorMessage
-                          name="role"
-                          component="div"
-                          className="text-danger"
-                        />
                       </div>
                     </Form>
                   </Formik>
@@ -234,31 +243,31 @@ const EditUser = () => {
                       <Form>
                         <div className="row">
                           <div className="form-group col-md-6">
-                            <label htmlFor="name">Họ và tên:</label>
+                            <label htmlFor="fullName">Họ và tên:</label>
                             <Field
                               type="text"
                               className="form-control"
-                              id="name"
-                              name="name"
+                              id="fullName"
+                              name="fullName"
                               placeholder="Họ và tên"
                             />
                             <ErrorMessage
-                              name="name"
+                              name="fullName"
                               component="div"
                               className="text-danger"
                             />
                           </div>
                           <div className="form-group col-md-6">
-                            <label htmlFor="birthDate">Ngày sinh:</label>
+                            <label htmlFor="dOB">Ngày sinh:</label>
                             <Field
                               type="date"
                               className="form-control"
-                              id="birthDate"
-                              name="birthDate"
+                              id="dOB"
+                              name="dOB"
                               placeholder="Ngày sinh"
                             />
                             <ErrorMessage
-                              name="birthDate"
+                              name="dOB"
                               component="div"
                               className="text-danger"
                             />
@@ -288,8 +297,8 @@ const EditUser = () => {
                               name="gender"
                               aria-label="Default select example"
                             >
-                              <option value="male">Nam</option>
-                              <option value="female">Nữ</option>
+                              <option defaultValue="Nam">Nam</option>
+                              <option value="Nữ">Nữ</option>
                             </Field>
                             <ErrorMessage
                               name="gender"
@@ -324,6 +333,32 @@ const EditUser = () => {
                             />
                             <ErrorMessage
                               name="email"
+                              component="div"
+                              className="text-danger"
+                            />
+                          </div>
+
+                          <div
+                            className="form-group"
+                            style={{
+                              display:
+                                account.role === "ADMIN" ? "none" : "block",
+                            }}
+                          >
+                            <label>Vai trò:</label>
+                            <Field
+                              as="select"
+                              className="form-select"
+                              id="role"
+                              name="role"
+                              aria-label="Default select example"
+                            >
+                              <option value="3">Khách hàng (Client)</option>
+                              <option value="1">Quản lý (Manager)</option>
+                              <option value="2">Nhân viên (Staff)</option>
+                            </Field>
+                            <ErrorMessage
+                              name="role"
                               component="div"
                               className="text-danger"
                             />
