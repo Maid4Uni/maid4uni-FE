@@ -41,8 +41,14 @@ const Header = () => {
 
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const handleLogout = () => {
+  const userData = localStorage.getItem("user");
+
+  let user;
+  try {
+    user = JSON.parse(userData);
+  } catch (error) {
+    console.error('Error parsing user data:', error);
+  } const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
 
