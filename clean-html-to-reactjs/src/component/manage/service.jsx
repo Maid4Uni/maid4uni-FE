@@ -12,13 +12,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import { AddBoxRounded } from "@mui/icons-material";
 import { useRequest } from "ahooks";
 import api from "../../config/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Service = () => {
   const { page } = useParams();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
-
+  const navigate = useNavigate();
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage);
   };
@@ -38,7 +38,9 @@ const Service = () => {
     }
   }, [page]);
 
-  const handleCreateService = () => {};
+  const handleCreateService = () => {
+    navigate("/create-service")
+  };
 
   return (
     <>

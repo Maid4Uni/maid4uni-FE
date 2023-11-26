@@ -34,7 +34,6 @@ const TrackingPage = () => {
   const [order, setOrderData] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
 
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,11 +52,15 @@ const TrackingPage = () => {
     fetchData();
   }, [id]);
 
+  const uniqueWorkDays = Array.from(new Set(order.map(orderDetail => orderDetail.workDay)));
+
+  const filteredOrders = uniqueWorkDays.map(workDay => order.find(orderDetail => orderDetail.workDay === workDay));
+
   return (
     <>
       <Box>
-        {order.length > 0 && (
-          <Stepper activeStep={order[0].status === 'ON_GOING' ? 3 : activeStep} alternativeLabel>
+        {filteredOrders.length > 0 && (
+          <Stepper activeStep={filteredOrders[0].status === 'ON_GOING' ? 3 : activeStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -67,32 +70,25 @@ const TrackingPage = () => {
         )}
       </Box>
 
-
-
       <Container maxWidth="md">
         <Typography variant="h6" align="center" style={{ margin: "20px 0", fontSize: "30px" }}>
           Chi tiết đơn hàng
         </Typography>
 
-
-        {order.map((orderDetail, index) => (
+        {filteredOrders.map((orderDetail, index) => (
           <Accordion key={index} style={{ marginBottom: "20px" }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls={`panel${index}a-content`} id={`panel${index}a-header`}>
               <Typography variant="subtitle1">Ngày làm: {orderDetail.workDay}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Grid container spacing={2}>
-
                 <Grid item xs={6}>
                   <List>
-
                     <ListItem>
                       <ListItemText primary={`Giờ làm việc: ${orderDetail.startTime}-${orderDetail.endTime}`} />
                     </ListItem>
                     <ListItem>
                       <ListItemText primary={`Trạng thái: ${orderDetail.status === "ON_GOING" ? "Đang thực hiện" : orderDetail.status === "DONE" ? "Đã hoàn thành" : orderDetail.status}`} />
-                    </ListItem>
-                    <ListItem>
                     </ListItem>
                   </List>
                 </Grid>
@@ -121,7 +117,6 @@ const TrackingPage = () => {
             </AccordionDetails>
           </Accordion>
         ))}
-
       </Container>
     </>
   );

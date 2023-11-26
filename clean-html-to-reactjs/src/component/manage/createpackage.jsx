@@ -25,16 +25,8 @@ const CreatePackage = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [services, setServices] = useState([]);
     const navigate = useNavigate();
-    const handleAddTag = (serviceId) => {
-        const selectedService = services.find((service) => service.id === serviceId);
-        if (selectedService && !selectedServices.includes(selectedService)) {
-            setSelectedServices([...selectedServices, selectedService]);
-        }
-    };
-    const handleRemoveTag = (serviceId) => {
-        const updatedServices = selectedServices.filter((service) => service.id !== serviceId);
-        setSelectedServices(updatedServices);
-    };
+  
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -77,7 +69,6 @@ const CreatePackage = () => {
         onSubmit: async (values, { resetForm }) => {
             try {
                 console.log("Data to be sent:", values);
-                // Kiểm tra gọi hàm createPackage từ api
                 await api.createPackage(values); // Đảm bảo gọi API tạo package ở đây
                 handleOpenDialog();
                 handleRedirect();

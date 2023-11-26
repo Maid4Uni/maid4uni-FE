@@ -26,6 +26,7 @@ import CreatePackage from "./component/manage/createpackage.jsx";
 import Package from "./component/manage/package.jsx";
 import UserProfile from "./home/profile.jsx";
 import Staff from "./home/staffpage.jsx";
+import CreateService from "./component/manage/createservice.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -37,6 +38,7 @@ root.render(
         <Route path="package/:page" element={<Package />} />
         <Route path="/manager/package/create" element={<CreatePackage />} />
         <Route path="/order-detail/:id" element={<OderDetail />} />
+        <Route path="/create-service" element={< CreateService/>} />
         <Route path="/customer/:id" element={<Customer />} />
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />

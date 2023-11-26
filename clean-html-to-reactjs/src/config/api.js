@@ -15,10 +15,10 @@ const api = {
     const url = `get-account-list/${page}`;
     return axiosClient.get(url);
   },
-getAccountInfo:(id) =>{
-  const url = `get-account-info-by-id?id=${id}`;
-  return axiosClient.get(url);
-},
+  getAccountInfo: (id) => {
+    const url = `get-account-info-by-id?id=${id}`;
+    return axiosClient.get(url);
+  },
   // package
   getAllPackage: (page) => {
     const url = `get-all-package/${page}`;
@@ -57,7 +57,7 @@ getAccountInfo:(id) =>{
   },
   updateOrderStatus: (params) => {
     const url = "update-order-status";
-    return axiosClient.put(url,params);
+    return axiosClient.put(url, params);
   },
   getOrderList: (id) => {
     const url = `get-order-list-by-customer/${id}`;
@@ -76,7 +76,10 @@ getAccountInfo:(id) =>{
     const url = `get-all-service/${page}`;
     return axiosClient.get(url);
   },
-
+  createService: (params) => {
+    const url = "create-service";
+    return axiosClient.post(url, params);
+  },
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";
@@ -95,12 +98,12 @@ getAccountInfo:(id) =>{
   },
 
   //task
-  getTask: (id)=>{
-    const url =`get-task-by-staff-id/${id}`;
+  getTask: (id) => {
+    const url = `get-task-by-staff-id/${id}`;
     return axiosClient.get(url)
   },
-  updateTask:(id, updateData) => {
-    const url =`update-task/${id}`;
+  updateTask: (id, updateData) => {
+    const url = `update-task/${id}`;
     return axiosClient.put(url, updateData)
   }
 };
