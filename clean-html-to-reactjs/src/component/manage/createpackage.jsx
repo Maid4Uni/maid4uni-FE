@@ -31,17 +31,17 @@ const CreatePackage = () => {
     const navigate = useNavigate();
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
-      };
-    
-      const handleMenuClose = () => {
+    };
+
+    const handleMenuClose = () => {
         navigate("/manager/package/0")
         setAnchorEl(null);
-      };
-      const handleLogout = () => {
+    };
+    const handleLogout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("user");
         navigate("/");
-      };
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -65,15 +65,18 @@ const CreatePackage = () => {
     const handleRedirect = () => {
         navigate("/manager/package/0")
     };
-
+    const handleRedirectAfterClose = () => {
+        handleRedirect(); // Chuyển hướng
+        setIsDialogOpen(false); // Đóng thông báo
+    };
 
 
     return (
         <>
             <AppBar position="static">
                 <Toolbar>
-                   
-                    
+
+
                     <Button
                         color="inherit"
                         onClick={handleMenuClick}
@@ -117,22 +120,26 @@ const CreatePackage = () => {
                             username: user ? user.username : "", // Tên người dùng
                         },
                         category: "COMBO1",
+                        description: "",
                         serviceList: [],
                     }}
                     validationSchema={Yup.object().shape({
                         name: Yup.string()
                             .required("Tên gói dịch vụ không được bỏ trống")
                             .min(5, "Tên gói dịch vụ ít nhất 5 kí tự"),
-                        // Thêm validation cho các trường khác nếu cần
+                        description: Yup.string()
+                            .required("Thêm mô tả gói dịch vụ")
+
                     })}
                     onSubmit={async (values, { resetForm }) => {
                         try {
                             console.log("Data to be sent:", values);
                             // Gọi hàm createPackage từ api
-                            await api.createPackage(values); // Đảm bảo gọi API tạo package ở đây
-                            handleOpenDialog();
-                            handleRedirect();
+                            await api.createPackage(values);
+                            // Đảm bảo gọi API tạo package ở đây
+                            setSuccessMessage("Gói dịch vụ đã được tạo thành công!");
                             resetForm();
+                            handleOpenDialog();
                         } catch (error) {
                             console.error("Error creating package:", error);
                             // Xử lý lỗi khi tạo gói dịch vụ
@@ -164,6 +171,33 @@ const CreatePackage = () => {
                                     {touched.name && errors.name && (
                                         <Typography variant="subtitle2" color="error">
                                             {errors.name}
+                                        </Typography>
+                                    )}
+                                </div>
+                            </Box>
+                            <Box mb={2}>
+                                <div style={{ marginBottom: '16px' }}>
+                                    <label htmlFor="description">Miêu tả gói dịch vụ</label>
+                                    <input
+                                        type="text"
+                                        id="description"
+                                        name="description"
+                                        value={values.description}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        style={{
+                                            width: '100%',
+                                            padding: '8px',
+                                            border: '1px solid #ccc',
+                                            borderRadius: '4px',
+                                            boxSizing: 'border-box',
+                                            marginBottom: '8px',
+                                        }}
+                                        autoComplete="off"
+                                    />
+                                    {touched.description && errors.description && (
+                                        <Typography variant="subtitle2" color="error">
+                                            {errors.description}
                                         </Typography>
                                     )}
                                 </div>
@@ -253,15 +287,15 @@ const CreatePackage = () => {
 
 
                 <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-                    <DialogTitle>Notification</DialogTitle>
+                    <DialogTitle>Thông báo</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             {successMessage}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleCloseDialog} color="primary">
-                            Close
+                        <Button onClick={handleRedirectAfterClose} color="primary">
+                          Đóng
                         </Button>
                     </DialogActions>
                 </Dialog>
