@@ -16,6 +16,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Service = () => {
   const { page } = useParams();
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [currentPage, setCurrentPage] = React.useState(0);
   const navigate = useNavigate();
@@ -41,6 +43,14 @@ const Service = () => {
   const handleCreateService = () => {
     navigate("/create-service")
   };
+  const handleUpdateService = (serviceId) => {
+    const selectedService = data.find(service => service.id === serviceId);
+    if (selectedService) {
+      localStorage.setItem('selectedService', JSON.stringify(selectedService));
+      navigate(`/update-service/${serviceId}`);
+    }
+  };
+
 
   return (
     <>
@@ -89,8 +99,10 @@ const Service = () => {
 
                     <TableCell align="left">
                       <DeleteIcon sx={{ cursor: "pointer" }} />
-                      <EditIcon sx={{ cursor: "pointer" }} />
-                    </TableCell>
+                      <EditIcon
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleUpdateService(service.id)}
+                      />                    </TableCell>
                   </TableRow>
                 ))
             ) : (

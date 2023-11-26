@@ -55,72 +55,68 @@ const Order = () => {
     setStatus(event.target.value); // Lưu giá trị trạng thái khi thay đổi
   };
 
-const handleUpdateOrderStatus = async (id, orderStatus) => {
-  setLoading(true);
+  const handleUpdateOrderStatus = async (id, orderStatus) => {
+    setLoading(true);
 
-  try {
-    const response = await api.updateOrderStatus({ id, orderStatus });
+    try {
+      const response = await api.updateOrderStatus({ id, orderStatus });
 
-    const updatedData = data.map(order => {
-      if (order.id === id) {
-        return { ...order, orderStatus };
-      }
-      return order;
-    });
+      const updatedData = data.map(order => {
+        if (order.id === id) {
+          return { ...order, orderStatus };
+        }
+        return order;
+      });
 
-    localStorage.setItem("order", JSON.stringify(updatedData));
-    setData(updatedData);
-    
-    console.log(response); // Log the response or handle it as needed
-  } catch (error) {
-    console.error(error);
-    alert("Error updating order status");
-  } finally {
-    setLoading(false);
-  }
-};
+      localStorage.setItem("order", JSON.stringify(updatedData));
+      setData(updatedData);
 
+      console.log(response); // Log the response or handle it as needed
+    } catch (error) {
+      console.error(error);
+      alert("Error updating order status");
+    } finally {
+      setLoading(false);
+    }
+  };
+  const [filteredData, setFilteredData] = useState([]); // State để lưu trữ danh sách đơn hàng sau khi lọc
+
+  useEffect(() => {
+    if (orderStatus === "all") {
+      // Nếu chọn "Tất cả", hiển thị tất cả đơn hàng
+      setFilteredData(data);
+    } else {
+      // Lọc và hiển thị đơn hàng theo trạng thái đã chọn
+      const filteredOrders = data.filter(order => order.orderStatus === orderStatus);
+      setFilteredData(filteredOrders);
+    }
+  }, [orderStatus, data]);
 
 
   return (
     <>
-      
-        <Typography
-          variant="h5"
-          sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}
-        >
-          Quản lý đơn hàng
-        </Typography>
-        <div
-          className="input-group mb-3"
-          style={{ marginBottom: "20px", width: "20%" }}
-        >
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Tìm kiếm..."
 
-          />
-        </div>
-       
-        <div className="col-2">
-          <FormControl variant="outlined" style={{ width: "100%" }}>
-            <InputLabel id="trang-thai-label">Trạng thái</InputLabel>
-            <Select
-              labelId="trang-thai-label"
-              label="Trạng thái"
-              value="all"
-              fullWidth
-              onChange={handleStatusChange}
-            >
-              <MenuItem value="all">Tất cả</MenuItem>
-              <MenuItem value={0}>Từ chối</MenuItem>
-              <MenuItem value="WAITING_FOR_APPROVAL">Chờ duyệt</MenuItem>
-              <MenuItem value="APPROVED">Đồng ý</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <section className="danh-sach-don-hang">
+      <Typography
+        variant="h5"
+        sx={{ marginBottom: "20px", textAlign: "center", fontSize: "50px" }}
+      >
+        Quản lý đơn hàng
+      </Typography>
+
+      <div className="col-2">
+        <FormControl variant="outlined" style={{ width: "100%" }}>
+          <InputLabel id="trang-thai-label">Trạng thái</InputLabel>
+          <Select
+            labelId="trang-thai-label"
+            label="Trạng thái"
+            value={orderStatus}
+            fullWidth
+            onChange={handleStatusChange}
+          >
+          </Select>
+        </FormControl>
+      </div>
+      <section className="danh-sach-don-hang">
         {isLoading && <CircularProgress />}
         <section className="danh-sach-don-hang">
           <TableContainer>

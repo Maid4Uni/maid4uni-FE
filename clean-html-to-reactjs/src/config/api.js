@@ -80,6 +80,10 @@ const api = {
     const url = "create-service";
     return axiosClient.post(url, params);
   },
+  updateService: (id, updateData) => {
+    const url = `update-service/${id}`;
+    return axiosClient.put(url, updateData)
+  },
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";
