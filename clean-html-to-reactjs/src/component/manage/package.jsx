@@ -168,7 +168,7 @@ const Package = () => {
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       >
                         <TableCell component="th" scope="row">
-                          {packages.id}
+                          {index+1}
                         </TableCell>
                         <TableCell align="left">{packages.name}</TableCell>
                         <TableCell align="left">

@@ -16,7 +16,7 @@ import {
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../config/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreatePackage = () => {
     const [selectedServices, setSelectedServices] = useState([]);
@@ -24,7 +24,17 @@ const CreatePackage = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [services, setServices] = useState([]);
-
+    const navigate = useNavigate();
+    const handleAddTag = (serviceId) => {
+        const selectedService = services.find((service) => service.id === serviceId);
+        if (selectedService && !selectedServices.includes(selectedService)) {
+            setSelectedServices([...selectedServices, selectedService]);
+        }
+    };
+    const handleRemoveTag = (serviceId) => {
+        const updatedServices = selectedServices.filter((service) => service.id !== serviceId);
+        setSelectedServices(updatedServices);
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -37,15 +47,22 @@ const CreatePackage = () => {
         fetchData();
     }, [currentPage]);
     const user = JSON.parse(localStorage.getItem("user"));
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
+    };
 
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleRedirect = () => {
+        navigate("/manager/package/0")
+    };
     const formik = useFormik({
         initialValues: {
             name: "",
-            price: 0,
-            description: "",
-            creator: user ? user.name:'',
+            creator: user ? user.username : '',
             category: "COMBO1",
-            imageUrl: "",
             serviceList: [],
         },
         validationSchema: Yup.object().shape({
@@ -59,20 +76,32 @@ const CreatePackage = () => {
         }),
         onSubmit: async (values, { resetForm }) => {
             try {
-                await api.createPackage(values);
+                console.log("Data to be sent:", values);
+                // Kiểm tra gọi hàm createPackage từ api
+                await api.createPackage(values); // Đảm bảo gọi API tạo package ở đây
+                handleOpenDialog();
+                handleRedirect();
                 resetForm();
             } catch (error) {
                 console.error("Error creating package:", error);
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else {
+                    console.log("Network error:", error.message);
+                }
             }
         },
     });
 
+
     return (
-        <Box maxWidth="400px" mx="auto" p={3}>
+        <Box maxWidth="400px" mx="auto" p={3} border="1px solid #e0e0e0" borderRadius={8} marginTop={4}>
             {successMessage && (
                 <Typography variant="subtitle1">{successMessage}</Typography>
             )}
-            <Typography variant="h4" mb={2}>
+            <Typography variant="h4" mb={2} >
                 Tạo gói dịch vụ
             </Typography>
             <Formik {...formik}>
@@ -82,126 +111,152 @@ const CreatePackage = () => {
                         formik.handleSubmit();
                     }}
                 >
-                    <TextField
-                        label="Tên gói dịch vụ"
-                        name="name"
-                        value={formik.values.name}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                    />
-                    {formik.touched.name && formik.errors.name && (
-                        <Typography variant="subtitle2" color="error">
-                            {formik.errors.name}
-                        </Typography>
-                    )}
+                    <Box mb={2}>
+                        <div style={{ marginBottom: '16px' }}>
+                            <label htmlFor="name">Tên gói dịch vụ</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formik.values.name}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    boxSizing: 'border-box',
+                                    marginBottom: '8px',
+                                }}
+                                autoComplete="off"
+                            />
+                            {formik.touched.name && formik.errors.name && (
+                                <Typography variant="subtitle2" color="error">
+                                    {formik.errors.name}
+                                </Typography>
+                            )}
+                        </div>
+                    </Box>
+                    <Box mb={2}>
+                        <div style={{ marginBottom: '16px' }}>
+                            <label htmlFor="category">Nhóm gói dịch vụ</label>
+                            <input
+                                type="text"
+                                id="category"
+                                name="category"
+                                value={formik.values.category}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    boxSizing: 'border-box',
+                                    marginBottom: '8px',
+                                }}
+                                autoComplete="off"
+                            />
+                            {formik.touched.category && formik.errors.category && (
+                                <Typography variant="subtitle2" color="error">
+                                    {formik.errors.category}
+                                </Typography>
+                            )}
+                        </div>
 
-                    <TextField
-                        label="Mô tả gói dịch vụ"
-                        name="description"
-                        value={formik.values.description}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                    />
-                    {formik.touched.description && formik.errors.description && (
-                        <Typography variant="subtitle2" color="error">
-                            {formik.errors.description}
-                        </Typography>
-                    )}
-                    <TextField
-                        name="imageUrl"
-                        type="file"
-                        value={formik.values.imageUrl}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                    />
-                    {formik.touched.imageUrl && formik.errors.imageUrl && (
-                        <Typography variant="subtitle2" color="error">
-                            {formik.errors.imageUrl}
-                        </Typography>
-                    )}
-                    <TextField
-                        label="Nhóm gói dịch vụ"
-                        name="category"
-                        value={formik.values.category}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                    />
-                    <TextField
-                        label="Người tạo"
-                        name="creator"
-                        value={user ? user.name:""}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        variant="outlined"
-                        fullWidth
-                        margin="normal"
-                    />
-                    {formik.touched.creator && formik.errors.creator && (
-                        <Typography variant="subtitle2" color="error">
-                            {formik.errors.creator}
-                        </Typography>
-                    )}
-                    <FormControl fullWidth margin="normal">
-                        <Select
-                            multiple
-                            name="serviceList"
-                            value={selectedServices}
-                            onChange={(event) => {
-                                const selectedOptions = Array.isArray(event.target.value)
-                                    ? event.target.value
-                                    : [];
-                                setSelectedServices(selectedOptions);
+                        <div style={{ marginBottom: '16px' }}>
+                            <label htmlFor="creator">Người tạo</label>
+                            <input
+                                type="text"
+                                id="creator"
+                                name="creator"
+                                value={user ? user.username : ''}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                style={{
+                                    width: '100%',
+                                    padding: '8px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '4px',
+                                    boxSizing: 'border-box',
+                                    marginBottom: '8px',
+                                }}
+                                autoComplete="off"
+                            />
+                            {formik.touched.creator && formik.errors.creator && (
+                                <Typography variant="subtitle2" color="error">
+                                    {formik.errors.creator}
+                                </Typography>
+                            )}
+                        </div>
+
+                    </Box>
+                    <Box mb={2}>
+                        <FormControl fullWidth margin="normal">
+                            <Select
+                                multiple
+                                autoComplete="off"
+                                name="serviceList"
+                                value={selectedServices}
+                                onChange={(event) => {
+                                    const selectedOptions = Array.isArray(event.target.value)
+                                        ? event.target.value
+                                        : [];
+                                    setSelectedServices(selectedOptions);
+
+                                    // Thay đổi giá trị của serviceList trong formik.values
+                                    formik.setFieldValue(
+                                        "serviceList",
+                                        selectedOptions.map((id) => ({ id }))
+                                    );
+                                }}
+                                variant="outlined"
+                                displayEmpty
+                            >
+                                {services.map((service) => (
+                                    <MenuItem key={service.id} value={service.id}>
+                                        {service.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+
+
+
+                        </FormControl>
+                    </Box>
+                    <Box textAlign="center">
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => {
+                                formik.handleSubmit();
                             }}
-                            variant="outlined"
-                            displayEmpty
                         >
-                            {services.map((service) => (
-                                <MenuItem key={service.id} value={service.id}>
-                                    {service.name}
-                                </MenuItem>
-                            ))}
-                            
-                        </Select>
-                        
-
-                    </FormControl>
-                    <Button type="submit" variant="contained" color="primary">
-                        Tạo
-                    </Button>
+                            Tạo
+                        </Button>
+                    </Box>
                 </Form>
             </Formik>
-            {/* <Dialog open={open} onClose={handleClose}>
-                <DialogTitle id="alert-dialog-title">Notification</DialogTitle>
+
+            <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+                <DialogTitle>Notification</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        <Alert severity='success'>
-                            <AlertTitle>Success</AlertTitle>
-                            New User has been added successfully!
-                        </Alert>
+                        {successMessage}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Link to='/manager/package/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      '>
-                        <Button onClick={handleClose} autoFocus>
-                            Dashboard
-                        </Button>
-                    </Link>
+                    <Button onClick={handleCloseDialog} color="primary">
+                        Close
+                    </Button>
                 </DialogActions>
-            </Dialog> */}
-        </Box>
+            </Dialog>
+
+        </Box >
+
+
     );
 };
 
