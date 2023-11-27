@@ -57,36 +57,37 @@ const Home = () => {
     <>
       <BannerSlider />
       <div className="container">
-        <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: "2000px", padding:"20px"}}>
+        <div className="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style={{ maxWidth: "2000px", padding: "20px" }}>
           <p className="d-inline-block border rounded-pill py-1 px-4">Nổi bật</p>
           <h1>Các gói dịch vụ được yêu thích</h1>
         </div>
-        <div className="row g-4">
+        <div className="row g-5">
           {data ? (
             data.map((pkg) => (
               <div className="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" key={pkg.id}>
                 <div className="team-item position-relative rounded overflow-hidden">
                   <div className="overflow-hidden">
-                  <div className="img-wrapper">
+                    <div className="img-wrapper">
 
-                    <img className="img-fluid" src={pkg.imageUrl} alt={pkg.name} style={{ width: "100%", height: "auto" }} />
-                  </div>
-                  <div className="team-text bg-light text-center p-4">
-                    <h5>{pkg.name}</h5>
-                    <p className="text-primary">Bao gồm các dịch vụ</p>
-                    <hr />
-                    <div className="team-social text-center">
-                      {pkg.serviceList.map((service, index) => (
-                        <p key={index}>
-                          <i className="far fa-check-circle text-primary me-3"></i>
-                          {service.name}
-                        </p>
-                      ))}
+                      <img className="img-fluid" src={pkg.imageUrl} alt={pkg.name} style={{ width: "600px", height: "400px" }} />
                     </div>
-                 
-                    <Link className="btn btn-primary rounded-pill py-3 px-5 mb-4" to={`service/${pkg.id}`}>
-                      Chi tiết
-                    </Link>
+                    <div className="team-text bg-light text-center p-4
+                  ">
+                      <h5>{pkg.name}</h5>
+                      <p className="text-primary">Bao gồm các dịch vụ</p>
+                      <hr />
+                      <div className="team-social text-center">
+                        {pkg.serviceList.slice(0, 3).map((service, index) => (
+                          <p key={index}>
+                            <i className="far fa-check-circle text-primary me-3"></i>
+                            {service.name} 
+                          </p>
+                        ))}
+                      </div>
+
+                      <Link className="btn btn-primary rounded-pill py-3 px-5 mb-4" to={`service/${pkg.id}`}>
+                        Chi tiết
+                      </Link>
                     </div>
                   </div>
                 </div>
