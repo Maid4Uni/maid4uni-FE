@@ -10,18 +10,62 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-
+import api from "../../config/api";
+import { useEffect } from "react";
 const Dashboard = () => {
+  const [userNumber, setUserNumber] = useState(null);
+  const [totalEarning, setTotalEarning] = useState(null);
+  const [totalByMonthOfPackage, setTotalByMonthOfPackage] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.getCustomerList();
+        console.log("Customer List:", response.data);
+        const number = response.data.length;
+        setUserNumber(number);
+
+        // hard code month
+        const month = 11;
+        const totalEarningResponse = await api.getTotalPriceByMonth(month);
+        console.log("Total Earning:", totalEarningResponse.data);
+        const total = totalEarningResponse.data;
+        setTotalEarning(total);
+
+        const totalByMonthOfPackageResponse =
+          await api.getTotalByMonthOfPackage(month);
+        console.log(
+          "Total By Month Of Package:",
+          totalByMonthOfPackageResponse.data
+        );
+        const totalByMonthOfPackage = totalByMonthOfPackageResponse.data;
+        setTotalByMonthOfPackage(totalByMonthOfPackage);
+      } catch (error) {
+        console.error("Error fetching customer list:", error);
+        // Handle the error
+      }
+    };
+
+    fetchData();
+  }, []);
   // Sample data for the chart
   const data = [
-    { month: "Jan", income: 2000 },
-    { month: "Feb", income: 2500 },
-    { month: "Mar", income: 1500 },
-    // ... add data for other months
+    { month: "Sep", income: 0 },
+    { month: "Oct", income: 0 },
+    { month: "Nov", income: 250000 },
   ];
 
-  const [selectedMonth, setSelectedMonth] = useState(null);
-
+  // Dummy function for additional statistics
+  const generateAdditionalStatistics = (month) => {
+    // You can add more logic or calculations based on the selected month
+    return {
+      averageIncome: data.find((item) => item.month === month)?.income / 3, // Just a simple example
+      highestIncome: Math.max(...data.map((item) => item.income)),
+    };
+  };
+  const [selectedMonth, setSelectedMonth] = useState("Nov");
+  const additionalStatistics = selectedMonth
+    ? generateAdditionalStatistics(selectedMonth)
+    : null;
   return (
     <Container fluid>
       <Typography variant="h4" gutterBottom>
@@ -33,15 +77,45 @@ const Dashboard = () => {
           <Card>
             <Card.Body>
               <Card.Title>Orders Count</Card.Title>
-              <Card.Text>10</Card.Text>
+              <Card.Text>
+                <div>
+                  {totalByMonthOfPackage !== null ? (
+                    <ul>
+                      {Object.entries(totalByMonthOfPackage).map(
+                        ([combo, total]) => (
+                          <li key={combo}>
+                            <strong>{combo}:</strong> {total}
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  ) : (
+                    "Loading..."
+                  )}
+                </div>
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>
         <Col md={4}>
           <Card>
             <Card.Body>
-              <Card.Title>Total Earnings</Card.Title>
-              <Card.Text>$5000</Card.Text>
+              <Card.Title>Tổng doanh thu 2023</Card.Title>
+              <Card.Text>
+                <div>
+                  {totalEarning !== null ? (
+                    <ul>
+                      {Object.entries(totalEarning).map(([combo, total]) => (
+                        <li key={combo}>
+                          <strong>{combo}:</strong> {total}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    "Loading..."
+                  )}
+                </div>
+              </Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -49,7 +123,7 @@ const Dashboard = () => {
           <Card>
             <Card.Body>
               <Card.Title>Total Users</Card.Title>
-              <Card.Text>100</Card.Text>
+              <Card.Text>{userNumber}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -107,7 +181,12 @@ const Dashboard = () => {
                 <Typography variant="h6" gutterBottom>
                   Statistics for {selectedMonth}
                 </Typography>
-                {/* Add more details and statistics here */}
+                <p>
+                  Average Income: {additionalStatistics?.averageIncome || "N/A"}
+                </p>
+                <p>
+                  Highest Income: {additionalStatistics?.highestIncome || "N/A"}
+                </p>
               </CardContent>
             </MUICard>
           </Col>
