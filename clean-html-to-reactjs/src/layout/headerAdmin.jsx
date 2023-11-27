@@ -17,7 +17,6 @@ import {
   ListItemButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import api from "../config/api";
 const HeaderAdmin = (props) => {
@@ -128,13 +127,13 @@ const HeaderAdmin = (props) => {
           </ListItemButton>
 
           <ListItemButton
-            selected={isTab === "create"}
-            onClick={() => handleTabClick("create")}
+            selected={isTab === "dashboard"}
+            onClick={() => handleTabClick("dashboard")}
           >
             <ListItemIcon>
               <i className="fa fa-sharp fa-light fa-table me-3"></i>
             </ListItemIcon>
-            <ListItemText primary="Tạo tài khoản" />
+            <ListItemText primary="Dashboard" />
           </ListItemButton>
         </List>
       </Drawer>

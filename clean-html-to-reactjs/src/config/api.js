@@ -105,6 +105,21 @@ const api = {
     const url = `get-task-by-staff-id/${id}`;
     return axiosClient.get(url);
   },
+
+  getTotalPriceByMonth: (month) => {
+    const url = `get-total-price-by-month?month=${month}`;
+    return axiosClient.get(url);
+  },
+
+  getTotalByMonthOfPackage: (month) => {
+    const url = `get-total-by-month-of-package?month=${month}`;
+    return axiosClient.get(url);
+  },
+
+  getCustomerList: () => {
+    const url = "get-customer-list";
+    return axiosClient.get(url);
+  },
 };
 
 export default api;
