@@ -110,7 +110,7 @@ const About = () => {
                   className="img-fluid"
                   style={{ width: "100%", maxWidth: "150px", height: "auto" }}
                 />
-                <p>Tặng voucher vào các dịp lễ, tết</p>
+                <p>Thường xuyên có các trương trình giảm giá</p>
               </div>
             </div>
 

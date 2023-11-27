@@ -28,6 +28,8 @@ import UserProfile from "./home/profile.jsx";
 import Staff from "./home/staffpage.jsx";
 import EditUser from "./component/admin/editUser.jsx";
 import { AuthenticationProvider } from "./authentication/AuthenticationContext.js";
+import CreateService from "./component/manage/createservice.jsx";
+import Update from "./component/manage/updateservice.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -41,7 +43,10 @@ root.render(
           <Route path="/package/:page" element={<Package />} />
           <Route path="/manager/package/create" element={<CreatePackage />} />
           <Route path="/order-detail/:id" element={<OderDetail />} />
+          <Route path="/create-service" element={<CreateService />} />
           <Route path="/customer/:id" element={<Customer />} />
+          <Route path="/update-service/:id" element={<Update />} />
+
           <Route path="/" element={<App />}>
             <Route index element={<Home />} />
             <Route path="/:vnp_TransactionStatus" element={<Home />} />
@@ -58,7 +63,7 @@ root.render(
             <Route path="register" element={<Register />} />
             <Route path="/price" element={<Price />} />
           </Route>
-          <Route path="/tracking" element={<TrackingPage />} />
+          <Route path="/tracking/:id" element={<TrackingPage />} />
           <Route path="/history" element={<History />} />
           <Route path="/staff/:id" element={<Staff />} />
           <Route path="/profile" element={<UserProfile />} />

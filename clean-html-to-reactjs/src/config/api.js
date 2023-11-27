@@ -19,7 +19,6 @@ const api = {
     const url = `get-account-info-by-id?id=${id}`;
     return axiosClient.get(url);
   },
-
   // package
   getAllPackage: (page) => {
     const url = `get-all-package/${page}`;
@@ -77,7 +76,14 @@ const api = {
     const url = `get-all-service/${page}`;
     return axiosClient.get(url);
   },
-
+  createService: (params) => {
+    const url = "create-service";
+    return axiosClient.post(url, params);
+  },
+  updateService: (id, updateData) => {
+    const url = `update-service/${id}`;
+    return axiosClient.put(url, updateData);
+  },
   // payment
   createPayment: (params) => {
     const url = "create-vnpay-payment";
@@ -103,6 +109,24 @@ const api = {
   //task
   getTask: (id) => {
     const url = `get-task-by-staff-id/${id}`;
+    return axiosClient.get(url);
+  },
+  updateTask: (id, updateData) => {
+    const url = `update-task/${id}`;
+    return axiosClient.put(url, updateData);
+  },
+  getTotalPriceByMonth: (month) => {
+    const url = `get-total-price-by-month?month=${month}`;
+    return axiosClient.get(url);
+  },
+
+  getTotalByMonthOfPackage: (month) => {
+    const url = `get-total-by-month-of-package?month=${month}`;
+    return axiosClient.get(url);
+  },
+
+  getCustomerList: () => {
+    const url = "get-customer-list";
     return axiosClient.get(url);
   },
 };

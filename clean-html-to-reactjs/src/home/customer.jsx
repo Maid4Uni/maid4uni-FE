@@ -60,6 +60,9 @@ const Customer = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+  const handleTurnBack = () => {
+    navigate("/");
+  }
   return (
     <>
       <CssBaseline />
@@ -100,6 +103,14 @@ const Customer = () => {
             >
               Đăng xuất
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleTurnBack();
+                handleMenuClose();
+              }}
+            >
+              Quay lại
+            </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
@@ -116,15 +127,7 @@ const Customer = () => {
             }}
           >
             <List>
-              <ListItemButton
-                onClick={() => setMenu("tracking")}
-                selected={isMenu === "tracking"}
-              >
-                <ListItemIcon>
-                  <LocalOfferIcon />
-                </ListItemIcon>
-                <ListItemText primary="Chi tiết đơn hàng" />
-              </ListItemButton>
+           
               <ListItemButton
                 onClick={() => setMenu("history")}
                 selected={isMenu === "history"}
@@ -135,16 +138,16 @@ const Customer = () => {
                 <ListItemText primary="Lịch sử đơn hàng" />
               </ListItemButton>
               <ListItemButton
-              onClick={() => setMenu("profile")}
-              selected={isMenu === "profile"}
-            >
-              <ListItemIcon>
-                <BadgeOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="Thông tin tài khoản" />
-            </ListItemButton>
+                onClick={() => setMenu("profile")}
+                selected={isMenu === "profile"}
+              >
+                <ListItemIcon>
+                  <BadgeOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary="Thông tin tài khoản" />
+              </ListItemButton>
             </List>
-          
+
           </Drawer>
 
           <Box
@@ -154,11 +157,11 @@ const Customer = () => {
             }}
           >
             {isMenu === "history" && <History />}
-            {isMenu === "tracking" && <TrackingPage />}
-            {isMenu === "profile" && <UserProfile/>}
+            {isMenu === "profile" && <UserProfile />}
           </Box>
         </Box>
       </Container>
+    
     </>
   );
 };

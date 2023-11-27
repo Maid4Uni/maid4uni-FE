@@ -7,6 +7,7 @@ import api from "../config/api";
 import { useNavigate } from "react-router-dom";
 import EditUser from "../component/admin/editUser";
 import { useAuthentication } from "../authentication/AuthenticationContext.js";
+import Dashboard from "../component/admin/dashboard.jsx";
 const Admin = () => {
   const navigate = useNavigate();
   const [isTab, setTab] = useState(true);
@@ -50,7 +51,7 @@ const Admin = () => {
           >
             <div style={{ height: "80px" }}></div>
             <div className="container pt-4" style={{ width: "100%" }}>
-              {isTab ? <ListUser /> : <CreateUser />}
+              {isTab ? <ListUser /> : <Dashboard />}
             </div>
             <div style={{ height: "150px" }}></div>
           </main>
