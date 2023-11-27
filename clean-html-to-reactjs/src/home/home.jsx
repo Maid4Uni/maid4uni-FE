@@ -67,7 +67,7 @@ const Home = () => {
           </p>
           <h1>Các gói dịch vụ được yêu thích</h1>
         </div>
-        <div className="row g-4">
+        <div className="row g-5">
           {data ? (
             data.map((pkg) => (
               <div
@@ -82,15 +82,18 @@ const Home = () => {
                         className="img-fluid"
                         src={pkg.imageUrl}
                         alt={pkg.name}
-                        style={{ width: "100%", height: "auto" }}
+                        style={{ width: "600px", height: "400px" }}
                       />
                     </div>
-                    <div className="team-text bg-light text-center p-4">
+                    <div
+                      className="team-text bg-light text-center p-4
+                  "
+                    >
                       <h5>{pkg.name}</h5>
                       <p className="text-primary">Bao gồm các dịch vụ</p>
                       <hr />
                       <div className="team-social text-center">
-                        {pkg.serviceList.map((service, index) => (
+                        {pkg.serviceList.slice(0, 3).map((service, index) => (
                           <p key={index}>
                             <i className="far fa-check-circle text-primary me-3"></i>
                             {service.name}

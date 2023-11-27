@@ -229,18 +229,7 @@ const CreatePackage = () => {
                                     )}
                                 </div>
 
-                                <input
-                                    type="hidden"
-                                    id="creatorId"
-                                    name="creator.id"
-                                    value={user ? user.id : ''}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-
-                                <Typography variant="subtitle1">
-                                    Người tạo: {user ? user.username : ''}
-                                </Typography>
+                              
 
                             </Box>
                             <Box mb={2}>
